@@ -1,0 +1,6 @@
+ma_phieu_ho_tro,ma_khach_hang,loai_van_de,mo_ta,ngay_tao,trang_thai,do_uu_tien
+PHT0001,KH0001,Lỗi đăng nhập,Khách hàng không đăng nhập được vào tài khoản,2025-11-01 09:30:00.000000,Đang xử lý,Cao
+PHT0002,KH0002,Thanh toán thất bại,Giao dịch bị lỗi khi thanh toán qua ví điện tử,2025-11-03 14:20:00.000000,Hoàn thành,Trung bình
+PHT0003,KH0003,Cập nhật thông tin doanh nghiệp,Cần thay đổi địa chỉ và MST trong hệ thống,2025-11-05 08:50:00.000000,Đang xử lý,Thấp
+PHT0004,KH0004,Không nhận được email xác nhận,Khách hàng đăng ký nhưng không nhận email,2025-11-07 10:15:00.000000,Mới tạo,Trung bình
+PHT0005,KH0005,Lỗi truy cập API,API tích hợp giữa hệ thống khách hàng và máy chủ bị lỗi 500,2025-11-08 11:45:00.000000,Đang xử lý,Cao

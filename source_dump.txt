@@ -1,0 +1,3898 @@
+# ==================================================
+# Path: E:\HTMLCSS\PROJECT_ONTAP\Project_DEMO_DATA_2
+# Detected tech: javascript, typescript
+# ==================================================
+
+## DIRECTORY STRUCTURE
+```
+Project_DEMO_DATA_2/
+├── config/
+│   ├── constants.js
+│   ├── database.js
+│   └── rabbitmq.js
+├── data/
+│   └── datasource2/
+│       ├── danh_gia.csv
+│       ├── khach_hang.csv
+│       ├── nhanvien_cskh.csv
+│       ├── phieu_ho_tro.csv
+│       └── phieu_xu_ly.csv
+├── logs/
+├── node_modules/
+├── src/
+│   ├── deduplication/
+│   │   └── DeduplicationService.js
+│   ├── extract/
+│   │   ├── CsvExtractor.js
+│   │   ├── PostgresExtractor.js
+│   │   └── index.js
+│   ├── load/
+│   │   ├── DataWarehouseLoader.js
+│   │   └── schema.sql
+│   ├── queue/
+│   │   ├── Consumer.js
+│   │   ├── Producer.js
+│   │   └── index.js
+│   ├── staging/
+│   │   ├── StagingService.js
+│   │   └── schema.sql
+│   ├── transform/
+│   │   ├── transformers/
+│   │   │   ├── EmailTransformer.js
+│   │   │   ├── HoTenTransformer.js
+│   │   │   ├── NgayThangTransformer.js
+│   │   │   └── TrangThaiTransformer.js
+│   │   ├── TransformEngine.js
+│   │   └── TransformService.js
+│   ├── utils/
+│   │   ├── ErrorLogger.js
+│   │   ├── Logger.js
+│   │   └── helpers.js
+│   └── validation/
+│       ├── rules/
+│       │   ├── DonGia.rule.js
+│       │   ├── Email.rule.js
+│       │   ├── HoTen.rule.js
+│       │   ├── NgaySinh.rule.js
+│       │   ├── SoDienThoai.rule.js
+│       │   └── TrangThai.rule.js
+│       ├── RuleEngine.js
+│       └── ValidationService.js
+├── .env
+├── README.md
+├── docker-compose.yml
+├── index.js
+├── package-lock.json
+├── package.json
+└── source_dump.txt
+```
+
+## FILE CONTENTS
+
+### index.js
+```js
+// index.js - Main ETL Pipeline Entry Point
+require('dotenv').config();
+const logger = require('./src/utils/Logger');
+const dbManager = require('./config/database');
+const rabbitMQ = require('./config/rabbitmq');
+
+// Extract
+const PostgresExtractor = require('./src/extract/PostgresExtractor');
+const CsvExtractor = require('./src/extract/CsvExtractor');
+
+// Queue
+const Producer = require('./src/queue/Producer');
+const Consumer = require('./src/queue/Consumer');
+
+// Validation & Transform
+const RuleEngine = require('./src/validation/RuleEngine');
+const TransformEngine = require('./src/transform/TransformEngine');
+
+// Deduplication & Load
+const DeduplicationService = require('./src/deduplication/DeduplicationService');
+const DataWarehouseLoader = require('./src/load/DataWarehouseLoader');
+
+class ETLPipeline {
+  constructor() {
+    this.postgresExtractor = new PostgresExtractor();
+    this.csvExtractor = new CsvExtractor();
+    this.producer = new Producer();
+    this.consumer = new Consumer();
+    this.ruleEngine = new RuleEngine();
+    this.transformEngine = new TransformEngine();
+    this.deduplicationService = new DeduplicationService();
+    this.dataWarehouseLoader = new DataWarehouseLoader();
+  }
+
+  /**
+   * Chạy toàn bộ ETL Pipeline
+   */
+  async run() {
+    try {
+      await logger.startPhase('ETL PIPELINE STARTED');
+      const startTime = Date.now();
+
+      // ============================================
+      // PHASE 1: EXTRACT
+      // ============================================
+      await this.extractPhase();
+
+      // ============================================
+      // PHASE 2: QUEUE & STAGING
+      // ============================================
+      await this.queuePhase();
+
+      // ============================================
+      // PHASE 3: DATA QUALITY
+      // ============================================
+      await this.dataQualityPhase();
+
+      // ============================================
+      // PHASE 4: LOAD
+      // ============================================
+      await this.loadPhase();
+
+      const duration = (Date.now() - startTime) / 1000;
+      await logger.endPhase('ETL PIPELINE COMPLETED', {
+        duration: `${duration}s`,
+        status: 'SUCCESS'
+      });
+
+    } catch (error) {
+      await logger.error('ETL Pipeline failed', error);
+      throw error;
+    } finally {
+      await this.cleanup();
+    }
+  }
+
+  /**
+   * PHASE 1: Extract dữ liệu từ 2 data sources
+   */
+  async extractPhase() {
+    await logger.startPhase('PHASE 1: EXTRACT');
+
+    // Extract từ PostgreSQL (Data Source 1)
+    const postgresData = await this.postgresExtractor.extractAll();
+    await logger.success('✓ Extracted PostgreSQL data', {
+      tables: Object.keys(postgresData).length,
+      totalRecords: this.countRecords(postgresData)
+    });
+
+    // Validate CSV files
+    await this.csvExtractor.validateFiles();
+
+    // Extract từ CSV (Data Source 2)
+    const csvData = await this.csvExtractor.extractAll();
+    await logger.success('✓ Extracted CSV data', {
+      files: Object.keys(csvData).length,
+      totalRecords: this.countRecords(csvData)
+    });
+
+    this.extractedData = {
+      postgres: postgresData,
+      csv: csvData
+    };
+
+    await logger.endPhase('PHASE 1: EXTRACT');
+  }
+
+  /**
+   * PHASE 2: Queue dữ liệu qua RabbitMQ và đưa vào Staging
+   */
+  async queuePhase() {
+    await logger.startPhase('PHASE 2: QUEUE & STAGING');
+
+    // Kết nối RabbitMQ
+    await rabbitMQ.connect();
+    await this.producer.initialize();
+    await this.consumer.initialize();
+
+    // Producer: Đẩy dữ liệu vào queues
+    await logger.info('Sending data to queues...');
+    await this.producer.sendPostgresData(this.extractedData.postgres);
+    await this.producer.sendCsvData(this.extractedData.csv);
+
+    // Consumer: Nhận dữ liệu và lưu vào Staging
+    await logger.info('Consuming data from queues...');
+    await this.consumer.consumeAll();
+
+    await logger.endPhase('PHASE 2: QUEUE & STAGING');
+  }
+
+  /**
+   * PHASE 3: Data Quality - Validation, Deduplication, Transform
+   */
+  async dataQualityPhase() {
+    await logger.startPhase('PHASE 3: DATA QUALITY');
+
+    // Lấy dữ liệu từ Staging
+    const stagingData = await this.consumer.stagingService.getAllData();
+
+    // Sub-phase 3.1: Deduplication
+    await logger.info('Starting deduplication...');
+    const deduplicatedData = await this.deduplicationService.removeDuplicates(stagingData);
+    await logger.success('✓ Deduplication completed', {
+      originalRecords: this.countRecords(stagingData),
+      afterDedup: this.countRecords(deduplicatedData),
+      removed: this.countRecords(stagingData) - this.countRecords(deduplicatedData)
+    });
+
+    // Sub-phase 3.2: Validation
+    await logger.info('Starting validation...');
+    const validationResults = {};
+    for (const [tableName, records] of Object.entries(deduplicatedData)) {
+      const result = this.ruleEngine.validateBatch(records);
+      validationResults[tableName] = result;
+      
+      await logger.info(`Validated ${tableName}`, {
+        total: result.totalRecords,
+        valid: result.validRecords,
+        fixable: result.fixableRecords,
+        unfixable: result.unfixableRecords
+      });
+    }
+
+    // Sub-phase 3.3: Transform (fix fixable errors)
+    await logger.info('Starting transformation...');
+    const transformedData = {};
+    for (const [tableName, records] of Object.entries(deduplicatedData)) {
+      const validationResult = validationResults[tableName];
+      const transformResult = await this.transformEngine.transformBatch(
+        records,
+        validationResult
+      );
+      transformedData[tableName] = transformResult.records;
+      
+      await logger.success(`✓ Transformed ${tableName}`, {
+        transformed: transformResult.transformedRecords,
+        skipped: transformResult.skippedRecords
+      });
+    }
+
+    // Sub-phase 3.4: Re-validate sau transform
+    await logger.info('Re-validating after transformation...');
+    const finalValidationResults = {};
+    const cleanData = {};
+    const errorData = {};
+
+    for (const [tableName, records] of Object.entries(transformedData)) {
+      const result = this.ruleEngine.validateBatch(records);
+      finalValidationResults[tableName] = result;
+
+      // Tách clean data và error data
+      cleanData[tableName] = result.results
+        .filter(r => r.isValid)
+        .map(r => r.record);
+      
+      errorData[tableName] = result.results
+        .filter(r => !r.isValid)
+        .map(r => ({ record: r.record, errors: r.errors }));
+
+      await logger.info(`Final validation for ${tableName}`, {
+        clean: cleanData[tableName].length,
+        stillInvalid: errorData[tableName].length
+      });
+    }
+
+    // Log errors
+    for (const [tableName, errors] of Object.entries(errorData)) {
+      if (errors.length > 0) {
+        await logger.error(`Unfixable errors in ${tableName}`, null, {
+          count: errors.length,
+          samples: errors.slice(0, 3)
+        });
+      }
+    }
+
+    this.cleanData = cleanData;
+    this.errorData = errorData;
+
+    await logger.endPhase('PHASE 3: DATA QUALITY');
+  }
+
+  /**
+   * PHASE 4: Load clean data vào Data Warehouse
+   */
+  async loadPhase() {
+    await logger.startPhase('PHASE 4: LOAD TO DATA WAREHOUSE');
+
+    await this.dataWarehouseLoader.initialize();
+    
+    // Load clean data
+    const loadResult = await this.dataWarehouseLoader.loadAll(this.cleanData);
+    
+    await logger.success('✓ Data loaded to warehouse', loadResult);
+
+    await logger.endPhase('PHASE 4: LOAD TO DATA WAREHOUSE');
+  }
+
+  /**
+   * Cleanup resources
+   */
+  async cleanup() {
+    await logger.info('Cleaning up resources...');
+    await rabbitMQ.close();
+    await dbManager.closeAll();
+    await logger.success('✓ Cleanup completed');
+  }
+
+  /**
+   * Helper: Đếm tổng records
+   */
+  countRecords(data) {
+    return Object.values(data).reduce((sum, records) => sum + records.length, 0);
+  }
+}
+
+// ============================================
+// MAIN EXECUTION
+// ============================================
+async function main() {
+  console.log('╔═══════════════════════════════════════════════════════════╗');
+  console.log('║   ETL DATA INTEGRATION PIPELINE                           ║');
+  console.log('║   E-commerce & Customer Care System                       ║');
+  console.log('╚═══════════════════════════════════════════════════════════╝');
+  console.log('');
+
+  const pipeline = new ETLPipeline();
+  
+  try {
+    await pipeline.run();
+    console.log('');
+    console.log('✅ ETL Pipeline completed successfully!');
+    process.exit(0);
+  } catch (error) {
+    console.error('');
+    console.error('❌ ETL Pipeline failed!');
+    console.error(error);
+    process.exit(1);
+  }
+}
+
+// Run if this is the main module
+if (require.main === module) {
+  main();
+}
+
+module.exports = ETLPipeline;
+```
+
+### config\constants.js
+```js
+// constants.js - Chứa tất cả các giá trị enum và constant
+
+module.exports = {
+  // Trạng thái đơn hàng
+  TRANG_THAI_DON_HANG: {
+    CHO_XU_LY: 'Chờ xử lý',
+    DANG_CHUAN_BI: 'Đang chuẩn bị',
+    DANG_GIAO: 'Đang giao',
+    DA_GIAO: 'Đã giao',
+    HUY: 'Hủy',
+    TRA_HANG: 'Trả hàng',
+    DANG_XU_LY: 'Đang xử lý' 
+  },
+
+  // Trạng thái thanh toán
+  TRANG_THAI_THANH_TOAN: {
+    CHUA_THANH_TOAN: 'Chưa thanh toán',
+    DA_THANH_TOAN: 'Đã thanh toán',
+    HOAN_TIEN: 'Hoàn tiền',
+    THAT_BAI: 'Thất bại',
+    THANH_CONG: 'Thành công', // <--- THÊM DÒNG NÀY
+    DANG_XU_LY: 'Đang xử lý'  // <--- THÊM DÒNG NÀY
+  },
+
+  // Phương thức thanh toán
+  PHUONG_THUC_THANH_TOAN: {
+    TIEN_MAT: 'Tiền mặt',
+    CHUYEN_KHOAN: 'Chuyển khoản',
+    THE_TIN_DUNG: 'Thẻ tín dụng',
+    VI_DIEN_TU: 'Ví điện tử',
+    COD: 'COD'
+  },
+
+  // Giới tính
+  GIOI_TINH: {
+    NAM: 'Nam',
+    NU: 'Nữ',
+    KHAC: 'Khác'
+  },
+
+  // Loại khách hàng
+  LOAI_KHACH_HANG: {
+    THUONG: 'Thường',
+    VIP: 'VIP',
+    DOANH_NGHIEP: 'Doanh nghiệp',
+    MOI: 'Mới'
+  },
+
+  // Trạng thái phiếu hỗ trợ
+  TRANG_THAI_PHIEU_HO_TRO: {
+    MOI: 'Mới',
+    DANG_XU_LY: 'Đang xử lý',
+    CHO_PHAN_HOI: 'Chờ phản hồi',
+    DA_GIAI_QUYET: 'Đã giải quyết',
+    DONG: 'Đóng',
+    HUY: 'Hủy'
+  },
+
+  // Độ ưu tiên
+  DO_UU_TIEN: {
+    THAP: 'Thấp',
+    TRUNG_BINH: 'Trung bình',
+    CAO: 'Cao',
+    KHAN_CAP: 'Khẩn cấp'
+  },
+
+  // Trạng thái nhân viên
+  TRANG_THAI_NHAN_VIEN: {
+    DANG_LAM: 'Đang làm',
+    NGHI_PHEP: 'Nghỉ phép',
+    DA_NGHI: 'Đã nghỉ'
+  },
+
+  // Chức vụ
+  CHUC_VU: {
+    NHAN_VIEN: 'Nhân viên',
+    TRUONG_NHOM: 'Trưởng nhóm',
+    QUAN_LY: 'Quản lý',
+    GIAM_DOC: 'Giám đốc'
+  },
+
+  // Kết quả xử lý
+  KET_QUA_XU_LY: {
+    THANH_CONG: 'Thành công',
+    THAT_BAI: 'Thất bại',
+    DANG_XU_LY: 'Đang xử lý'
+  },
+
+  // Regex patterns
+  REGEX: {
+    EMAIL: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+    PHONE: /^(0|\+84)[0-9]{9,10}$/,
+    MA_KHACH_HANG: /^KH\d{4}$/,
+    MA_DON_HANG: /^DH\d{4}$/,
+    MA_SAN_PHAM: /^SP\d{4}$/,
+    MA_DANH_MUC: /^DM\d{4}$/,
+    MA_THANH_TOAN: /^TT\d{4}$/,
+    MA_PHIEU_HO_TRO: /^PHT\d{4}$/,
+    MA_DANH_GIA: /^DG\d{4}$/,
+    MA_NHAN_VIEN: /^NV\d{4}$/,
+    MA_PHIEU_XU_LY: /^PXL\d{4}$/
+  },
+
+  // Validation limits
+  LIMITS: {
+    MIN_AGE: 13,
+    MAX_AGE: 120,
+    MIN_PRICE: 0,
+    MAX_PRICE: 999999999,
+    MIN_QUANTITY: 1,
+    MAX_QUANTITY: 10000,
+    MIN_RATING: 1,
+    MAX_RATING: 5,
+    MAX_NAME_LENGTH: 100,
+    MAX_EMAIL_LENGTH: 100,
+    MAX_PHONE_LENGTH: 20
+  },
+
+  // Error codes
+  ERROR_CODES: {
+    INVALID_FORMAT: 'E001',
+    NULL_VALUE: 'E002',
+    OUT_OF_RANGE: 'E003',
+    DUPLICATE: 'E004',
+    INVALID_REFERENCE: 'E005',
+    INVALID_DATE: 'E006',
+    INVALID_STATUS: 'E007'
+  },
+
+  // Transform actions
+  TRANSFORM_ACTIONS: {
+    UPPERCASE: 'uppercase',
+    LOWERCASE: 'lowercase',
+    TRIM: 'trim',
+    CAPITALIZE: 'capitalize',
+    NORMALIZE_VIETNAMESE: 'normalize_vietnamese',
+    FORMAT_DATE: 'format_date',
+    FORMAT_PHONE: 'format_phone',
+    FORMAT_PRICE: 'format_price'
+  }
+};
+```
+
+### config\database.js
+```js
+// config/database.js - Quản lý kết nối PostgreSQL
+const { Pool } = require('pg');
+require('dotenv').config();
+
+class DatabaseManager {
+  constructor() {
+    // Data Source 1 - E-commerce Database
+    this.ds1Pool = new Pool({
+      host: process.env.DS1_HOST,
+      database: process.env.DS1_DATABASE,
+      user: process.env.DS1_USER,
+      password: process.env.DS1_PASSWORD,
+      port: process.env.DS1_PORT,
+      ssl: process.env.DS1_SSL === 'true' ? { rejectUnauthorized: false } : false,
+      max: 10,
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 2000,
+    });
+
+    // Staging Database
+    this.stagingPool = new Pool({
+      host: process.env.DS2_HOST,
+      database: process.env.DS2_DATABASE,
+      user: process.env.DS2_USER,
+      password: process.env.DS2_PASSWORD,
+      port: process.env.DS2_PORT,
+      max: 20,
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 2000,
+    });
+
+    // Data Warehouse (Final Clean Data)
+    this.dwPool = new Pool({
+      host: process.env.DW_HOST,
+      database: process.env.DW_DATABASE,
+      user: process.env.DW_USER,
+      password: process.env.DW_PASSWORD,
+      port: process.env.DW_PORT,
+      max: 20,
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 2000,
+    });
+
+    this.testConnections();
+  }
+
+  async testConnections() {
+    try {
+      // Test Data Source 1
+      const ds1Client = await this.ds1Pool.connect();
+      console.log('✅ Connected to Data Source 1 (E-commerce DB)');
+      ds1Client.release();
+
+      // Test Staging
+      const stagingClient = await this.stagingPool.connect();
+      console.log('✅ Connected to Staging Database');
+      stagingClient.release();
+
+      // Test Data Warehouse
+      const dwClient = await this.dwPool.connect();
+      console.log('✅ Connected to Data Warehouse');
+      dwClient.release();
+    } catch (error) {
+      console.error('❌ Database connection error:', error.message);
+      throw error;
+    }
+  }
+
+  // Get Data Source 1 connection
+  getDS1Pool() {
+    return this.ds1Pool;
+  }
+
+  // Get Staging connection
+  getStagingPool() {
+    return this.stagingPool;
+  }
+
+  // Get Data Warehouse connection
+  getDWPool() {
+    return this.dwPool;
+  }
+
+  // Close all connections
+  async closeAll() {
+    await this.ds1Pool.end();
+    await this.stagingPool.end();
+    await this.dwPool.end();
+    console.log('🔌 All database connections closed');
+  }
+}
+
+module.exports = new DatabaseManager();
+```
+
+### config\rabbitmq.js
+```js
+// config/rabbitmq.js - RabbitMQ Connection Manager
+const amqp = require('amqplib');
+require('dotenv').config();
+
+class RabbitMQManager {
+  constructor() {
+    this.connection = null;
+    this.channel = null;
+    this.queues = {
+      ds1: process.env.QUEUE_NAME_DS1 || 'datasource1_queue',
+      ds2: process.env.QUEUE_NAME_DS2 || 'datasource2_queue',
+      staging: process.env.QUEUE_NAME_STAGING || 'staging_queue'
+    };
+  }
+
+  async connect() {
+    try {
+      this.connection = await amqp.connect(process.env.RABBITMQ_URL);
+      this.channel = await this.connection.createChannel();
+      
+      // Khai báo các queues
+      await this.channel.assertQueue(this.queues.ds1, { durable: true });
+      await this.channel.assertQueue(this.queues.ds2, { durable: true });
+      await this.channel.assertQueue(this.queues.staging, { durable: true });
+
+      console.log('✅ Connected to RabbitMQ');
+      console.log(`📫 Queues initialized: ${Object.values(this.queues).join(', ')}`);
+
+      // Handle connection errors
+      this.connection.on('error', (err) => {
+        console.error('❌ RabbitMQ connection error:', err.message);
+      });
+
+      this.connection.on('close', () => {
+        console.log('🔌 RabbitMQ connection closed');
+      });
+
+      return this.channel;
+    } catch (error) {
+      console.error('❌ Failed to connect to RabbitMQ:', error.message);
+      throw error;
+    }
+  }
+
+  getChannel() {
+    if (!this.channel) {
+      throw new Error('RabbitMQ channel not initialized. Call connect() first.');
+    }
+    return this.channel;
+  }
+
+  getQueueName(source) {
+    return this.queues[source];
+  }
+
+  async close() {
+    if (this.channel) {
+      await this.channel.close();
+    }
+    if (this.connection) {
+      await this.connection.close();
+    }
+    console.log('🔌 RabbitMQ connections closed');
+  }
+}
+
+module.exports = new RabbitMQManager();
+```
+
+### src\deduplication\DeduplicationService.js
+```js
+// src/deduplication/DeduplicationService.js - Loại bỏ dữ liệu trùng lặp
+const logger = require('../utils/Logger');
+
+class DeduplicationService {
+  constructor() {
+    // Định nghĩa primary keys cho từng bảng
+    this.primaryKeys = {
+      khach_hang: ['ma_khach_hang'],
+      danh_muc: ['ma_danh_muc'],
+      san_pham: ['ma_san_pham'],
+      don_hang: ['ma_don_hang'],
+      chi_tiet_don_hang: ['ma_don_hang', 'ma_san_pham'],
+      thanh_toan: ['ma_thanh_toan'],
+      phieu_ho_tro: ['ma_phieu_ho_tro'],
+      danh_gia: ['ma_danh_gia'],
+      nhanvien_cskh: ['ma_nhan_vien'],
+      phieu_xu_ly: ['ma_phieu_xu_ly']
+    };
+  }
+
+  /**
+   * Loại bỏ trùng lặp cho tất cả tables
+   */
+  async removeDuplicates(data) {
+    await logger.startPhase('DEDUPLICATION');
+
+    const deduplicatedData = {};
+    const stats = {
+      totalOriginal: 0,
+      totalAfter: 0,
+      totalRemoved: 0,
+      byTable: {}
+    };
+
+    for (const [tableName, records] of Object.entries(data)) {
+      if (!records || records.length === 0) {
+        deduplicatedData[tableName] = [];
+        continue;
+      }
+
+      const original = records.length;
+      const deduplicated = this.deduplicateTable(tableName, records);
+      const removed = original - deduplicated.length;
+
+      deduplicatedData[tableName] = deduplicated;
+
+      stats.totalOriginal += original;
+      stats.totalAfter += deduplicated.length;
+      stats.totalRemoved += removed;
+      stats.byTable[tableName] = {
+        original,
+        after: deduplicated.length,
+        removed
+      };
+
+      if (removed > 0) {
+        await logger.warn(`Removed ${removed} duplicates from ${tableName}`, {
+          original,
+          after: deduplicated.length
+        });
+      } else {
+        await logger.success(`No duplicates in ${tableName}`);
+      }
+    }
+
+    await logger.endPhase('DEDUPLICATION', stats);
+
+    return deduplicatedData;
+  }
+
+  /**
+   * Loại bỏ trùng lặp cho một table
+   */
+  deduplicateTable(tableName, records) {
+    const primaryKeys = this.primaryKeys[tableName];
+    
+    if (!primaryKeys) {
+      logger.warn(`No primary keys defined for ${tableName}, skipping deduplication`);
+      return records;
+    }
+
+    // Sử dụng Map để track unique records
+    const uniqueMap = new Map();
+
+    for (const record of records) {
+      // Tạo composite key từ primary keys
+      const key = this.createCompositeKey(record, primaryKeys);
+      
+      if (!uniqueMap.has(key)) {
+        uniqueMap.set(key, record);
+      } else {
+        // Nếu trùng, giữ record mới hơn (có source từ data source nào)
+        const existing = uniqueMap.get(key);
+        const updated = this.mergeRecords(existing, record);
+        uniqueMap.set(key, updated);
+      }
+    }
+
+    return Array.from(uniqueMap.values());
+  }
+
+  /**
+   * Tạo composite key từ nhiều fields
+   */
+  createCompositeKey(record, keys) {
+    return keys
+      .map(key => {
+        const value = record[key];
+        return value !== null && value !== undefined ? String(value).toLowerCase() : 'null';
+      })
+      .join('|');
+  }
+
+  /**
+   * Merge 2 records trùng nhau (giữ thông tin đầy đủ hơn)
+   */
+  mergeRecords(existing, newRecord) {
+    const merged = { ...existing };
+
+    // Ưu tiên giá trị không null/undefined
+    for (const [key, value] of Object.entries(newRecord)) {
+      if (value !== null && value !== undefined && value !== '') {
+        if (!merged[key] || merged[key] === null || merged[key] === undefined || merged[key] === '') {
+          merged[key] = value;
+        }
+      }
+    }
+
+    return merged;
+  }
+
+  /**
+   * Loại bỏ trùng lặp dựa trên custom fields
+   */
+  deduplicateByFields(records, fields) {
+    const uniqueMap = new Map();
+
+    for (const record of records) {
+      const key = this.createCompositeKey(record, fields);
+      
+      if (!uniqueMap.has(key)) {
+        uniqueMap.set(key, record);
+      }
+    }
+
+    return Array.from(uniqueMap.values());
+  }
+
+  /**
+   * Tìm duplicates (không xóa, chỉ report)
+   */
+  findDuplicates(tableName, records) {
+    const primaryKeys = this.primaryKeys[tableName];
+    
+    if (!primaryKeys) {
+      return [];
+    }
+
+    const keyMap = new Map();
+    const duplicates = [];
+
+    for (const record of records) {
+      const key = this.createCompositeKey(record, primaryKeys);
+      
+      if (keyMap.has(key)) {
+        duplicates.push({
+          key,
+          existing: keyMap.get(key),
+          duplicate: record
+        });
+      } else {
+        keyMap.set(key, record);
+      }
+    }
+
+    return duplicates;
+  }
+
+  /**
+   * Thống kê duplicates
+   */
+  async analyzeDuplicates(data) {
+    const analysis = {};
+
+    for (const [tableName, records] of Object.entries(data)) {
+      const duplicates = this.findDuplicates(tableName, records);
+      
+      analysis[tableName] = {
+        totalRecords: records.length,
+        duplicateCount: duplicates.length,
+        duplicatePercentage: ((duplicates.length / records.length) * 100).toFixed(2) + '%',
+        samples: duplicates.slice(0, 3)
+      };
+    }
+
+    await logger.info('Duplicate Analysis', analysis);
+    return analysis;
+  }
+
+  /**
+   * Loại bỏ records hoàn toàn giống nhau (all fields)
+   */
+  removeExactDuplicates(records) {
+    const uniqueMap = new Map();
+
+    for (const record of records) {
+      const key = JSON.stringify(record);
+      uniqueMap.set(key, record);
+    }
+
+    return Array.from(uniqueMap.values());
+  }
+
+  /**
+   * Merge khách hàng từ 2 data sources
+   * (Khách hàng có thể xuất hiện ở cả 2 nguồn)
+   */
+  mergeKhachHang(ds1Records, ds2Records) {
+    const merged = new Map();
+
+    // Add tất cả từ ds1
+    for (const record of ds1Records) {
+      const key = this.createCompositeKey(record, ['ma_khach_hang']);
+      merged.set(key, { ...record, sources: ['ds1'] });
+    }
+
+    // Merge với ds2
+    for (const record of ds2Records) {
+      const key = this.createCompositeKey(record, ['ma_khach_hang']);
+      
+      if (merged.has(key)) {
+        // Merge thông tin
+        const existing = merged.get(key);
+        const mergedRecord = this.mergeRecords(existing, record);
+        mergedRecord.sources = ['ds1', 'ds2'];
+        merged.set(key, mergedRecord);
+      } else {
+        merged.set(key, { ...record, sources: ['ds2'] });
+      }
+    }
+
+    return Array.from(merged.values());
+  }
+}
+
+module.exports = DeduplicationService;
+```
+
+### src\extract\CsvExtractor.js
+```js
+// src/extract/CsvExtractor.js - Đọc dữ liệu từ CSV files
+const fs = require('fs');
+const path = require('path');
+const csv = require('csv-parser');
+const logger = require('../utils/Logger');
+
+class CsvExtractor {
+  constructor() {
+    this.csvPath = process.env.CSV_PATH || './data/datasource2';
+    this.csvFiles = [
+      'khach_hang.csv',
+      'phieu_ho_tro.csv',
+      'danh_gia.csv',
+      'nhanvien_cskh.csv',
+      'phieu_xu_ly.csv'
+    ];
+  }
+
+  // Extract tất cả CSV files
+  async extractAll() {
+    await logger.startPhase('EXTRACT - CSV Data Source 2');
+    
+    const results = {};
+    let totalRecords = 0;
+
+    try {
+      for (const fileName of this.csvFiles) {
+        const tableName = path.basename(fileName, '.csv');
+        await logger.info(`Extracting CSV: ${fileName}`);
+        
+        const data = await this.extractCsv(fileName);
+        results[tableName] = data;
+        totalRecords += data.length;
+
+        await logger.success(`✓ Extracted ${data.length} records from ${fileName}`);
+      }
+
+      await logger.endPhase('EXTRACT - CSV Data Source 2', {
+        totalFiles: this.csvFiles.length,
+        totalRecords: totalRecords
+      });
+
+      return results;
+    } catch (error) {
+      await logger.error('Failed to extract from CSV files', error);
+      throw error;
+    }
+  }
+
+  // Extract một file CSV cụ thể
+  async extractCsv(fileName) {
+    return new Promise((resolve, reject) => {
+      const results = [];
+      const filePath = path.join(this.csvPath, fileName);
+
+      // Kiểm tra file tồn tại
+      if (!fs.existsSync(filePath)) {
+        const error = new Error(`CSV file not found: ${filePath}`);
+        logger.error(`File not found: ${fileName}`, error);
+        reject(error);
+        return;
+      }
+
+      fs.createReadStream(filePath)
+        .pipe(csv({
+          skipEmptyLines: true,
+          trim: true,
+          // Xử lý headers với whitespace
+          mapHeaders: ({ header }) => header.trim()
+        }))
+        .on('data', (row) => {
+          // Trim tất cả các giá trị
+          const cleanedRow = {};
+          for (const key in row) {
+            cleanedRow[key] = typeof row[key] === 'string' ? row[key].trim() : row[key];
+          }
+          results.push(cleanedRow);
+        })
+        .on('end', () => {
+          resolve(results);
+        })
+        .on('error', (error) => {
+          logger.error(`Error reading CSV: ${fileName}`, error);
+          reject(error);
+        });
+    });
+  }
+
+  // Extract CSV với filter
+  async extractWithFilter(fileName, filterFn) {
+    const allData = await this.extractCsv(fileName);
+    const filteredData = allData.filter(filterFn);
+    
+    await logger.info(`Filtered ${filteredData.length}/${allData.length} records from ${fileName}`);
+    return filteredData;
+  }
+
+  // Extract và convert types
+  async extractWithTypeConversion(fileName, typeMap) {
+    const data = await this.extractCsv(fileName);
+    
+    return data.map(row => {
+      const converted = { ...row };
+      for (const [field, type] of Object.entries(typeMap)) {
+        if (converted[field] !== undefined && converted[field] !== null && converted[field] !== '') {
+          switch (type) {
+            case 'number':
+              converted[field] = parseFloat(converted[field]);
+              break;
+            case 'integer':
+              converted[field] = parseInt(converted[field]);
+              break;
+            case 'boolean':
+              converted[field] = converted[field].toLowerCase() === 'true';
+              break;
+            case 'date':
+              converted[field] = new Date(converted[field]);
+              break;
+            // Mặc định giữ nguyên string
+          }
+        }
+      }
+      return converted;
+    });
+  }
+
+  // Kiểm tra tất cả CSV files có tồn tại không
+  async validateFiles() {
+    const missingFiles = [];
+    
+    for (const fileName of this.csvFiles) {
+      const filePath = path.join(this.csvPath, fileName);
+      if (!fs.existsSync(filePath)) {
+        missingFiles.push(fileName);
+      }
+    }
+
+    if (missingFiles.length > 0) {
+      await logger.error('Missing CSV files', null, { missingFiles });
+      throw new Error(`Missing CSV files: ${missingFiles.join(', ')}`);
+    }
+
+    await logger.success('All CSV files validated');
+    return true;
+  }
+}
+
+module.exports = CsvExtractor;
+```
+
+### src\extract\index.js
+```js
+
+```
+
+### src\extract\PostgresExtractor.js
+```js
+// src/extract/PostgresExtractor.js - Đọc dữ liệu từ PostgreSQL
+const dbManager = require('../../config/database');
+const logger = require('../utils/Logger');
+
+class PostgresExtractor {
+  constructor() {
+    this.pool = dbManager.getDS1Pool();
+    this.tables = [
+      'khach_hang',
+      'danh_muc',
+      'san_pham',
+      'don_hang',
+      'chi_tiet_don_hang',
+      'thanh_toan'
+    ];
+  }
+
+  // Extract tất cả dữ liệu từ Data Source 1
+  async extractAll() {
+    await logger.startPhase('EXTRACT - PostgreSQL Data Source 1');
+    
+    const results = {};
+    let totalRecords = 0;
+
+    try {
+      for (const tableName of this.tables) {
+        await logger.info(`Extracting table: ${tableName}`);
+        
+        const data = await this.extractTable(tableName);
+        results[tableName] = data;
+        totalRecords += data.length;
+
+        await logger.success(`✓ Extracted ${data.length} records from ${tableName}`);
+      }
+
+      await logger.endPhase('EXTRACT - PostgreSQL Data Source 1', {
+        totalTables: this.tables.length,
+        totalRecords: totalRecords
+      });
+
+      return results;
+    } catch (error) {
+      await logger.error('Failed to extract from PostgreSQL', error);
+      throw error;
+    }
+  }
+
+  // Extract một bảng cụ thể
+  async extractTable(tableName) {
+    try {
+      const query = `SELECT * FROM ${tableName}`;
+      const result = await this.pool.query(query);
+      
+      return result.rows;
+    } catch (error) {
+      await logger.error(`Error extracting table ${tableName}`, error);
+      throw error;
+    }
+  }
+
+  // Extract với điều kiện
+  async extractWithCondition(tableName, condition, params = []) {
+    try {
+      const query = `SELECT * FROM ${tableName} WHERE ${condition}`;
+      const result = await this.pool.query(query, params);
+      
+      await logger.info(`Extracted ${result.rows.length} records from ${tableName} with condition`);
+      return result.rows;
+    } catch (error) {
+      await logger.error(`Error extracting ${tableName} with condition`, error);
+      throw error;
+    }
+  }
+
+  // Extract theo batch (phân trang)
+  async extractBatch(tableName, batchSize = 1000, offset = 0) {
+    try {
+      const query = `SELECT * FROM ${tableName} LIMIT $1 OFFSET $2`;
+      const result = await this.pool.query(query, [batchSize, offset]);
+      
+      return result.rows;
+    } catch (error) {
+      await logger.error(`Error extracting batch from ${tableName}`, error);
+      throw error;
+    }
+  }
+
+  // Đếm tổng số records
+  async countRecords(tableName) {
+    try {
+      const query = `SELECT COUNT(*) as total FROM ${tableName}`;
+      const result = await this.pool.query(query);
+      return parseInt(result.rows[0].total);
+    } catch (error) {
+      await logger.error(`Error counting records in ${tableName}`, error);
+      return 0;
+    }
+  }
+
+  // Extract với JOIN (nếu cần)
+  async extractWithJoin(query) {
+    try {
+      const result = await this.pool.query(query);
+      return result.rows;
+    } catch (error) {
+      await logger.error('Error executing join query', error);
+      throw error;
+    }
+  }
+}
+
+module.exports = PostgresExtractor;
+```
+
+### src\load\DataWarehouseLoader.js
+```js
+// src/load/DataWarehouseLoader.js - Load clean data vào Data Warehouse
+const dbManager = require('../../config/database');
+const logger = require('../utils/Logger');
+
+class DataWarehouseLoader {
+  constructor() {
+    this.pool = dbManager.getDWPool();
+    this.initialized = false;
+  }
+
+  /**
+   * Khởi tạo Data Warehouse schema
+   */
+  async initialize() {
+    if (this.initialized) return;
+
+    await logger.info('Initializing Data Warehouse...');
+
+    try {
+      await this.createWarehouseTables();
+      this.initialized = true;
+      await logger.success('Data Warehouse initialized');
+    } catch (error) {
+      await logger.error('Failed to initialize Data Warehouse', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Tạo các bảng trong Data Warehouse
+   */
+  async createWarehouseTables() {
+    const createTableSQL = `
+      -- Dimension Tables
+      
+      CREATE TABLE IF NOT EXISTS dim_khach_hang (
+        ma_khach_hang VARCHAR(10) PRIMARY KEY,
+        ho_ten VARCHAR(100) NOT NULL,
+        email VARCHAR(100) UNIQUE NOT NULL,
+        so_dien_thoai VARCHAR(20),
+        dia_chi VARCHAR(255),
+        ngay_sinh DATE,
+        ngay_dang_ky DATE,
+        gioi_tinh VARCHAR(10),
+        loai_khach_hang VARCHAR(50),
+        sources VARCHAR(50),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+
+      CREATE TABLE IF NOT EXISTS dim_danh_muc (
+        ma_danh_muc VARCHAR(10) PRIMARY KEY,
+        ten_danh_muc VARCHAR(100) NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+
+      CREATE TABLE IF NOT EXISTS dim_san_pham (
+        ma_san_pham VARCHAR(10) PRIMARY KEY,
+        ten_san_pham VARCHAR(150) NOT NULL,
+        mo_ta TEXT,
+        ma_danh_muc VARCHAR(10) REFERENCES dim_danh_muc(ma_danh_muc),
+        don_gia DECIMAL(12,2),
+        ton_kho INT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+
+      CREATE TABLE IF NOT EXISTS dim_nhanvien_cskh (
+        ma_nhan_vien VARCHAR(10) PRIMARY KEY,
+        ho_ten VARCHAR(100) NOT NULL,
+        email VARCHAR(100) UNIQUE,
+        so_dien_thoai VARCHAR(20),
+        chuc_vu VARCHAR(50),
+        phong_ban VARCHAR(50),
+        ngay_tuyen_dung DATE,
+        trang_thai VARCHAR(20),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+
+      -- Fact Tables
+
+      CREATE TABLE IF NOT EXISTS fact_don_hang (
+        ma_don_hang VARCHAR(10) PRIMARY KEY,
+        ma_khach_hang VARCHAR(10) REFERENCES dim_khach_hang(ma_khach_hang),
+        ngay_dat DATE NOT NULL,
+        tong_tien DECIMAL(12,2),
+        trang_thai VARCHAR(50),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+
+      CREATE TABLE IF NOT EXISTS fact_chi_tiet_don_hang (
+        ma_don_hang VARCHAR(10) REFERENCES fact_don_hang(ma_don_hang) ON DELETE CASCADE,
+        ma_san_pham VARCHAR(10) REFERENCES dim_san_pham(ma_san_pham),
+        so_luong INT,
+        don_gia DECIMAL(12,2),
+        PRIMARY KEY (ma_don_hang, ma_san_pham)
+      );
+
+      CREATE TABLE IF NOT EXISTS fact_thanh_toan (
+        ma_thanh_toan VARCHAR(10) PRIMARY KEY,
+        ma_don_hang VARCHAR(10) REFERENCES fact_don_hang(ma_don_hang) ON DELETE CASCADE,
+        ngay_thanh_toan DATE,
+        so_tien DECIMAL(12,2),
+        trang_thai VARCHAR(50),
+        phuong_thuc VARCHAR(50),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+
+      CREATE TABLE IF NOT EXISTS fact_phieu_ho_tro (
+        ma_phieu_ho_tro VARCHAR(10) PRIMARY KEY,
+        ma_khach_hang VARCHAR(10) REFERENCES dim_khach_hang(ma_khach_hang),
+        loai_van_de VARCHAR(100),
+        mo_ta TEXT,
+        ngay_tao TIMESTAMP,
+        trang_thai VARCHAR(50),
+        do_uu_tien VARCHAR(20),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+
+      CREATE TABLE IF NOT EXISTS fact_danh_gia (
+        ma_danh_gia VARCHAR(10) PRIMARY KEY,
+        ma_khach_hang VARCHAR(10) REFERENCES dim_khach_hang(ma_khach_hang),
+        diem_danh_gia INT CHECK (diem_danh_gia BETWEEN 1 AND 5),
+        nhan_xet TEXT,
+        ngay_danh_gia DATE,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+
+      CREATE TABLE IF NOT EXISTS fact_phieu_xu_ly (
+        ma_phieu_xu_ly VARCHAR(10) PRIMARY KEY,
+        ma_phieu_ho_tro VARCHAR(10) REFERENCES fact_phieu_ho_tro(ma_phieu_ho_tro) ON DELETE CASCADE,
+        ma_nhan_vien VARCHAR(10) REFERENCES dim_nhanvien_cskh(ma_nhan_vien),
+        ngay_xu_ly TIMESTAMP,
+        hanh_dong VARCHAR(100),
+        ket_qua VARCHAR(50),
+        ghi_chu TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+
+      -- Indexes for performance
+      CREATE INDEX IF NOT EXISTS idx_don_hang_khach_hang ON fact_don_hang(ma_khach_hang);
+      CREATE INDEX IF NOT EXISTS idx_don_hang_ngay_dat ON fact_don_hang(ngay_dat);
+      CREATE INDEX IF NOT EXISTS idx_phieu_ho_tro_khach_hang ON fact_phieu_ho_tro(ma_khach_hang);
+      CREATE INDEX IF NOT EXISTS idx_phieu_ho_tro_trang_thai ON fact_phieu_ho_tro(trang_thai);
+      CREATE INDEX IF NOT EXISTS idx_danh_gia_khach_hang ON fact_danh_gia(ma_khach_hang);
+    `;
+
+    await this.pool.query(createTableSQL);
+    await logger.success('Data Warehouse tables created');
+  }
+
+  /**
+   * Load tất cả clean data vào warehouse
+   */
+  async loadAll(cleanData) {
+    await logger.startPhase('LOADING TO DATA WAREHOUSE');
+
+    const stats = {
+      dimension_tables: {},
+      fact_tables: {},
+      total_loaded: 0
+    };
+
+    try {
+      // Load theo thứ tự: Dimensions trước, Facts sau
+      
+      // 1. Load Dimension Tables
+      await logger.info('Loading dimension tables...');
+      
+      stats.dimension_tables.dim_khach_hang = await this.loadTable('dim_khach_hang', cleanData.khach_hang || []);
+      stats.dimension_tables.dim_danh_muc = await this.loadTable('dim_danh_muc', cleanData.danh_muc || []);
+      stats.dimension_tables.dim_san_pham = await this.loadTable('dim_san_pham', cleanData.san_pham || []);
+      stats.dimension_tables.dim_nhanvien_cskh = await this.loadTable('dim_nhanvien_cskh', cleanData.nhanvien_cskh || []);
+
+      // 2. Load Fact Tables
+      await logger.info('Loading fact tables...');
+      
+      stats.fact_tables.fact_don_hang = await this.loadTable('fact_don_hang', cleanData.don_hang || []);
+      stats.fact_tables.fact_chi_tiet_don_hang = await this.loadTable('fact_chi_tiet_don_hang', cleanData.chi_tiet_don_hang || []);
+      stats.fact_tables.fact_thanh_toan = await this.loadTable('fact_thanh_toan', cleanData.thanh_toan || []);
+      stats.fact_tables.fact_phieu_ho_tro = await this.loadTable('fact_phieu_ho_tro', cleanData.phieu_ho_tro || []);
+      stats.fact_tables.fact_danh_gia = await this.loadTable('fact_danh_gia', cleanData.danh_gia || []);
+      stats.fact_tables.fact_phieu_xu_ly = await this.loadTable('fact_phieu_xu_ly', cleanData.phieu_xu_ly || []);
+
+      // Tính tổng
+      stats.total_loaded = Object.values(stats.dimension_tables).reduce((a, b) => a + b, 0) +
+                          Object.values(stats.fact_tables).reduce((a, b) => a + b, 0);
+
+      await logger.endPhase('LOADING TO DATA WAREHOUSE', stats);
+      return stats;
+
+    } catch (error) {
+      await logger.error('Failed to load data to warehouse', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Load data vào một table
+   */
+  async loadTable(tableName, records) {
+    if (!records || records.length === 0) {
+      await logger.info(`No data to load for ${tableName}`);
+      return 0;
+    }
+
+    let loadedCount = 0;
+    
+    try {
+      // Clear table trước (optional, tùy yêu cầu)
+      // await this.pool.query(`TRUNCATE TABLE ${tableName} CASCADE`);
+
+      // Lấy columns từ record đầu tiên (bỏ qua source, inserted_at)
+      const columns = Object.keys(records[0]).filter(col => 
+        col !== 'source' && col !== 'inserted_at' && col !== 'sources'
+      );
+      
+      const columnNames = columns.join(', ');
+
+      for (const record of records) {
+        const values = columns.map(col => record[col]);
+        const placeholders = values.map((_, i) => `$${i + 1}`).join(', ');
+        
+        const insertSQL = `
+          INSERT INTO ${tableName} (${columnNames}) 
+          VALUES (${placeholders})
+          ON CONFLICT DO NOTHING
+        `;
+        
+        const result = await this.pool.query(insertSQL, values);
+        if (result.rowCount > 0) {
+          loadedCount++;
+        }
+      }
+
+      await logger.success(`✓ Loaded ${loadedCount} records into ${tableName}`);
+      return loadedCount;
+
+    } catch (error) {
+      await logger.error(`Failed to load ${tableName}`, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Verify data integrity
+   */
+  async verifyDataIntegrity() {
+    await logger.info('Verifying data integrity...');
+
+    const checks = [
+      // Kiểm tra foreign keys
+      {
+        name: 'fact_don_hang references dim_khach_hang',
+        query: `
+          SELECT COUNT(*) as count 
+          FROM fact_don_hang dh 
+          LEFT JOIN dim_khach_hang kh ON dh.ma_khach_hang = kh.ma_khach_hang 
+          WHERE kh.ma_khach_hang IS NULL
+        `
+      },
+      {
+        name: 'dim_san_pham references dim_danh_muc',
+        query: `
+          SELECT COUNT(*) as count 
+          FROM dim_san_pham sp 
+          LEFT JOIN dim_danh_muc dm ON sp.ma_danh_muc = dm.ma_danh_muc 
+          WHERE sp.ma_danh_muc IS NOT NULL AND dm.ma_danh_muc IS NULL
+        `
+      }
+    ];
+
+    const results = [];
+    for (const check of checks) {
+      const result = await this.pool.query(check.query);
+      const count = parseInt(result.rows[0].count);
+      results.push({
+        check: check.name,
+        orphanedRecords: count,
+        passed: count === 0
+      });
+
+      if (count > 0) {
+        await logger.warn(`Integrity check failed: ${check.name} has ${count} orphaned records`);
+      }
+    }
+
+    await logger.info('Data integrity verification completed', results);
+    return results;
+  }
+
+  /**
+   * Lấy thống kê warehouse
+   */
+  async getWarehouseStats() {
+    const tables = [
+      'dim_khach_hang', 'dim_danh_muc', 'dim_san_pham', 'dim_nhanvien_cskh',
+      'fact_don_hang', 'fact_chi_tiet_don_hang', 'fact_thanh_toan',
+      'fact_phieu_ho_tro', 'fact_danh_gia', 'fact_phieu_xu_ly'
+    ];
+
+    const stats = {};
+    for (const table of tables) {
+      const result = await this.pool.query(`SELECT COUNT(*) as count FROM ${table}`);
+      stats[table] = parseInt(result.rows[0].count);
+    }
+
+    return stats;
+  }
+}
+
+module.exports = DataWarehouseLoader;
+```
+
+### src\queue\Consumer.js
+```js
+// src/queue/Consumer.js - Nhận dữ liệu từ RabbitMQ và đưa vào Staging
+const rabbitMQ = require('../../config/rabbitmq');
+const logger = require('../utils/Logger');
+const StagingService = require('../staging/StagingService');
+
+class Consumer {
+  constructor() {
+    this.channel = null;
+    this.stagingService = new StagingService();
+    this.processedMessages = 0;
+    this.totalRecords = 0;
+  }
+
+  async initialize() {
+    this.channel = rabbitMQ.getChannel();
+    await this.stagingService.initialize();
+    await logger.info('Consumer initialized');
+  }
+
+  /**
+   * Consume messages từ một queue
+   */
+  async consumeQueue(queueName) {
+    try {
+      await logger.startPhase(`CONSUMING QUEUE: ${queueName}`);
+
+      return new Promise((resolve, reject) => {
+        this.channel.consume(
+          queueName,
+          async (msg) => {
+            if (msg) {
+              try {
+                const message = JSON.parse(msg.content.toString());
+                await this.processMessage(message);
+                
+                // Acknowledge message
+                this.channel.ack(msg);
+                this.processedMessages++;
+                this.totalRecords += message.recordCount || 0;
+
+              } catch (error) {
+                await logger.error('Error processing message', error, {
+                  queue: queueName,
+                  message: msg.content.toString().substring(0, 200)
+                });
+                
+                // Reject và requeue nếu cần
+                this.channel.nack(msg, false, false);
+              }
+            }
+          },
+          { noAck: false }
+        );
+
+        // Giả sử consume trong 5 giây (hoặc đến khi queue rỗng)
+        setTimeout(async () => {
+          await logger.endPhase(`CONSUMING QUEUE: ${queueName}`, {
+            processedMessages: this.processedMessages,
+            totalRecords: this.totalRecords
+          });
+          resolve();
+        }, 5000);
+      });
+
+    } catch (error) {
+      await logger.error(`Failed to consume queue: ${queueName}`, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Xử lý một message
+   */
+  async processMessage(message) {
+    const { source, table, records, timestamp } = message;
+
+    await logger.info(`Processing message from ${source}`, {
+      table,
+      recordCount: records.length,
+      timestamp
+    });
+
+    // Lưu vào Staging database
+    await this.stagingService.insertRecords(table, records, source);
+
+    await logger.success(`✓ Processed ${records.length} records from ${table}`);
+  }
+
+  /**
+   * Consume cả 2 queues (PostgreSQL và CSV)
+   */
+  async consumeAll() {
+    await logger.startPhase('CONSUME - All Data Sources');
+
+    try {
+      // Consume PostgreSQL queue
+      const ds1Queue = rabbitMQ.getQueueName('ds1');
+      await this.consumeQueue(ds1Queue);
+
+      // Consume CSV queue
+      const ds2Queue = rabbitMQ.getQueueName('ds2');
+      await this.consumeQueue(ds2Queue);
+
+      await logger.endPhase('CONSUME - All Data Sources', {
+        totalMessages: this.processedMessages,
+        totalRecords: this.totalRecords
+      });
+
+      return {
+        messagesProcessed: this.processedMessages,
+        recordsProcessed: this.totalRecords
+      };
+
+    } catch (error) {
+      await logger.error('Failed to consume all queues', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Consume với callback tùy chỉnh
+   */
+  async consumeWithCallback(queueName, callback) {
+    await this.channel.consume(
+      queueName,
+      async (msg) => {
+        if (msg) {
+          try {
+            const message = JSON.parse(msg.content.toString());
+            await callback(message);
+            this.channel.ack(msg);
+          } catch (error) {
+            await logger.error('Error in custom callback', error);
+            this.channel.nack(msg, false, false);
+          }
+        }
+      },
+      { noAck: false }
+    );
+  }
+
+  /**
+   * Kiểm tra số message trong queue
+   */
+  async getQueueStats(queueName) {
+    try {
+      const info = await this.channel.checkQueue(queueName);
+      await logger.info(`Queue stats for ${queueName}`, {
+        messageCount: info.messageCount,
+        consumerCount: info.consumerCount
+      });
+      return info;
+    } catch (error) {
+      await logger.error(`Failed to get queue stats: ${queueName}`, error);
+      return null;
+    }
+  }
+
+  /**
+   * Purge queue (xóa tất cả messages)
+   */
+  async purgeQueue(queueName) {
+    try {
+      await this.channel.purgeQueue(queueName);
+      await logger.warn(`Queue purged: ${queueName}`);
+    } catch (error) {
+      await logger.error(`Failed to purge queue: ${queueName}`, error);
+    }
+  }
+}
+
+module.exports = Consumer;
+```
+
+### src\queue\index.js
+```js
+
+```
+
+### src\queue\Producer.js
+```js
+// src/queue/Producer.js - Đẩy dữ liệu vào RabbitMQ queues
+const rabbitMQ = require('../../config/rabbitmq');
+const logger = require('../utils/Logger');
+
+class Producer {
+  constructor() {
+    this.channel = null;
+  }
+
+  async initialize() {
+    this.channel = rabbitMQ.getChannel();
+    await logger.info('Producer initialized');
+  }
+
+  /**
+   * Gửi dữ liệu từ một data source vào queue
+   * @param {string} queueName - Tên queue
+   * @param {object} data - Dữ liệu cần gửi (object chứa các table)
+   * @param {string} sourceType - 'postgresql' hoặc 'csv'
+   */
+  async sendToQueue(queueName, data, sourceType) {
+    try {
+      await logger.info(`Sending data to queue: ${queueName}`, {
+        sourceType,
+        tables: Object.keys(data),
+        totalRecords: this.countTotalRecords(data)
+      });
+
+      // Gửi từng table như một message riêng
+      for (const [tableName, records] of Object.entries(data)) {
+        const message = {
+          source: sourceType,
+          table: tableName,
+          records: records,
+          timestamp: new Date().toISOString(),
+          recordCount: records.length
+        };
+
+        const sent = this.channel.sendToQueue(
+          queueName,
+          Buffer.from(JSON.stringify(message)),
+          { persistent: true }
+        );
+
+        if (sent) {
+          await logger.success(`✓ Sent ${records.length} records from ${tableName} to ${queueName}`);
+        } else {
+          await logger.warn(`Queue ${queueName} is full, waiting...`);
+          // Đợi queue available
+          await this.waitForDrain();
+          // Retry
+          this.channel.sendToQueue(
+            queueName,
+            Buffer.from(JSON.stringify(message)),
+            { persistent: true }
+          );
+        }
+      }
+
+      await logger.success(`All data sent to queue: ${queueName}`);
+      return true;
+    } catch (error) {
+      await logger.error(`Failed to send data to queue: ${queueName}`, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Gửi dữ liệu từ PostgreSQL data source
+   */
+  async sendPostgresData(data) {
+    const queueName = rabbitMQ.getQueueName('ds1');
+    return await this.sendToQueue(queueName, data, 'postgresql');
+  }
+
+  /**
+   * Gửi dữ liệu từ CSV data source
+   */
+  async sendCsvData(data) {
+    const queueName = rabbitMQ.getQueueName('ds2');
+    return await this.sendToQueue(queueName, data, 'csv');
+  }
+
+  /**
+   * Đếm tổng số records
+   */
+  countTotalRecords(data) {
+    return Object.values(data).reduce((sum, records) => sum + records.length, 0);
+  }
+
+  /**
+   * Đợi queue available
+   */
+  waitForDrain() {
+    return new Promise((resolve) => {
+      this.channel.once('drain', resolve);
+    });
+  }
+
+  /**
+   * Gửi batch data (cho big data)
+   */
+  async sendBatch(queueName, tableName, records, batchSize = 1000) {
+    const batches = [];
+    for (let i = 0; i < records.length; i += batchSize) {
+      batches.push(records.slice(i, i + batchSize));
+    }
+
+    await logger.info(`Sending ${batches.length} batches to queue`, {
+      totalRecords: records.length,
+      batchSize
+    });
+
+    for (let i = 0; i < batches.length; i++) {
+      const message = {
+        table: tableName,
+        records: batches[i],
+        batch: i + 1,
+        totalBatches: batches.length,
+        timestamp: new Date().toISOString()
+      };
+
+      this.channel.sendToQueue(
+        queueName,
+        Buffer.from(JSON.stringify(message)),
+        { persistent: true }
+      );
+
+      await logger.debug(`Sent batch ${i + 1}/${batches.length} for ${tableName}`);
+    }
+
+    await logger.success(`All batches sent for ${tableName}`);
+  }
+}
+
+module.exports = Producer;
+```
+
+### src\staging\StagingService.js
+```js
+// src/staging/StagingService.js - Quản lý Staging Database
+const dbManager = require("../../config/database");
+const logger = require("../utils/Logger");
+
+class StagingService {
+  constructor() {
+    this.pool = dbManager.getStagingPool();
+    this.initialized = false;
+  }
+
+  /**
+   * Khởi tạo staging tables
+   */
+  async initialize() {
+    if (this.initialized) return;
+
+    await logger.info("Initializing staging database...");
+
+    try {
+      // Tạo schema cho staging nếu chưa có
+      await this.createStagingTables();
+
+      // Clear staging data cũ
+      await this.clearAllTables();
+
+      this.initialized = true;
+      await logger.success("Staging database initialized");
+    } catch (error) {
+      await logger.error("Failed to initialize staging database", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Tạo staging tables
+   */
+  async createStagingTables() {
+    const tables = [
+      // Tables từ Data Source 1
+      `CREATE TABLE IF NOT EXISTS stg_khach_hang (
+  ma_khach_hang VARCHAR(10),
+  ho_ten VARCHAR(100),
+  email VARCHAR(100),
+  so_dien_thoai VARCHAR(20),
+  dia_chi VARCHAR(255),
+  ngay_sinh DATE,
+  ngay_dang_ky DATE,
+  gioi_tinh VARCHAR(10),
+  loai_khach_hang VARCHAR(50), -- <<--- THÊM DÒNG NÀY
+  source VARCHAR(20),
+  inserted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)`,
+
+      `CREATE TABLE IF NOT EXISTS stg_danh_muc (
+        ma_danh_muc VARCHAR(10),
+        ten_danh_muc VARCHAR(100),
+        source VARCHAR(20),
+        inserted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )`,
+
+      `CREATE TABLE IF NOT EXISTS stg_san_pham (
+        ma_san_pham VARCHAR(10),
+        ten_san_pham VARCHAR(150),
+        mo_ta TEXT,
+        ma_danh_muc VARCHAR(10),
+        don_gia DECIMAL(12,2),
+        ton_kho INT,
+        source VARCHAR(20),
+        inserted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )`,
+
+      `CREATE TABLE IF NOT EXISTS stg_don_hang (
+        ma_don_hang VARCHAR(10),
+        ma_khach_hang VARCHAR(10),
+        ngay_dat DATE,
+        tong_tien DECIMAL(12,2),
+        trang_thai VARCHAR(50),
+        source VARCHAR(20),
+        inserted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )`,
+
+      `CREATE TABLE IF NOT EXISTS stg_chi_tiet_don_hang (
+        ma_don_hang VARCHAR(10),
+        ma_san_pham VARCHAR(10),
+        so_luong INT,
+        don_gia DECIMAL(12,2),
+        source VARCHAR(20),
+        inserted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )`,
+
+      `CREATE TABLE IF NOT EXISTS stg_thanh_toan (
+        ma_thanh_toan VARCHAR(10),
+        ma_don_hang VARCHAR(10),
+        ngay_thanh_toan DATE,
+        so_tien DECIMAL(12,2),
+        trang_thai VARCHAR(50),
+        phuong_thuc VARCHAR(50),
+        source VARCHAR(20),
+        inserted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )`,
+
+      // Tables từ Data Source 2
+      `CREATE TABLE IF NOT EXISTS stg_phieu_ho_tro (
+        ma_phieu_ho_tro VARCHAR(10),
+        ma_khach_hang VARCHAR(10),
+        loai_van_de VARCHAR(100),
+        mo_ta TEXT,
+        ngay_tao TIMESTAMP,
+        trang_thai VARCHAR(50),
+        do_uu_tien VARCHAR(20),
+        source VARCHAR(20),
+        inserted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )`,
+
+      `CREATE TABLE IF NOT EXISTS stg_danh_gia (
+        ma_danh_gia VARCHAR(10),
+        ma_khach_hang VARCHAR(10),
+        diem_danh_gia INT,
+        nhan_xet TEXT,
+        ngay_danh_gia DATE,
+        source VARCHAR(20),
+        inserted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )`,
+
+      `CREATE TABLE IF NOT EXISTS stg_nhanvien_cskh (
+        ma_nhan_vien VARCHAR(10),
+        ho_ten VARCHAR(100),
+        email VARCHAR(100),
+        so_dien_thoai VARCHAR(20),
+        chuc_vu VARCHAR(50),
+        phong_ban VARCHAR(50),
+        ngay_tuyen_dung DATE,
+        trang_thai VARCHAR(20),
+        source VARCHAR(20),
+        inserted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )`,
+
+      `CREATE TABLE IF NOT EXISTS stg_phieu_xu_ly (
+        ma_phieu_xu_ly VARCHAR(10),
+        ma_phieu_ho_tro VARCHAR(10),
+        ma_nhan_vien VARCHAR(10),
+        ngay_xu_ly TIMESTAMP,
+        hanh_dong VARCHAR(100),
+        ket_qua VARCHAR(50),
+        ghi_chu TEXT,
+        source VARCHAR(20),
+        inserted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )`,
+    ];
+
+    for (const createTableSQL of tables) {
+      await this.pool.query(createTableSQL);
+    }
+
+    await logger.success("All staging tables created");
+  }
+
+  /**
+   * Insert records vào staging table
+   */
+  async insertRecords(tableName, records, source) {
+    if (!records || records.length === 0) {
+      return 0;
+    }
+
+    const stagingTableName = `stg_${tableName}`;
+
+    try {
+      // Lấy columns từ record đầu tiên
+      const columns = Object.keys(records[0]);
+      const columnNames = [...columns, "source"].join(", ");
+
+      let insertedCount = 0;
+
+      // Insert từng record
+      for (const record of records) {
+        const values = columns.map((col) => record[col]);
+        values.push(source);
+
+        const placeholders = values.map((_, i) => `$${i + 1}`).join(", ");
+        const insertSQL = `INSERT INTO ${stagingTableName} (${columnNames}) VALUES (${placeholders})`;
+
+        await this.pool.query(insertSQL, values);
+        insertedCount++;
+      }
+
+      await logger.success(
+        `Inserted ${insertedCount} records into ${stagingTableName}`
+      );
+      return insertedCount;
+    } catch (error) {
+      await logger.error(`Failed to insert into ${stagingTableName}`, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Lấy tất cả dữ liệu từ staging
+   */
+  async getAllData() {
+    const tables = [
+      "khach_hang",
+      "danh_muc",
+      "san_pham",
+      "don_hang",
+      "chi_tiet_don_hang",
+      "thanh_toan",
+      "phieu_ho_tro",
+      "danh_gia",
+      "nhanvien_cskh",
+      "phieu_xu_ly",
+    ];
+
+    const data = {};
+
+    for (const table of tables) {
+      const stagingTableName = `stg_${table}`;
+      try {
+        const result = await this.pool.query(
+          `SELECT * FROM ${stagingTableName}`
+        );
+        data[table] = result.rows;
+      } catch (error) {
+        await logger.warn(`Table ${stagingTableName} might not exist or empty`);
+        data[table] = [];
+      }
+    }
+
+    return data;
+  }
+
+  /**
+   * Clear tất cả staging tables
+   */
+  async clearAllTables() {
+    const tables = [
+      "stg_khach_hang",
+      "stg_danh_muc",
+      "stg_san_pham",
+      "stg_don_hang",
+      "stg_chi_tiet_don_hang",
+      "stg_thanh_toan",
+      "stg_phieu_ho_tro",
+      "stg_danh_gia",
+      "stg_nhanvien_cskh",
+      "stg_phieu_xu_ly",
+    ];
+
+    for (const table of tables) {
+      try {
+        await this.pool.query(`TRUNCATE TABLE ${table} CASCADE`);
+      } catch (error) {
+        // Table might not exist yet
+      }
+    }
+
+    await logger.info("Staging tables cleared");
+  }
+
+  /**
+   * Đếm records trong staging table
+   */
+  async countRecords(tableName) {
+    const stagingTableName = `stg_${tableName}`;
+    try {
+      const result = await this.pool.query(
+        `SELECT COUNT(*) as count FROM ${stagingTableName}`
+      );
+      return parseInt(result.rows[0].count);
+    } catch (error) {
+      return 0;
+    }
+  }
+
+  /**
+   * Lấy thống kê staging
+   */
+  async getStats() {
+    const tables = [
+      "khach_hang",
+      "danh_muc",
+      "san_pham",
+      "don_hang",
+      "chi_tiet_don_hang",
+      "thanh_toan",
+      "phieu_ho_tro",
+      "danh_gia",
+      "nhanvien_cskh",
+      "phieu_xu_ly",
+    ];
+
+    const stats = {};
+    let total = 0;
+
+    for (const table of tables) {
+      const count = await this.countRecords(table);
+      stats[table] = count;
+      total += count;
+    }
+
+    stats.total = total;
+    return stats;
+  }
+}
+
+module.exports = StagingService;
+
+```
+
+### src\transform\TransformEngine.js
+```js
+// src/transform/TransformEngine.js - Design Pattern: Strategy Pattern
+const logger = require('../utils/Logger');
+const fs = require('fs');
+const path = require('path');
+
+/**
+ * TransformEngine áp dụng Strategy Pattern
+ * Mỗi transformer là một strategy để transform data
+ */
+class TransformEngine {
+  constructor() {
+    this.transformers = new Map();
+    this.loadAllTransformers();
+  }
+
+  /**
+   * Load tất cả transformers từ thư mục transformers/
+   */
+  loadAllTransformers() {
+    const transformersDir = path.join(__dirname, 'transformers');
+    const transformerFiles = fs.readdirSync(transformersDir)
+      .filter(f => f.endsWith('Transformer.js'));
+
+    for (const file of transformerFiles) {
+      try {
+        const TransformerClass = require(path.join(transformersDir, file));
+        const transformerInstance = new TransformerClass();
+        const fieldName = transformerInstance.getFieldName();
+        
+        this.transformers.set(fieldName, transformerInstance);
+        console.log(`✓ Loaded transformer: ${file} for field: ${fieldName}`);
+      } catch (error) {
+        console.error(`✗ Failed to load transformer: ${file}`, error.message);
+      }
+    }
+
+    logger.info(`Loaded ${this.transformers.size} transformers`);
+  }
+
+  /**
+   * Transform một record dựa trên validation errors
+   * @param {object} record - Record cần transform
+   * @param {object} validationResult - Kết quả validation từ RuleEngine
+   * @returns {object} Transformed record và metadata
+   */
+  transformRecord(record, validationResult) {
+    const transformed = { ...record };
+    const transformLog = [];
+
+    if (!validationResult || validationResult.isValid) {
+      return {
+        record: transformed,
+        transformed: false,
+        log: []
+      };
+    }
+
+    // Chỉ transform các fields có lỗi có thể fix
+    const fixableFields = new Set();
+    validationResult.fixableErrors.forEach(error => {
+      fixableFields.add(error.field);
+    });
+
+    // Apply transformers cho từng field
+    for (const fieldName of fixableFields) {
+      if (this.transformers.has(fieldName)) {
+        const transformer = this.transformers.get(fieldName);
+        const originalValue = record[fieldName];
+        
+        // Lấy errors của field này
+        const fieldErrors = validationResult.errors.filter(e => e.field === fieldName);
+        
+        // Transform
+        const transformedValue = transformer.transform(
+          originalValue,
+          record,
+          fieldErrors
+        );
+
+        if (transformedValue !== originalValue) {
+          transformed[fieldName] = transformedValue;
+          
+          const log = transformer.logTransform(originalValue, transformedValue);
+          transformLog.push(log);
+        }
+      }
+    }
+
+    return {
+      record: transformed,
+      transformed: transformLog.length > 0,
+      log: transformLog,
+      fieldsTransformed: Array.from(fixableFields)
+    };
+  }
+
+  /**
+   * Transform một batch records
+   */
+  async transformBatch(records, validationResults) {
+    await logger.startPhase('TRANSFORM - Applying Transformations');
+
+    const results = {
+      totalRecords: records.length,
+      transformedRecords: 0,
+      skippedRecords: 0,
+      records: [],
+      logs: []
+    };
+
+    for (let i = 0; i < records.length; i++) {
+      const record = records[i];
+      const validationResult = validationResults.results[i];
+
+      const transformResult = this.transformRecord(record, validationResult);
+      
+      results.records.push(transformResult.record);
+      
+      if (transformResult.transformed) {
+        results.transformedRecords++;
+        results.logs.push({
+          recordIndex: i,
+          originalRecord: record,
+          transformedRecord: transformResult.record,
+          transformLog: transformResult.log
+        });
+      } else {
+        results.skippedRecords++;
+      }
+    }
+
+    await logger.endPhase('TRANSFORM - Applying Transformations', {
+      totalRecords: results.totalRecords,
+      transformedRecords: results.transformedRecords,
+      skippedRecords: results.skippedRecords
+    });
+
+    // Log chi tiết
+    if (results.logs.length > 0) {
+      await logger.info('Transform details', {
+        sampleTransforms: results.logs.slice(0, 5)
+      });
+    }
+
+    return results;
+  }
+
+  /**
+   * Transform với custom strategy
+   */
+  transformWithStrategy(record, fieldName, strategyFn) {
+    const transformed = { ...record };
+    const originalValue = record[fieldName];
+    
+    transformed[fieldName] = strategyFn(originalValue, record);
+    
+    return {
+      record: transformed,
+      changed: transformed[fieldName] !== originalValue
+    };
+  }
+
+  /**
+   * Thêm transformer mới dynamically
+   */
+  addTransformer(fieldName, transformerInstance) {
+    this.transformers.set(fieldName, transformerInstance);
+    logger.info(`Added transformer for field: ${fieldName}`);
+  }
+
+  /**
+   * Lấy transformer cho field
+   */
+  getTransformer(fieldName) {
+    return this.transformers.get(fieldName);
+  }
+
+  /**
+   * Kiểm tra có transformer không
+   */
+  hasTransformer(fieldName) {
+    return this.transformers.has(fieldName);
+  }
+
+  /**
+   * Lấy danh sách fields có transformer
+   */
+  getAvailableTransformers() {
+    return Array.from(this.transformers.keys());
+  }
+
+  /**
+   * Apply multiple transforms theo thứ tự
+   */
+  applyTransformPipeline(record, pipeline) {
+    let transformed = { ...record };
+
+    for (const fieldName of pipeline) {
+      if (this.transformers.has(fieldName)) {
+        const transformer = this.transformers.get(fieldName);
+        const value = transformed[fieldName];
+        transformed[fieldName] = transformer.transform(value, transformed);
+      }
+    }
+
+    return transformed;
+  }
+
+  /**
+   * Transform với conditions
+   */
+  transformConditional(record, conditions) {
+    const transformed = { ...record };
+
+    for (const [fieldName, condition] of Object.entries(conditions)) {
+      if (condition(record) && this.transformers.has(fieldName)) {
+        const transformer = this.transformers.get(fieldName);
+        transformed[fieldName] = transformer.transform(
+          record[fieldName],
+          record
+        );
+      }
+    }
+
+    return transformed;
+  }
+}
+
+module.exports = TransformEngine;
+```
+
+### src\transform\TransformService.js
+```js
+
+```
+
+### src\transform\transformers\EmailTransformer.js
+```js
+// src/transform/transformers/EmailTransformer.js - Transform Email
+class EmailTransformer {
+  constructor() {
+    this.fieldName = 'email';
+  }
+
+  /**
+   * Transform email theo các quy tắc:
+   * 1. Chuyển tất cả thành lowercase
+   * 2. Xóa khoảng trắng
+   * 3. Trim đầu cuối
+   */
+  transform(value, record, validationErrors = []) {
+    if (!value) return null;
+
+    let transformed = value.toString();
+
+    // Step 1: Trim
+    transformed = transformed.trim();
+
+    // Step 2: Xóa tất cả khoảng trắng
+    transformed = transformed.replace(/\s+/g, '');
+
+    // Step 3: Chuyển thành lowercase
+    transformed = transformed.toLowerCase();
+
+    // Step 4: Fix common typos
+    transformed = this.fixCommonTypos(transformed);
+
+    return transformed;
+  }
+
+  /**
+   * Sửa các lỗi typo phổ biến
+   */
+  fixCommonTypos(email) {
+    // Replace common typos
+    const typos = {
+      'gmial.com': 'gmail.com',
+      'gmai.com': 'gmail.com',
+      'yahooo.com': 'yahoo.com',
+      'yaho.com': 'yahoo.com',
+      'hotmial.com': 'hotmail.com',
+      'outloook.com': 'outlook.com'
+    };
+
+    let fixed = email;
+    for (const [typo, correct] of Object.entries(typos)) {
+      if (fixed.includes(typo)) {
+        fixed = fixed.replace(typo, correct);
+      }
+    }
+
+    return fixed;
+  }
+
+  canTransform(value, validationErrors) {
+    return validationErrors && validationErrors.some(e => e.canFix);
+  }
+
+  getFieldName() {
+    return this.fieldName;
+  }
+
+  transformBatch(records, errorsByRecord) {
+    return records.map((record, index) => {
+      const errors = errorsByRecord[index] || [];
+      const transformed = { ...record };
+      
+      if (record[this.fieldName]) {
+        transformed[this.fieldName] = this.transform(
+          record[this.fieldName],
+          record,
+          errors
+        );
+      }
+      
+      return transformed;
+    });
+  }
+
+  logTransform(originalValue, transformedValue) {
+    return {
+      field: this.fieldName,
+      original: originalValue,
+      transformed: transformedValue,
+      action: 'lowercase_and_normalize'
+    };
+  }
+}
+
+module.exports = EmailTransformer;
+```
+
+### src\transform\transformers\HoTenTransformer.js
+```js
+// src/transform/transformers/HoTenTransformer.js - Transform họ tên
+/**
+ * Design Pattern: Strategy Pattern
+ * Mỗi transformer là một strategy khác nhau để transform data
+ */
+class HoTenTransformer {
+  constructor() {
+    this.fieldName = 'ho_ten';
+  }
+
+  /**
+   * Transform họ tên theo các quy tắc:
+   * 1. Trim khoảng trắng thừa
+   * 2. Chuẩn hóa chữ cái đầu mỗi từ viết hoa
+   * 3. Xử lý viết tắt
+   * 4. Chuyển thành tiếng Việt có dấu chuẩn
+   */
+  transform(value, record, validationErrors = []) {
+    if (!value) return null;
+
+    let transformed = value.toString().trim();
+
+    // Step 1: Xóa khoảng trắng thừa
+    transformed = this.removeExtraSpaces(transformed);
+
+    // Step 2: Chuẩn hóa viết hoa chữ cái đầu
+    transformed = this.capitalizeWords(transformed);
+
+    // Step 3: Xử lý viết tắt (le t nga -> Lê Thị Nga)
+    transformed = this.expandAbbreviations(transformed);
+
+    // Step 4: Chuẩn hóa tiếng Việt (nếu có lỗi về encoding)
+    transformed = this.normalizeVietnamese(transformed);
+
+    // Step 5: Xử lý trường hợp chỉ có 1 từ
+    if (this.shouldAddDefaultSurname(transformed, validationErrors)) {
+      transformed = this.addDefaultSurname(transformed);
+    }
+
+    return transformed;
+  }
+
+  /**
+   * Xóa khoảng trắng thừa
+   */
+  removeExtraSpaces(text) {
+    return text.replace(/\s+/g, ' ').trim();
+  }
+
+  /**
+   * Viết hoa chữ cái đầu mỗi từ
+   */
+  capitalizeWords(text) {
+    return text
+      .split(' ')
+      .map(word => {
+        if (word.length === 0) return word;
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      })
+      .join(' ');
+  }
+
+  /**
+   * Mở rộng viết tắt tiếng Việt
+   * VD: "le t nga" -> "Lê Thị Nga"
+   */
+  expandAbbreviations(text) {
+    const words = text.split(' ');
+    const expanded = [];
+
+    // Map các viết tắt phổ biến
+    const commonAbbreviations = {
+      'v': 'Văn',
+      't': 'Thị',
+      'h': 'Hữu',
+      'd': 'Đức',
+      'k': 'Kim',
+      'm': 'Minh',
+      'n': 'Ngọc'
+    };
+
+    for (let i = 0; i < words.length; i++) {
+      const word = words[i];
+      
+      // Nếu là viết tắt (1 chữ cái) và ở giữa/cuối
+      if (word.length === 1 && i > 0) {
+        const abbrev = word.toLowerCase();
+        if (commonAbbreviations[abbrev]) {
+          expanded.push(commonAbbreviations[abbrev]);
+          continue;
+        }
+      }
+      
+      expanded.push(word);
+    }
+
+    return expanded.join(' ');
+  }
+
+  /**
+   * Chuẩn hóa tiếng Việt (xử lý encoding sai)
+   */
+  normalizeVietnamese(text) {
+    // Xử lý các trường hợp encoding sai phổ biến
+    const replacements = {
+      'Ã¡': 'á',
+      'Ã ': 'à',
+      'áº¡': 'ạ',
+      'áº£': 'ả',
+      'Ã£': 'ã',
+      'Ä': 'đ',
+      // ... thêm các mapping khác nếu cần
+    };
+
+    let normalized = text;
+    for (const [wrong, correct] of Object.entries(replacements)) {
+      normalized = normalized.replace(new RegExp(wrong, 'g'), correct);
+    }
+
+    return normalized;
+  }
+
+  /**
+   * Kiểm tra xem có cần thêm họ mặc định không
+   */
+  shouldAddDefaultSurname(text, validationErrors) {
+    const words = text.split(' ');
+    return words.length === 1 && 
+           validationErrors.some(e => e.message.includes('ít nhất 2 từ'));
+  }
+
+  /**
+   * Thêm họ mặc định nếu chỉ có tên
+   */
+  addDefaultSurname(text) {
+    // Thêm "Không rõ" vào trước
+    return `Không Rõ ${text}`;
+  }
+
+  /**
+   * Kiểm tra xem transformation có thành công không
+   */
+  canTransform(value, validationErrors) {
+    // Chỉ transform nếu có lỗi có thể fix
+    return validationErrors && validationErrors.some(e => e.canFix);
+  }
+
+  /**
+   * Lấy field name
+   */
+  getFieldName() {
+    return this.fieldName;
+  }
+
+  /**
+   * Transform batch
+   */
+  transformBatch(records, errorsByRecord) {
+    return records.map((record, index) => {
+      const errors = errorsByRecord[index] || [];
+      const transformed = { ...record };
+      
+      if (record[this.fieldName]) {
+        transformed[this.fieldName] = this.transform(
+          record[this.fieldName],
+          record,
+          errors
+        );
+      }
+      
+      return transformed;
+    });
+  }
+
+  /**
+   * Logging transform action
+   */
+  logTransform(originalValue, transformedValue) {
+    return {
+      field: this.fieldName,
+      original: originalValue,
+      transformed: transformedValue,
+      action: 'capitalize_and_normalize'
+    };
+  }
+}
+
+module.exports = HoTenTransformer;
+```
+
+### src\transform\transformers\NgayThangTransformer.js
+```js
+// src/transform/transformers/NgayThangTransformer.js
+const moment = require('moment');
+
+class NgayThangTransformer {
+  constructor() {
+    // Sẽ áp dụng cho tất cả các trường có tên là 'ngay_sinh', 'ngay_dat', etc.
+    // Nhưng để đơn giản, ta chỉ định một field chính. TransformEngine sẽ tìm đúng transformer.
+    this.fieldName = 'ngay_sinh'; 
+  }
+
+  transform(value, record, validationErrors = []) {
+    if (!value) return null;
+
+    // Thử parse date với các định dạng phổ biến
+    const date = moment(value);
+    
+    if (date.isValid()) {
+      // Trả về định dạng chuẩn YYYY-MM-DD
+      return date.format('YYYY-MM-DD');
+    }
+
+    // Nếu không parse được, trả về giá trị gốc để không làm mất dữ liệu
+    return value;
+  }
+
+  getFieldName() {
+    return this.fieldName;
+  }
+
+  logTransform(originalValue, transformedValue) {
+    return {
+      field: this.fieldName, // Field thực tế có thể khác, nhưng log này là đủ
+      original: originalValue,
+      transformed: transformedValue,
+      action: 'format_date_to_yyyy_mm_dd'
+    };
+  }
+}
+
+module.exports = NgayThangTransformer;
+```
+
+### src\transform\transformers\TrangThaiTransformer.js
+```js
+// src/transform/transformers/TrangThaiTransformer.js
+class TrangThaiTransformer {
+  constructor() {
+    this.fieldName = 'trang_thai';
+  }
+
+  transform(value, record, validationErrors = []) {
+    if (!value) return value;
+
+    // Lấy suggestion từ lỗi validation nếu có (Module TrangThai.rule.js đã gợi ý sửa lỗi chính tả)
+    const error = validationErrors.find(e => e.suggestion && e.field === this.fieldName);
+    if (error && error.suggestion) {
+        // Giả sử suggestion dạng: "Có thể là: Đã giao" hoặc "Chuyển thành: Đã giao"
+        const match = error.suggestion.split(': ');
+        if (match.length > 1) {
+            return match[1].trim();
+        }
+    }
+
+    // Mặc định viết hoa chữ cái đầu
+    return value.charAt(0).toUpperCase() + value.slice(1);
+  }
+
+  getFieldName() {
+    return this.fieldName;
+  }
+
+  logTransform(originalValue, transformedValue) {
+    return {
+      field: this.fieldName,
+      original: originalValue,
+      transformed: transformedValue,
+      action: 'normalize_status'
+    };
+  }
+}
+
+module.exports = TrangThaiTransformer;
+```
+
+### src\utils\ErrorLogger.js
+```js
+
+```
+
+### src\utils\helpers.js
+```js
+
+```
+
+### src\utils\Logger.js
+```js
+// src/utils/Logger.js - System cho log.txt và console
+const fs = require('fs-extra');
+const path = require('path');
+const moment = require('moment');
+
+class Logger {
+  constructor() {
+    this.logDir = path.join(__dirname, '../../logs');
+    this.logFile = path.join(this.logDir, 'log.log');
+    this.errorLogFile = path.join(this.logDir, 'errorLog.log');
+    this.initLogFiles();
+  }
+
+  async initLogFiles() {
+    await fs.ensureDir(this.logDir);
+    
+    // Create log files if they don't exist
+    if (!await fs.pathExists(this.logFile)) {
+      await fs.writeFile(this.logFile, '');
+    }
+    if (!await fs.pathExists(this.errorLogFile)) {
+      await fs.writeFile(this.errorLogFile, '');
+    }
+  }
+
+  getTimestamp() {
+    return moment().format('YYYY-MM-DD HH:mm:ss');
+  }
+
+  formatMessage(level, message, data = null) {
+    let logMessage = `[${this.getTimestamp()}] [${level}] ${message}`;
+    if (data) {
+      logMessage += `\n${JSON.stringify(data, null, 2)}`;
+    }
+    return logMessage;
+  }
+
+  // Log thông tin chung (console + log.txt)
+  async info(message, data = null) {
+    const logMessage = this.formatMessage('INFO', message, data);
+    console.log(`ℹ️  ${message}`);
+    if (data) console.log(data);
+    
+    await fs.appendFile(this.logFile, logMessage + '\n\n');
+  }
+
+  // Log cảnh báo
+  async warn(message, data = null) {
+    const logMessage = this.formatMessage('WARN', message, data);
+    console.warn(`⚠️  ${message}`);
+    if (data) console.warn(data);
+    
+    await fs.appendFile(this.logFile, logMessage + '\n\n');
+  }
+
+  // Log lỗi (console + errorLog.txt + log.txt)
+  async error(message, error = null, data = null) {
+    const errorDetails = error ? {
+      message: error.message,
+      stack: error.stack,
+      ...data
+    } : data;
+
+    const logMessage = this.formatMessage('ERROR', message, errorDetails);
+    console.error(`❌ ${message}`);
+    if (error) console.error(error);
+    
+    // Ghi vào cả 2 file
+    await fs.appendFile(this.errorLogFile, logMessage + '\n\n');
+    await fs.appendFile(this.logFile, logMessage + '\n\n');
+  }
+
+  // Log thành công
+  async success(message, data = null) {
+    const logMessage = this.formatMessage('SUCCESS', message, data);
+    console.log(`✅ ${message}`);
+    if (data) console.log(data);
+    
+    await fs.appendFile(this.logFile, logMessage + '\n\n');
+  }
+
+  // Log debug
+  async debug(message, data = null) {
+    const logMessage = this.formatMessage('DEBUG', message, data);
+    console.log(`🐛 ${message}`);
+    if (data) console.log(data);
+    
+    await fs.appendFile(this.logFile, logMessage + '\n\n');
+  }
+
+  // Log bắt đầu một phase
+  async startPhase(phaseName) {
+    const separator = '='.repeat(80);
+    const message = `\n${separator}\n  ${phaseName} STARTED\n${separator}\n`;
+    console.log(message);
+    await fs.appendFile(this.logFile, message);
+  }
+
+  // Log kết thúc một phase
+  async endPhase(phaseName, stats = null) {
+    const separator = '='.repeat(80);
+    let message = `\n${separator}\n  ${phaseName} COMPLETED`;
+    if (stats) {
+      message += `\n  Stats: ${JSON.stringify(stats)}`;
+    }
+    message += `\n${separator}\n\n`;
+    
+    console.log(message);
+    await fs.appendFile(this.logFile, message);
+  }
+
+  // Log thống kê
+  async stats(title, statistics) {
+    const message = this.formatMessage('STATS', title, statistics);
+    console.log(`📊 ${title}:`, statistics);
+    await fs.appendFile(this.logFile, message + '\n\n');
+  }
+
+  // Clear logs (cho testing)
+  async clearLogs() {
+    await fs.writeFile(this.logFile, '');
+    await fs.writeFile(this.errorLogFile, '');
+    console.log('🗑️  Logs cleared');
+  }
+}
+
+module.exports = new Logger();
+```
+
+### src\validation\RuleEngine.js
+```js
+// src/validation/RuleEngine.js - Design Pattern: Chain of Responsibility
+const logger = require('../utils/Logger');
+const fs = require('fs');
+const path = require('path');
+
+/**
+ * RuleEngine áp dụng Chain of Responsibility Pattern
+ * Mỗi rule được xử lý tuần tự, nếu fail thì dừng hoặc tiếp tục tùy config
+ */
+class RuleEngine {
+  constructor() {
+    this.rules = new Map();
+    this.loadAllRules();
+  }
+
+  /**
+   * Load tất cả các rule files từ thư mục rules/
+   */
+  loadAllRules() {
+    const rulesDir = path.join(__dirname, 'rules');
+    const ruleFiles = fs.readdirSync(rulesDir).filter(f => f.endsWith('.rule.js'));
+
+    for (const file of ruleFiles) {
+      try {
+        const RuleClass = require(path.join(rulesDir, file));
+        const ruleInstance = new RuleClass();
+        const fieldName = ruleInstance.getFieldName();
+        
+        this.rules.set(fieldName, ruleInstance);
+        console.log(`✓ Loaded rule: ${file} for field: ${fieldName}`);
+      } catch (error) {
+        console.error(`✗ Failed to load rule: ${file}`, error.message);
+      }
+    }
+
+    logger.info(`Loaded ${this.rules.size} validation rules`);
+  }
+
+  /**
+   * Validate một record với tất cả các rules tương ứng
+   * @param {object} record - Record cần validate
+   * @param {array} fieldsToValidate - Danh sách fields cần validate
+   * @returns {object} Kết quả validation
+   */
+  validateRecord(record, fieldsToValidate = null) {
+    const results = {
+      isValid: true,
+      canFix: true,
+      errors: [],
+      fixableErrors: [],
+      unfixableErrors: [],
+      fieldsValidated: []
+    };
+
+    // Nếu không chỉ định fields, validate tất cả
+    const fields = fieldsToValidate || Object.keys(record);
+
+    for (const field of fields) {
+      if (this.rules.has(field)) {
+        const rule = this.rules.get(field);
+        const value = record[field];
+        
+        const validationResult = rule.validate(value, record);
+        
+        results.fieldsValidated.push(field);
+
+        if (!validationResult.isValid) {
+          results.isValid = false;
+          results.errors.push(...validationResult.errors);
+
+          if (validationResult.canFix) {
+            results.fixableErrors.push(...validationResult.errors);
+          } else {
+            results.unfixableErrors.push(...validationResult.errors);
+            results.canFix = false;
+          }
+        }
+      }
+    }
+
+    return results;
+  }
+
+  /**
+   * Validate một batch records
+   */
+  validateBatch(records, fieldsToValidate = null) {
+    const batchResults = {
+      totalRecords: records.length,
+      validRecords: 0,
+      invalidRecords: 0,
+      fixableRecords: 0,
+      unfixableRecords: 0,
+      results: []
+    };
+
+    for (const record of records) {
+      const result = this.validateRecord(record, fieldsToValidate);
+      result.record = record;
+      batchResults.results.push(result);
+
+      if (result.isValid) {
+        batchResults.validRecords++;
+      } else {
+        batchResults.invalidRecords++;
+        if (result.canFix) {
+          batchResults.fixableRecords++;
+        } else {
+          batchResults.unfixableRecords++;
+        }
+      }
+    }
+
+    return batchResults;
+  }
+
+  /**
+   * Lấy rule cho một field
+   */
+  getRule(fieldName) {
+    return this.rules.get(fieldName);
+  }
+
+  /**
+   * Kiểm tra xem có rule cho field không
+   */
+  hasRule(fieldName) {
+    return this.rules.has(fieldName);
+  }
+
+  /**
+   * Thêm rule mới dynamically
+   */
+  addRule(fieldName, ruleInstance) {
+    this.rules.set(fieldName, ruleInstance);
+    logger.info(`Added new rule for field: ${fieldName}`);
+  }
+
+  /**
+   * Xóa rule
+   */
+  removeRule(fieldName) {
+    this.rules.delete(fieldName);
+    logger.info(`Removed rule for field: ${fieldName}`);
+  }
+
+  /**
+   * Lấy danh sách tất cả các fields có rule
+   */
+  getAvailableRules() {
+    return Array.from(this.rules.keys());
+  }
+
+  /**
+   * Validate với custom rule chain
+   */
+  async validateWithChain(record, ruleChain) {
+    const results = {
+      isValid: true,
+      errors: [],
+      stoppedAt: null
+    };
+
+    for (let i = 0; i < ruleChain.length; i++) {
+      const fieldName = ruleChain[i];
+      
+      if (!this.rules.has(fieldName)) {
+        await logger.warn(`No rule found for field: ${fieldName}`);
+        continue;
+      }
+
+      const rule = this.rules.get(fieldName);
+      const value = record[fieldName];
+      const validationResult = rule.validate(value, record);
+
+      if (!validationResult.isValid) {
+        results.isValid = false;
+        results.errors.push(...validationResult.errors);
+        
+        // Stop chain nếu unfixable
+        if (!validationResult.canFix) {
+          results.stoppedAt = fieldName;
+          break;
+        }
+      }
+    }
+
+    return results;
+  }
+}
+
+module.exports = RuleEngine;
+```
+
+### src\validation\ValidationService.js
+```js
+
+```
+
+### src\validation\rules\DonGia.rule.js
+```js
+// src/validation/rules/DonGia.rule.js
+const { LIMITS, ERROR_CODES } = require('../../../config/constants');
+
+class DonGiaRule {
+  constructor() {
+    this.fieldName = 'don_gia';
+  }
+
+  validate(value, record) {
+    const errors = [];
+    if (value === null || value === undefined) {
+      return { isValid: true, errors: [] }; // Cho phép null
+    }
+
+    const price = parseFloat(value);
+    if (isNaN(price)) {
+      errors.push({
+        code: ERROR_CODES.INVALID_FORMAT,
+        field: this.fieldName,
+        message: 'Đơn giá phải là một con số.',
+        value,
+        canFix: false,
+      });
+    }
+
+    if (price < LIMITS.MIN_PRICE || price > LIMITS.MAX_PRICE) {
+      errors.push({
+        code: ERROR_CODES.OUT_OF_RANGE,
+        field: this.fieldName,
+        message: `Đơn giá phải nằm trong khoảng từ ${LIMITS.MIN_PRICE} đến ${LIMITS.MAX_PRICE}.`,
+        value,
+        canFix: false,
+      });
+    }
+
+    return {
+      isValid: errors.length === 0,
+      canFix: false,
+      errors: errors,
+    };
+  }
+
+  getFieldName() {
+    return this.fieldName;
+  }
+}
+
+module.exports = DonGiaRule;
+```
+
+### src\validation\rules\Email.rule.js
+```js
+// src/validation/rules/Email.rule.js - Validation cho Email
+const { REGEX, LIMITS, ERROR_CODES } = require('../../../config/constants');
+
+class EmailRule {
+  constructor() {
+    this.fieldName = 'email';
+    this.errors = [];
+  }
+
+  validate(value, record) {
+    this.errors = [];
+    let canFix = true;
+
+    // Rule 1: Không được null
+    if (!value || value.toString().trim() === '') {
+      this.errors.push({
+        code: ERROR_CODES.NULL_VALUE,
+        field: this.fieldName,
+        message: 'Email không được để trống',
+        value: value,
+        canFix: false
+      });
+      return {
+        isValid: false,
+        canFix: false,
+        errors: this.errors,
+        value: value
+      };
+    }
+
+    value = value.toString().trim().toLowerCase();
+
+    // Rule 2: Kiểm tra format email với Regex
+    if (!REGEX.EMAIL.test(value)) {
+      this.errors.push({
+        code: ERROR_CODES.INVALID_FORMAT,
+        field: this.fieldName,
+        message: 'Email không đúng định dạng',
+        value: value,
+        canFix: false
+      });
+      canFix = false;
+    }
+
+    // Rule 3: Độ dài không vượt quá
+    if (value.length > LIMITS.MAX_EMAIL_LENGTH) {
+      this.errors.push({
+        code: ERROR_CODES.OUT_OF_RANGE,
+        field: this.fieldName,
+        message: `Email không được vượt quá ${LIMITS.MAX_EMAIL_LENGTH} ký tự`,
+        value: value,
+        canFix: false
+      });
+      canFix = false;
+    }
+
+    // Rule 4: Không chứa khoảng trắng (có thể fix)
+    if (/\s/.test(value)) {
+      this.errors.push({
+        code: ERROR_CODES.INVALID_FORMAT,
+        field: this.fieldName,
+        message: 'Email không được chứa khoảng trắng',
+        value: value,
+        canFix: true,
+        suggestion: 'Xóa tất cả khoảng trắng'
+      });
+    }
+
+    // Rule 5: Phải có @ và domain hợp lệ
+    if (value.includes('@')) {
+      const parts = value.split('@');
+      if (parts.length !== 2 || parts[0].length === 0 || parts[1].length === 0) {
+        this.errors.push({
+          code: ERROR_CODES.INVALID_FORMAT,
+          field: this.fieldName,
+          message: 'Email thiếu phần trước hoặc sau @',
+          value: value,
+          canFix: false
+        });
+        canFix = false;
+      }
+
+      // Kiểm tra domain
+      if (parts[1] && !parts[1].includes('.')) {
+        this.errors.push({
+          code: ERROR_CODES.INVALID_FORMAT,
+          field: this.fieldName,
+          message: 'Domain email không hợp lệ (thiếu .)',
+          value: value,
+          canFix: false
+        });
+        canFix = false;
+      }
+    }
+
+    // Rule 6: Không được có ký tự đặc biệt không hợp lệ
+    const invalidChars = /[<>()[\]\\,;:"]/.test(value);
+    if (invalidChars) {
+      this.errors.push({
+        code: ERROR_CODES.INVALID_FORMAT,
+        field: this.fieldName,
+        message: 'Email chứa ký tự đặc biệt không hợp lệ',
+        value: value,
+        canFix: false
+      });
+      canFix = false;
+    }
+
+    // Rule 7: Email phải là chữ thường (có thể fix)
+    if (value !== value.toLowerCase()) {
+      this.errors.push({
+        code: ERROR_CODES.INVALID_FORMAT,
+        field: this.fieldName,
+        message: 'Email nên được viết thường',
+        value: value,
+        canFix: true,
+        suggestion: 'Chuyển tất cả thành chữ thường'
+      });
+    }
+
+    const isValid = this.errors.length === 0;
+
+    return {
+      isValid,
+      canFix: canFix && this.errors.length > 0,
+      errors: this.errors,
+      value: value,
+      needsTransform: this.errors.some(e => e.canFix)
+    };
+  }
+
+  getErrors() {
+    return this.errors;
+  }
+
+  getFieldName() {
+    return this.fieldName;
+  }
+}
+
+module.exports = EmailRule;
+```
+
+### src\validation\rules\HoTen.rule.js
+```js
+// src/validation/rules/HoTen.rule.js - Validation cho trường Họ Tên
+const { LIMITS, ERROR_CODES } = require('../../../config/constants');
+
+/**
+ * Design Pattern: Chain of Responsibility
+ * Mỗi rule là một handler trong chain
+ */
+class HoTenRule {
+  constructor() {
+    this.fieldName = 'ho_ten';
+    this.errors = [];
+  }
+
+  /**
+   * Validate họ tên
+   * @returns {object} { isValid, canFix, errors, value }
+   */
+  validate(value, record) {
+    this.errors = [];
+    let canFix = true;
+
+    // Rule 1: Không được null hoặc rỗng
+    if (!value || value.toString().trim() === '') {
+      this.errors.push({
+        code: ERROR_CODES.NULL_VALUE,
+        field: this.fieldName,
+        message: 'Họ tên không được để trống',
+        value: value,
+        canFix: false
+      });
+      return {
+        isValid: false,
+        canFix: false,
+        errors: this.errors,
+        value: value
+      };
+    }
+
+    value = value.toString().trim();
+
+    // Rule 2: Không được chứa số
+    const containsNumber = /\d/.test(value);
+    if (containsNumber) {
+      this.errors.push({
+        code: ERROR_CODES.INVALID_FORMAT,
+        field: this.fieldName,
+        message: 'Họ tên không được chứa số',
+        value: value,
+        canFix: false
+      });
+      canFix = false;
+    }
+
+    // Rule 3: Không được chứa ký tự đặc biệt (trừ khoảng trắng)
+    const specialCharsRegex = /[!@#$%^&*()_+=\[\]{};':"\\|,.<>?]/;
+    if (specialCharsRegex.test(value)) {
+      this.errors.push({
+        code: ERROR_CODES.INVALID_FORMAT,
+        field: this.fieldName,
+        message: 'Họ tên không được chứa ký tự đặc biệt',
+        value: value,
+        canFix: false
+      });
+      canFix = false;
+    }
+
+    // Rule 4: Độ dài không vượt quá giới hạn
+    if (value.length > LIMITS.MAX_NAME_LENGTH) {
+      this.errors.push({
+        code: ERROR_CODES.OUT_OF_RANGE,
+        field: this.fieldName,
+        message: `Họ tên không được vượt quá ${LIMITS.MAX_NAME_LENGTH} ký tự`,
+        value: value,
+        canFix: false
+      });
+      canFix = false;
+    }
+
+    // Rule 5: Phải có ít nhất 2 từ (có thể fix được)
+    const words = value.split(/\s+/).filter(w => w.length > 0);
+    if (words.length < 2) {
+      this.errors.push({
+        code: ERROR_CODES.INVALID_FORMAT,
+        field: this.fieldName,
+        message: 'Họ tên phải có ít nhất 2 từ (họ và tên)',
+        value: value,
+        canFix: true,
+        suggestion: 'Thêm "Không rõ" vào cuối nếu chỉ có 1 từ'
+      });
+      // Vẫn có thể fix được bằng cách thêm một từ mặc định
+    }
+
+    // Rule 6: Không được viết tắt không đúng quy tắc (có thể fix)
+    // VD: "le t nga" -> có thể fix thành "Lê Thị Nga"
+    const hasInvalidAbbreviation = /\b[a-z]\s/.test(value.toLowerCase());
+    if (hasInvalidAbbreviation) {
+      this.errors.push({
+        code: ERROR_CODES.INVALID_FORMAT,
+        field: this.fieldName,
+        message: 'Họ tên có viết tắt không đúng quy tắc',
+        value: value,
+        canFix: true,
+        suggestion: 'Chuẩn hóa chữ cái đầu tiên của mỗi từ viết hoa'
+      });
+    }
+
+    // Rule 7: Không được viết tắt quá 20 ký tự
+    if (value.length > 20) {
+      const shortWords = words.filter(w => w.length === 1);
+      if (shortWords.length > 0) {
+        this.errors.push({
+          code: ERROR_CODES.INVALID_FORMAT,
+          field: this.fieldName,
+          message: 'Họ tên quá dài và có viết tắt',
+          value: value,
+          canFix: false
+        });
+        canFix = false;
+      }
+    }
+
+    // Rule 8: Chữ cái đầu mỗi từ phải viết hoa (có thể fix)
+    const hasInvalidCapitalization = words.some(word => {
+      return word[0] !== word[0].toUpperCase();
+    });
+    
+    if (hasInvalidCapitalization) {
+      this.errors.push({
+        code: ERROR_CODES.INVALID_FORMAT,
+        field: this.fieldName,
+        message: 'Chữ cái đầu của mỗi từ cần viết hoa',
+        value: value,
+        canFix: true,
+        suggestion: 'Chuyển chữ cái đầu mỗi từ thành chữ hoa'
+      });
+    }
+
+    const isValid = this.errors.length === 0;
+
+    return {
+      isValid,
+      canFix: canFix && this.errors.length > 0,
+      errors: this.errors,
+      value: value,
+      needsTransform: this.errors.some(e => e.canFix)
+    };
+  }
+
+  /**
+   * Lấy danh sách lỗi
+   */
+  getErrors() {
+    return this.errors;
+  }
+
+  /**
+   * Lấy tên field
+   */
+  getFieldName() {
+    return this.fieldName;
+  }
+
+  /**
+   * Kiểm tra xem có thể tự động fix không
+   */
+  isAutoFixable(validationResult) {
+    return validationResult.canFix && 
+           validationResult.errors.every(e => e.canFix);
+  }
+}
+
+module.exports = HoTenRule;
+```
+
+### src\validation\rules\NgaySinh.rule.js
+```js
+// src/validation/rules/NgaySinh.rule.js - Validation cho Ngày Sinh
+const { LIMITS, ERROR_CODES } = require('../../../config/constants');
+const moment = require('moment');
+
+class NgaySinhRule {
+  constructor() {
+    this.fieldName = 'ngay_sinh';
+    this.errors = [];
+  }
+
+  validate(value, record) {
+    this.errors = [];
+    let canFix = true;
+
+    // Rule 1: Không được null
+    if (!value) {
+      this.errors.push({
+        code: ERROR_CODES.NULL_VALUE,
+        field: this.fieldName,
+        message: 'Ngày sinh không được để trống',
+        value: value,
+        canFix: false
+      });
+      return {
+        isValid: false,
+        canFix: false,
+        errors: this.errors,
+        value: value
+      };
+    }
+
+    // Parse date
+    let dateValue;
+    try {
+      dateValue = moment(value);
+      if (!dateValue.isValid()) {
+        throw new Error('Invalid date');
+      }
+    } catch (error) {
+      this.errors.push({
+        code: ERROR_CODES.INVALID_DATE,
+        field: this.fieldName,
+        message: 'Ngày sinh không đúng định dạng',
+        value: value,
+        canFix: true,
+        suggestion: 'Thử parse với các format khác nhau'
+      });
+      // Có thể fix bằng cách thử nhiều format
+      return {
+        isValid: false,
+        canFix: true,
+        errors: this.errors,
+        value: value,
+        needsTransform: true
+      };
+    }
+
+    // Rule 2: Không được là ngày trong tương lai
+    if (dateValue.isAfter(moment())) {
+      this.errors.push({
+        code: ERROR_CODES.INVALID_DATE,
+        field: this.fieldName,
+        message: 'Ngày sinh không được là ngày trong tương lai',
+        value: value,
+        canFix: false
+      });
+      canFix = false;
+    }
+
+    // Rule 3: Tuổi phải từ MIN_AGE đến MAX_AGE
+    const age = moment().diff(dateValue, 'years');
+    
+    if (age < LIMITS.MIN_AGE) {
+      this.errors.push({
+        code: ERROR_CODES.OUT_OF_RANGE,
+        field: this.fieldName,
+        message: `Tuổi phải từ ${LIMITS.MIN_AGE} trở lên`,
+        value: value,
+        currentAge: age,
+        canFix: false
+      });
+      canFix = false;
+    }
+
+    if (age > LIMITS.MAX_AGE) {
+      this.errors.push({
+        code: ERROR_CODES.OUT_OF_RANGE,
+        field: this.fieldName,
+        message: `Tuổi không được vượt quá ${LIMITS.MAX_AGE}`,
+        value: value,
+        currentAge: age,
+        canFix: false
+      });
+      canFix = false;
+    }
+
+    // Rule 4: Năm sinh phải hợp lý (sau 1900)
+    if (dateValue.year() < 1900) {
+      this.errors.push({
+        code: ERROR_CODES.INVALID_DATE,
+        field: this.fieldName,
+        message: 'Năm sinh phải sau năm 1900',
+        value: value,
+        canFix: false
+      });
+      canFix = false;
+    }
+
+    // Rule 5: Kiểm tra format (có thể fix)
+    const standardFormat = dateValue.format('YYYY-MM-DD');
+    if (value.toString() !== standardFormat) {
+      this.errors.push({
+        code: ERROR_CODES.INVALID_FORMAT,
+        field: this.fieldName,
+        message: 'Định dạng ngày sinh nên là YYYY-MM-DD',
+        value: value,
+        canFix: true,
+        suggestion: `Chuyển thành ${standardFormat}`
+      });
+    }
+
+    const isValid = this.errors.length === 0;
+
+    return {
+      isValid,
+      canFix: canFix && this.errors.length > 0,
+      errors: this.errors,
+      value: value,
+      parsedDate: dateValue,
+      needsTransform: this.errors.some(e => e.canFix)
+    };
+  }
+
+  getErrors() {
+    return this.errors;
+  }
+
+  getFieldName() {
+    return this.fieldName;
+  }
+}
+
+module.exports = NgaySinhRule;
+```
+
+### src\validation\rules\SoDienThoai.rule.js
+```js
+// src/validation/rules/SoDienThoai.rule.js
+const { REGEX, ERROR_CODES } = require('../../../config/constants');
+
+class SoDienThoaiRule {
+  constructor() {
+    this.fieldName = 'so_dien_thoai';
+  }
+
+  validate(value, record) {
+    const errors = [];
+    if (!value) {
+      return { isValid: true, errors: [] }; // Cho phép null
+    }
+
+    if (!REGEX.PHONE.test(value.toString())) {
+      errors.push({
+        code: ERROR_CODES.INVALID_FORMAT,
+        field: this.fieldName,
+        message: 'Số điện thoại không hợp lệ. Phải bắt đầu bằng 0 hoặc +84 và có 9-10 số theo sau.',
+        value,
+        canFix: true, // Có thể sửa được
+        suggestion: 'Chuẩn hóa về định dạng 0xxxxxxxxx'
+      });
+    }
+
+    return {
+      isValid: errors.length === 0,
+      canFix: errors.length > 0,
+      errors: errors,
+    };
+  }
+
+  getFieldName() {
+    return this.fieldName;
+  }
+}
+
+module.exports = SoDienThoaiRule;
+```
+
+### src\validation\rules\TrangThai.rule.js
+```js
+// src/validation/rules/TrangThai.rule.js - Validation cho Trạng thái (Enum)
+const { 
+  TRANG_THAI_DON_HANG, 
+  TRANG_THAI_THANH_TOAN,
+  TRANG_THAI_PHIEU_HO_TRO,
+  TRANG_THAI_NHAN_VIEN,
+  ERROR_CODES 
+} = require('../../../config/constants');
+
+class TrangThaiRule {
+  constructor() {
+    this.fieldName = 'trang_thai';
+    this.errors = [];
+    
+    // Map các bảng với enum tương ứng
+    this.statusMaps = {
+      'don_hang': Object.values(TRANG_THAI_DON_HANG),
+      'thanh_toan': Object.values(TRANG_THAI_THANH_TOAN),
+      'phieu_ho_tro': Object.values(TRANG_THAI_PHIEU_HO_TRO),
+      'nhanvien_cskh': Object.values(TRANG_THAI_NHAN_VIEN)
+    };
+  }
+
+  /**
+   * Validate trạng thái dựa vào table context
+   */
+  validate(value, record, tableName = null) {
+    this.errors = [];
+
+    // Rule 1: Không được null
+    if (!value || value.toString().trim() === '') {
+      this.errors.push({
+        code: ERROR_CODES.NULL_VALUE,
+        field: this.fieldName,
+        message: 'Trạng thái không được để trống',
+        value: value,
+        canFix: false
+      });
+      return {
+        isValid: false,
+        canFix: false,
+        errors: this.errors,
+        value: value
+      };
+    }
+
+    value = value.toString().trim();
+
+    // Xác định valid statuses dựa vào table
+    const validStatuses = this.getValidStatuses(tableName, record);
+
+    if (!validStatuses || validStatuses.length === 0) {
+      // Không xác định được table, skip validation
+      return {
+        isValid: true,
+        canFix: false,
+        errors: [],
+        value: value
+      };
+    }
+
+    // Rule 2: Phải thuộc một trong các giá trị hợp lệ
+    const isValidStatus = validStatuses.some(status => 
+      status.toLowerCase() === value.toLowerCase()
+    );
+
+    if (!isValidStatus) {
+      // Tìm trạng thái gần giống nhất (có thể fix)
+      const closestMatch = this.findClosestMatch(value, validStatuses);
+      
+      this.errors.push({
+        code: ERROR_CODES.INVALID_STATUS,
+        field: this.fieldName,
+        message: 'Trạng thái không hợp lệ',
+        value: value,
+        validStatuses: validStatuses,
+        canFix: closestMatch !== null,
+        suggestion: closestMatch ? `Có thể là: ${closestMatch}` : null
+      });
+    }
+
+    // Rule 3: Chuẩn hóa chữ hoa/thường (có thể fix)
+    const correctStatus = validStatuses.find(status => 
+      status.toLowerCase() === value.toLowerCase()
+    );
+
+    if (correctStatus && correctStatus !== value) {
+      this.errors.push({
+        code: ERROR_CODES.INVALID_FORMAT,
+        field: this.fieldName,
+        message: 'Trạng thái cần chuẩn hóa chữ hoa/thường',
+        value: value,
+        canFix: true,
+        suggestion: `Chuyển thành: ${correctStatus}`
+      });
+    }
+
+    const isValid = this.errors.length === 0;
+    const canFix = !isValid && this.errors.every(e => e.canFix);
+
+    return {
+      isValid,
+      canFix,
+      errors: this.errors,
+      value: value,
+      needsTransform: canFix
+    };
+  }
+
+  /**
+   * Xác định valid statuses dựa vào table name hoặc record context
+   */
+  getValidStatuses(tableName, record) {
+    // Nếu có tableName
+    if (tableName && this.statusMaps[tableName]) {
+      return this.statusMaps[tableName];
+    }
+
+    // Thử xác định từ record (có thể có field indicator)
+    if (record) {
+      if (record.ma_don_hang) return this.statusMaps.don_hang;
+      if (record.ma_thanh_toan) return this.statusMaps.thanh_toan;
+      if (record.ma_phieu_ho_tro) return this.statusMaps.phieu_ho_tro;
+      if (record.ma_nhan_vien) return this.statusMaps.nhanvien_cskh;
+    }
+
+    // Merge tất cả (fallback)
+    return [
+      ...this.statusMaps.don_hang,
+      ...this.statusMaps.thanh_toan,
+      ...this.statusMaps.phieu_ho_tro,
+      ...this.statusMaps.nhanvien_cskh
+    ];
+  }
+
+  /**
+   * Tìm trạng thái gần giống nhất (typo correction)
+   */
+  findClosestMatch(value, validStatuses) {
+    const valueLower = value.toLowerCase().replace(/\s+/g, '');
+    
+    let closestMatch = null;
+    let minDistance = Infinity;
+
+    for (const status of validStatuses) {
+      const statusLower = status.toLowerCase().replace(/\s+/g, '');
+      const distance = this.levenshteinDistance(valueLower, statusLower);
+      
+      // Nếu độ tương đồng > 70%
+      if (distance < minDistance && distance <= statusLower.length * 0.3) {
+        minDistance = distance;
+        closestMatch = status;
+      }
+    }
+
+    return closestMatch;
+  }
+
+  /**
+   * Tính khoảng cách Levenshtein (edit distance)
+   */
+  levenshteinDistance(str1, str2) {
+    const len1 = str1.length;
+    const len2 = str2.length;
+    const matrix = [];
+
+    for (let i = 0; i <= len1; i++) {
+      matrix[i] = [i];
+    }
+
+    for (let j = 0; j <= len2; j++) {
+      matrix[0][j] = j;
+    }
+
+    for (let i = 1; i <= len1; i++) {
+      for (let j = 1; j <= len2; j++) {
+        if (str1[i - 1] === str2[j - 1]) {
+          matrix[i][j] = matrix[i - 1][j - 1];
+        } else {
+          matrix[i][j] = Math.min(
+            matrix[i - 1][j - 1] + 1,
+            matrix[i][j - 1] + 1,
+            matrix[i - 1][j] + 1
+          );
+        }
+      }
+    }
+
+    return matrix[len1][len2];
+  }
+
+  getErrors() {
+    return this.errors;
+  }
+
+  getFieldName() {
+    return this.fieldName;
+  }
+}
+
+module.exports = TrangThaiRule;
+```
+
+
+### .env
+# PostgreSQL Data Source 1
+DS1_HOST=ep-frosty-feather-a1fgkkhk-pooler.ap-southeast-1.aws.neon.tech
+DS1_DATABASE=Data_Source_1
+DS1_USER=neondb_owner
+DS1_PASSWORD=npg_ev5qPxOBAn3E
+DS1_PORT=5432
+DS1_SSL=true
+
+# PostgreSQL Data Source 2 (Staging)
+DS2_HOST=localhost
+DS2_DATABASE=staging_db
+DS2_USER=postgres
+DS2_PASSWORD=postgres
+DS2_PORT=5433
+
+# PostgreSQL Data Warehouse (Final)
+DW_HOST=localhost
+DW_DATABASE=datawarehouse
+DW_USER=postgres
+DW_PASSWORD=postgres
+DW_PORT=5434
+
+# RabbitMQ
+RABBITMQ_URL=amqp://guest:guest@localhost:5672
+QUEUE_NAME_DS1=datasource1_queue
+QUEUE_NAME_DS2=datasource2_queue
+QUEUE_NAME_STAGING=staging_queue
+
+# Paths
+CSV_PATH=./data/datasource2
+LOG_PATH=./logs
+

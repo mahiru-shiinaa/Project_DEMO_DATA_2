@@ -1,0 +1,24 @@
+{
+  "name": "etl-ecommerce-integration",
+  "version": "1.0.0",
+  "description": "ETL Data Integration between E-commerce and Customer Care",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": ["etl", "data-integration", "rabbitmq"],
+  "author": "Your Team",
+  "license": "MIT",
+  "dependencies": {
+    "pg": "^8.11.3",
+    "csv-parser": "^3.0.0",
+    "amqplib": "^0.10.3",
+    "dotenv": "^16.3.1",
+    "fs-extra": "^11.2.0",
+    "moment": "^2.29.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}

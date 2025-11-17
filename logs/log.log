@@ -1,0 +1,2838 @@
+[2025-11-17 13:24:47] [INFO] Loaded 6 validation rules
+
+[2025-11-17 13:24:47] [INFO] Loaded 4 transformers
+
+
+================================================================================
+  ETL PIPELINE STARTED STARTED
+================================================================================
+
+================================================================================
+  PHASE 1: EXTRACT STARTED
+================================================================================
+
+================================================================================
+  EXTRACT - PostgreSQL Data Source 1 STARTED
+================================================================================
+[2025-11-17 13:24:47] [INFO] Extracting table: khach_hang
+
+[2025-11-17 13:25:14] [INFO] Loaded 6 validation rules
+
+[2025-11-17 13:25:14] [INFO] Loaded 4 transformers
+
+
+================================================================================
+  ETL PIPELINE STARTED STARTED
+================================================================================
+
+================================================================================
+  PHASE 1: EXTRACT STARTED
+================================================================================
+
+================================================================================
+  EXTRACT - PostgreSQL Data Source 1 STARTED
+================================================================================
+[2025-11-17 13:25:14] [INFO] Extracting table: khach_hang
+
+[2025-11-17 13:25:15] [SUCCESS] ✓ Extracted 418 records from khach_hang
+
+[2025-11-17 13:25:15] [INFO] Extracting table: danh_muc
+
+[2025-11-17 13:25:15] [SUCCESS] ✓ Extracted 20 records from danh_muc
+
+[2025-11-17 13:25:15] [INFO] Extracting table: san_pham
+
+[2025-11-17 13:25:15] [SUCCESS] ✓ Extracted 497 records from san_pham
+
+[2025-11-17 13:25:15] [INFO] Extracting table: don_hang
+
+[2025-11-17 13:25:15] [SUCCESS] ✓ Extracted 93 records from don_hang
+
+[2025-11-17 13:25:15] [INFO] Extracting table: chi_tiet_don_hang
+
+[2025-11-17 13:25:16] [SUCCESS] ✓ Extracted 92 records from chi_tiet_don_hang
+
+[2025-11-17 13:25:16] [INFO] Extracting table: thanh_toan
+
+[2025-11-17 13:25:16] [SUCCESS] ✓ Extracted 93 records from thanh_toan
+
+
+================================================================================
+  EXTRACT - PostgreSQL Data Source 1 COMPLETED
+  Stats: {"totalTables":6,"totalRecords":1213}
+================================================================================
+
+[2025-11-17 13:25:16] [SUCCESS] ✓ Extracted PostgreSQL data
+{
+  "tables": 6,
+  "totalRecords": 1213
+}
+
+[2025-11-17 13:25:16] [SUCCESS] All CSV files validated
+
+
+================================================================================
+  EXTRACT - CSV Data Source 2 STARTED
+================================================================================
+[2025-11-17 13:25:16] [INFO] Extracting CSV: khach_hang.csv
+
+[2025-11-17 13:25:16] [SUCCESS] ✓ Extracted 5 records from khach_hang.csv
+
+[2025-11-17 13:25:16] [INFO] Extracting CSV: phieu_ho_tro.csv
+
+[2025-11-17 13:25:16] [SUCCESS] ✓ Extracted 5 records from phieu_ho_tro.csv
+
+[2025-11-17 13:25:16] [INFO] Extracting CSV: danh_gia.csv
+
+[2025-11-17 13:25:16] [SUCCESS] ✓ Extracted 5 records from danh_gia.csv
+
+[2025-11-17 13:25:16] [INFO] Extracting CSV: nhanvien_cskh.csv
+
+[2025-11-17 13:25:16] [SUCCESS] ✓ Extracted 5 records from nhanvien_cskh.csv
+
+[2025-11-17 13:25:16] [INFO] Extracting CSV: phieu_xu_ly.csv
+
+[2025-11-17 13:25:16] [SUCCESS] ✓ Extracted 5 records from phieu_xu_ly.csv
+
+
+================================================================================
+  EXTRACT - CSV Data Source 2 COMPLETED
+  Stats: {"totalFiles":5,"totalRecords":25}
+================================================================================
+
+[2025-11-17 13:25:16] [SUCCESS] ✓ Extracted CSV data
+{
+  "files": 5,
+  "totalRecords": 25
+}
+
+
+================================================================================
+  PHASE 1: EXTRACT COMPLETED
+================================================================================
+
+
+================================================================================
+  PHASE 2: QUEUE & STAGING STARTED
+================================================================================
+[2025-11-17 13:25:16] [INFO] Producer initialized
+
+[2025-11-17 13:25:16] [INFO] Initializing staging database...
+
+[2025-11-17 13:25:16] [SUCCESS] All staging tables created
+
+[2025-11-17 13:25:16] [INFO] Staging tables cleared
+
+[2025-11-17 13:25:16] [SUCCESS] Staging database initialized
+
+[2025-11-17 13:25:16] [INFO] Consumer initialized
+
+[2025-11-17 13:25:16] [INFO] Sending data to queues...
+
+[2025-11-17 13:25:16] [INFO] Sending data to queue: datasource1_queue
+{
+  "sourceType": "postgresql",
+  "tables": [
+    "khach_hang",
+    "danh_muc",
+    "san_pham",
+    "don_hang",
+    "chi_tiet_don_hang",
+    "thanh_toan"
+  ],
+  "totalRecords": 1213
+}
+
+[2025-11-17 13:25:16] [SUCCESS] ✓ Sent 418 records from khach_hang to datasource1_queue
+
+[2025-11-17 13:25:16] [SUCCESS] ✓ Sent 20 records from danh_muc to datasource1_queue
+
+[2025-11-17 13:25:16] [SUCCESS] ✓ Sent 497 records from san_pham to datasource1_queue
+
+[2025-11-17 13:25:16] [SUCCESS] ✓ Sent 93 records from don_hang to datasource1_queue
+
+[2025-11-17 13:25:16] [SUCCESS] ✓ Sent 92 records from chi_tiet_don_hang to datasource1_queue
+
+[2025-11-17 13:25:16] [SUCCESS] ✓ Sent 93 records from thanh_toan to datasource1_queue
+
+[2025-11-17 13:25:16] [SUCCESS] All data sent to queue: datasource1_queue
+
+[2025-11-17 13:25:16] [INFO] Sending data to queue: datasource2_queue
+{
+  "sourceType": "csv",
+  "tables": [
+    "khach_hang",
+    "phieu_ho_tro",
+    "danh_gia",
+    "nhanvien_cskh",
+    "phieu_xu_ly"
+  ],
+  "totalRecords": 25
+}
+
+[2025-11-17 13:25:16] [SUCCESS] ✓ Sent 5 records from khach_hang to datasource2_queue
+
+[2025-11-17 13:25:16] [SUCCESS] ✓ Sent 5 records from phieu_ho_tro to datasource2_queue
+
+[2025-11-17 13:25:16] [SUCCESS] ✓ Sent 5 records from danh_gia to datasource2_queue
+
+[2025-11-17 13:25:16] [SUCCESS] ✓ Sent 5 records from nhanvien_cskh to datasource2_queue
+
+[2025-11-17 13:25:16] [SUCCESS] ✓ Sent 5 records from phieu_xu_ly to datasource2_queue
+
+[2025-11-17 13:25:16] [SUCCESS] All data sent to queue: datasource2_queue
+
+[2025-11-17 13:25:16] [INFO] Consuming data from queues...
+
+
+================================================================================
+  CONSUME - All Data Sources STARTED
+================================================================================
+
+================================================================================
+  CONSUMING QUEUE: datasource1_queue STARTED
+================================================================================
+[2025-11-17 13:25:16] [INFO] Processing message from postgresql
+{
+  "table": "khach_hang",
+  "recordCount": 418,
+  "timestamp": "2025-11-17T06:25:16.409Z"
+}
+
+[2025-11-17 13:25:16] [INFO] Processing message from postgresql
+{
+  "table": "danh_muc",
+  "recordCount": 20,
+  "timestamp": "2025-11-17T06:25:16.415Z"
+}
+
+[2025-11-17 13:25:16] [INFO] Processing message from postgresql
+{
+  "table": "san_pham",
+  "recordCount": 497,
+  "timestamp": "2025-11-17T06:25:16.416Z"
+}
+
+[2025-11-17 13:25:16] [INFO] Processing message from postgresql
+{
+  "table": "chi_tiet_don_hang",
+  "recordCount": 92,
+  "timestamp": "2025-11-17T06:25:16.420Z"
+}
+
+[2025-11-17 13:25:16] [INFO] Processing message from postgresql
+{
+  "table": "thanh_toan",
+  "recordCount": 93,
+  "timestamp": "2025-11-17T06:25:16.422Z"
+}
+
+[2025-11-17 13:25:16] [INFO] Processing message from postgresql
+{
+  "table": "don_hang",
+  "recordCount": 93,
+  "timestamp": "2025-11-17T06:25:16.418Z"
+}
+
+[2025-11-17 13:25:16] [SUCCESS] Inserted 20 records into stg_danh_muc
+
+[2025-11-17 13:25:16] [SUCCESS] ✓ Processed 20 records from danh_muc
+
+[2025-11-17 13:25:16] [SUCCESS] Inserted 93 records into stg_thanh_toan
+
+[2025-11-17 13:25:16] [SUCCESS] ✓ Processed 93 records from thanh_toan
+
+[2025-11-17 13:25:16] [SUCCESS] Inserted 92 records into stg_chi_tiet_don_hang
+
+[2025-11-17 13:25:16] [SUCCESS] ✓ Processed 92 records from chi_tiet_don_hang
+
+[2025-11-17 13:25:16] [SUCCESS] Inserted 93 records into stg_don_hang
+
+[2025-11-17 13:25:16] [SUCCESS] ✓ Processed 93 records from don_hang
+
+[2025-11-17 13:25:17] [SUCCESS] Inserted 418 records into stg_khach_hang
+
+[2025-11-17 13:25:17] [SUCCESS] ✓ Processed 418 records from khach_hang
+
+[2025-11-17 13:25:17] [SUCCESS] Inserted 497 records into stg_san_pham
+
+[2025-11-17 13:25:17] [SUCCESS] ✓ Processed 497 records from san_pham
+
+
+================================================================================
+  CONSUMING QUEUE: datasource1_queue COMPLETED
+  Stats: {"processedMessages":6,"totalRecords":1213}
+================================================================================
+
+
+================================================================================
+  CONSUMING QUEUE: datasource2_queue STARTED
+================================================================================
+[2025-11-17 13:25:21] [INFO] Processing message from csv
+{
+  "table": "khach_hang",
+  "recordCount": 5,
+  "timestamp": "2025-11-17T06:25:16.426Z"
+}
+
+[2025-11-17 13:25:21] [INFO] Processing message from csv
+{
+  "table": "phieu_ho_tro",
+  "recordCount": 5,
+  "timestamp": "2025-11-17T06:25:16.427Z"
+}
+
+[2025-11-17 13:25:21] [INFO] Processing message from csv
+{
+  "table": "nhanvien_cskh",
+  "recordCount": 5,
+  "timestamp": "2025-11-17T06:25:16.429Z"
+}
+
+[2025-11-17 13:25:21] [INFO] Processing message from csv
+{
+  "table": "phieu_xu_ly",
+  "recordCount": 5,
+  "timestamp": "2025-11-17T06:25:16.431Z"
+}
+
+[2025-11-17 13:25:21] [INFO] Processing message from csv
+{
+  "table": "danh_gia",
+  "recordCount": 5,
+  "timestamp": "2025-11-17T06:25:16.428Z"
+}
+
+[2025-11-17 13:25:21] [ERROR] Failed to insert into stg_khach_hang
+{
+  "message": "column \"loai_khach_hang\" of relation \"stg_khach_hang\" does not exist",
+  "stack": "error: column \"loai_khach_hang\" of relation \"stg_khach_hang\" does not exist\n    at E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async StagingService.insertRecords (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\staging\\StagingService.js:183:9)\n    at async Consumer.processMessage (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\queue\\Consumer.js:84:5)\n    at async channel.consume.noAck (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\queue\\Consumer.js:34:17)"
+}
+
+[2025-11-17 13:25:21] [ERROR] Error processing message
+{
+  "message": "{\"source\":\"csv\",\"table\":\"khach_hang\",\"records\":[{\"ma_khach_hang\":\"KH0001\",\"ho_ten\":\"Doãn Thanh Việt\",\"email\":\"an.nguyen@example.com\",\"so_dien_thoai\":\"0905123456\",\"loai_khach_hang\":\"Cá nhân\"},{\"ma_khac",
+  "stack": "error: column \"loai_khach_hang\" of relation \"stg_khach_hang\" does not exist\n    at E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async StagingService.insertRecords (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\staging\\StagingService.js:183:9)\n    at async Consumer.processMessage (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\queue\\Consumer.js:84:5)\n    at async channel.consume.noAck (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\queue\\Consumer.js:34:17)",
+  "queue": "datasource2_queue"
+}
+
+[2025-11-17 13:25:21] [SUCCESS] Inserted 5 records into stg_nhanvien_cskh
+
+[2025-11-17 13:25:21] [SUCCESS] ✓ Processed 5 records from nhanvien_cskh
+
+[2025-11-17 13:25:21] [SUCCESS] Inserted 5 records into stg_phieu_xu_ly
+
+[2025-11-17 13:25:21] [SUCCESS] ✓ Processed 5 records from phieu_xu_ly
+
+[2025-11-17 13:25:21] [SUCCESS] Inserted 5 records into stg_phieu_ho_tro
+
+[2025-11-17 13:25:21] [SUCCESS] Inserted 5 records into stg_danh_gia
+
+[2025-11-17 13:25:21] [SUCCESS] ✓ Processed 5 records from phieu_ho_tro
+
+[2025-11-17 13:25:21] [SUCCESS] ✓ Processed 5 records from danh_gia
+
+
+================================================================================
+  CONSUMING QUEUE: datasource2_queue COMPLETED
+  Stats: {"processedMessages":10,"totalRecords":1233}
+================================================================================
+
+
+================================================================================
+  CONSUME - All Data Sources COMPLETED
+  Stats: {"totalMessages":10,"totalRecords":1233}
+================================================================================
+
+
+================================================================================
+  PHASE 2: QUEUE & STAGING COMPLETED
+================================================================================
+
+
+================================================================================
+  PHASE 3: DATA QUALITY STARTED
+================================================================================
+[2025-11-17 13:25:26] [INFO] Starting deduplication...
+
+
+================================================================================
+  DEDUPLICATION STARTED
+================================================================================
+[2025-11-17 13:25:26] [SUCCESS] No duplicates in khach_hang
+
+[2025-11-17 13:25:26] [SUCCESS] No duplicates in danh_muc
+
+[2025-11-17 13:25:26] [SUCCESS] No duplicates in san_pham
+
+[2025-11-17 13:25:26] [SUCCESS] No duplicates in don_hang
+
+[2025-11-17 13:25:26] [SUCCESS] No duplicates in chi_tiet_don_hang
+
+[2025-11-17 13:25:26] [SUCCESS] No duplicates in thanh_toan
+
+[2025-11-17 13:25:26] [SUCCESS] No duplicates in phieu_ho_tro
+
+[2025-11-17 13:25:26] [SUCCESS] No duplicates in danh_gia
+
+[2025-11-17 13:25:26] [SUCCESS] No duplicates in nhanvien_cskh
+
+[2025-11-17 13:25:26] [SUCCESS] No duplicates in phieu_xu_ly
+
+
+================================================================================
+  DEDUPLICATION COMPLETED
+  Stats: {"totalOriginal":1233,"totalAfter":1233,"totalRemoved":0,"byTable":{"khach_hang":{"original":418,"after":418,"removed":0},"danh_muc":{"original":20,"after":20,"removed":0},"san_pham":{"original":497,"after":497,"removed":0},"don_hang":{"original":93,"after":93,"removed":0},"chi_tiet_don_hang":{"original":92,"after":92,"removed":0},"thanh_toan":{"original":93,"after":93,"removed":0},"phieu_ho_tro":{"original":5,"after":5,"removed":0},"danh_gia":{"original":5,"after":5,"removed":0},"nhanvien_cskh":{"original":5,"after":5,"removed":0},"phieu_xu_ly":{"original":5,"after":5,"removed":0}}}
+================================================================================
+
+[2025-11-17 13:25:26] [SUCCESS] ✓ Deduplication completed
+{
+  "originalRecords": 1233,
+  "afterDedup": 1233,
+  "removed": 0
+}
+
+[2025-11-17 13:25:26] [INFO] Starting validation...
+
+[2025-11-17 13:25:26] [INFO] Validated khach_hang
+{
+  "total": 418,
+  "valid": 0,
+  "fixable": 389,
+  "unfixable": 29
+}
+
+[2025-11-17 13:25:26] [INFO] Validated danh_muc
+{
+  "total": 20,
+  "valid": 20,
+  "fixable": 0,
+  "unfixable": 0
+}
+
+[2025-11-17 13:25:26] [INFO] Validated san_pham
+{
+  "total": 497,
+  "valid": 494,
+  "fixable": 0,
+  "unfixable": 3
+}
+
+[2025-11-17 13:25:26] [INFO] Validated don_hang
+{
+  "total": 93,
+  "valid": 86,
+  "fixable": 0,
+  "unfixable": 7
+}
+
+[2025-11-17 13:25:26] [INFO] Validated chi_tiet_don_hang
+{
+  "total": 92,
+  "valid": 92,
+  "fixable": 0,
+  "unfixable": 0
+}
+
+[2025-11-17 13:25:26] [INFO] Validated thanh_toan
+{
+  "total": 93,
+  "valid": 21,
+  "fixable": 0,
+  "unfixable": 72
+}
+
+[2025-11-17 13:25:26] [INFO] Validated phieu_ho_tro
+{
+  "total": 5,
+  "valid": 3,
+  "fixable": 0,
+  "unfixable": 2
+}
+
+[2025-11-17 13:25:26] [INFO] Validated danh_gia
+{
+  "total": 5,
+  "valid": 5,
+  "fixable": 0,
+  "unfixable": 0
+}
+
+[2025-11-17 13:25:26] [INFO] Validated nhanvien_cskh
+{
+  "total": 5,
+  "valid": 1,
+  "fixable": 4,
+  "unfixable": 0
+}
+
+[2025-11-17 13:25:26] [INFO] Validated phieu_xu_ly
+{
+  "total": 5,
+  "valid": 5,
+  "fixable": 0,
+  "unfixable": 0
+}
+
+[2025-11-17 13:25:26] [INFO] Starting transformation...
+
+
+================================================================================
+  TRANSFORM - Applying Transformations STARTED
+================================================================================
+
+================================================================================
+  TRANSFORM - Applying Transformations COMPLETED
+  Stats: {"totalRecords":418,"transformedRecords":409,"skippedRecords":9}
+================================================================================
+
+[2025-11-17 13:25:26] [INFO] Transform details
+{
+  "sampleTransforms": [
+    {
+      "recordIndex": 0,
+      "originalRecord": {
+        "ma_khach_hang": "KH0001",
+        "ho_ten": "Nguyễn Văn Hiếu",
+        "email": "hieunguyen@gmail.com",
+        "so_dien_thoai": "0905123456",
+        "dia_chi": "123 Nguyễn Trãi - Hà Nội",
+        "ngay_sinh": "1999-04-13T17:00:00.000Z",
+        "ngay_dang_ky": "2023-08-10T17:00:00.000Z",
+        "gioi_tinh": "Nam",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:16.480Z"
+      },
+      "transformedRecord": {
+        "ma_khach_hang": "KH0001",
+        "ho_ten": "Nguyễn Văn Hiếu",
+        "email": "hieunguyen@gmail.com",
+        "so_dien_thoai": "0905123456",
+        "dia_chi": "123 Nguyễn Trãi - Hà Nội",
+        "ngay_sinh": "1999-04-14",
+        "ngay_dang_ky": "2023-08-10T17:00:00.000Z",
+        "gioi_tinh": "Nam",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:16.480Z"
+      },
+      "transformLog": [
+        {
+          "field": "ngay_sinh",
+          "original": "1999-04-13T17:00:00.000Z",
+          "transformed": "1999-04-14",
+          "action": "format_date_to_yyyy_mm_dd"
+        }
+      ]
+    },
+    {
+      "recordIndex": 1,
+      "originalRecord": {
+        "ma_khach_hang": "KH0002",
+        "ho_ten": "Trần Thị Mai",
+        "email": "maitran@gmail.com",
+        "so_dien_thoai": "0912345678",
+        "dia_chi": "45 Lê Lợi - Đà Nẵng",
+        "ngay_sinh": "1996-09-19T17:00:00.000Z",
+        "ngay_dang_ky": "2023-09-01T17:00:00.000Z",
+        "gioi_tinh": "Nữ",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:16.491Z"
+      },
+      "transformedRecord": {
+        "ma_khach_hang": "KH0002",
+        "ho_ten": "Trần Thị Mai",
+        "email": "maitran@gmail.com",
+        "so_dien_thoai": "0912345678",
+        "dia_chi": "45 Lê Lợi - Đà Nẵng",
+        "ngay_sinh": "1996-09-20",
+        "ngay_dang_ky": "2023-09-01T17:00:00.000Z",
+        "gioi_tinh": "Nữ",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:16.491Z"
+      },
+      "transformLog": [
+        {
+          "field": "ngay_sinh",
+          "original": "1996-09-19T17:00:00.000Z",
+          "transformed": "1996-09-20",
+          "action": "format_date_to_yyyy_mm_dd"
+        }
+      ]
+    },
+    {
+      "recordIndex": 2,
+      "originalRecord": {
+        "ma_khach_hang": "KH0003",
+        "ho_ten": "Lê Quang Minh",
+        "email": "minhleq@gmail.com",
+        "so_dien_thoai": "0987654321",
+        "dia_chi": "78 Hai Bà Trưng - Huế",
+        "ngay_sinh": "1998-02-06T17:00:00.000Z",
+        "ngay_dang_ky": "2022-11-13T17:00:00.000Z",
+        "gioi_tinh": "Nam",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:16.494Z"
+      },
+      "transformedRecord": {
+        "ma_khach_hang": "KH0003",
+        "ho_ten": "Lê Quang Minh",
+        "email": "minhleq@gmail.com",
+        "so_dien_thoai": "0987654321",
+        "dia_chi": "78 Hai Bà Trưng - Huế",
+        "ngay_sinh": "1998-02-07",
+        "ngay_dang_ky": "2022-11-13T17:00:00.000Z",
+        "gioi_tinh": "Nam",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:16.494Z"
+      },
+      "transformLog": [
+        {
+          "field": "ngay_sinh",
+          "original": "1998-02-06T17:00:00.000Z",
+          "transformed": "1998-02-07",
+          "action": "format_date_to_yyyy_mm_dd"
+        }
+      ]
+    },
+    {
+      "recordIndex": 3,
+      "originalRecord": {
+        "ma_khach_hang": "KH0004",
+        "ho_ten": "Phạm Thị Hoa",
+        "email": "hoapham@gmail.com",
+        "so_dien_thoai": "0933123456",
+        "dia_chi": "12 Phan Chu Trinh - TP. HCM",
+        "ngay_sinh": "1995-06-09T17:00:00.000Z",
+        "ngay_dang_ky": "2023-05-22T17:00:00.000Z",
+        "gioi_tinh": "Nữ",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:16.496Z"
+      },
+      "transformedRecord": {
+        "ma_khach_hang": "KH0004",
+        "ho_ten": "Phạm Thị Hoa",
+        "email": "hoapham@gmail.com",
+        "so_dien_thoai": "0933123456",
+        "dia_chi": "12 Phan Chu Trinh - TP. HCM",
+        "ngay_sinh": "1995-06-10",
+        "ngay_dang_ky": "2023-05-22T17:00:00.000Z",
+        "gioi_tinh": "Nữ",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:16.496Z"
+      },
+      "transformLog": [
+        {
+          "field": "ngay_sinh",
+          "original": "1995-06-09T17:00:00.000Z",
+          "transformed": "1995-06-10",
+          "action": "format_date_to_yyyy_mm_dd"
+        }
+      ]
+    },
+    {
+      "recordIndex": 4,
+      "originalRecord": {
+        "ma_khach_hang": "KH0005",
+        "ho_ten": "Đỗ Văn An",
+        "email": "an.do@gmail.com",
+        "so_dien_thoai": "0977888999",
+        "dia_chi": "56 Trần Phú - Đà Lạt",
+        "ngay_sinh": "1993-12-01T17:00:00.000Z",
+        "ngay_dang_ky": "2024-02-16T17:00:00.000Z",
+        "gioi_tinh": "Nam",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:16.499Z"
+      },
+      "transformedRecord": {
+        "ma_khach_hang": "KH0005",
+        "ho_ten": "Đỗ Văn An",
+        "email": "an.do@gmail.com",
+        "so_dien_thoai": "0977888999",
+        "dia_chi": "56 Trần Phú - Đà Lạt",
+        "ngay_sinh": "1993-12-02",
+        "ngay_dang_ky": "2024-02-16T17:00:00.000Z",
+        "gioi_tinh": "Nam",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:16.499Z"
+      },
+      "transformLog": [
+        {
+          "field": "ngay_sinh",
+          "original": "1993-12-01T17:00:00.000Z",
+          "transformed": "1993-12-02",
+          "action": "format_date_to_yyyy_mm_dd"
+        }
+      ]
+    }
+  ]
+}
+
+[2025-11-17 13:25:26] [SUCCESS] ✓ Transformed khach_hang
+{
+  "transformed": 409,
+  "skipped": 9
+}
+
+
+================================================================================
+  TRANSFORM - Applying Transformations STARTED
+================================================================================
+
+================================================================================
+  TRANSFORM - Applying Transformations COMPLETED
+  Stats: {"totalRecords":20,"transformedRecords":0,"skippedRecords":20}
+================================================================================
+
+[2025-11-17 13:25:26] [SUCCESS] ✓ Transformed danh_muc
+{
+  "transformed": 0,
+  "skipped": 20
+}
+
+
+================================================================================
+  TRANSFORM - Applying Transformations STARTED
+================================================================================
+
+================================================================================
+  TRANSFORM - Applying Transformations COMPLETED
+  Stats: {"totalRecords":497,"transformedRecords":0,"skippedRecords":497}
+================================================================================
+
+[2025-11-17 13:25:26] [SUCCESS] ✓ Transformed san_pham
+{
+  "transformed": 0,
+  "skipped": 497
+}
+
+
+================================================================================
+  TRANSFORM - Applying Transformations STARTED
+================================================================================
+
+================================================================================
+  TRANSFORM - Applying Transformations COMPLETED
+  Stats: {"totalRecords":93,"transformedRecords":0,"skippedRecords":93}
+================================================================================
+
+[2025-11-17 13:25:26] [SUCCESS] ✓ Transformed don_hang
+{
+  "transformed": 0,
+  "skipped": 93
+}
+
+
+================================================================================
+  TRANSFORM - Applying Transformations STARTED
+================================================================================
+
+================================================================================
+  TRANSFORM - Applying Transformations COMPLETED
+  Stats: {"totalRecords":92,"transformedRecords":0,"skippedRecords":92}
+================================================================================
+
+[2025-11-17 13:25:26] [SUCCESS] ✓ Transformed chi_tiet_don_hang
+{
+  "transformed": 0,
+  "skipped": 92
+}
+
+
+================================================================================
+  TRANSFORM - Applying Transformations STARTED
+================================================================================
+
+================================================================================
+  TRANSFORM - Applying Transformations COMPLETED
+  Stats: {"totalRecords":93,"transformedRecords":0,"skippedRecords":93}
+================================================================================
+
+[2025-11-17 13:25:26] [SUCCESS] ✓ Transformed thanh_toan
+{
+  "transformed": 0,
+  "skipped": 93
+}
+
+
+================================================================================
+  TRANSFORM - Applying Transformations STARTED
+================================================================================
+
+================================================================================
+  TRANSFORM - Applying Transformations COMPLETED
+  Stats: {"totalRecords":5,"transformedRecords":0,"skippedRecords":5}
+================================================================================
+
+[2025-11-17 13:25:26] [SUCCESS] ✓ Transformed phieu_ho_tro
+{
+  "transformed": 0,
+  "skipped": 5
+}
+
+
+================================================================================
+  TRANSFORM - Applying Transformations STARTED
+================================================================================
+
+================================================================================
+  TRANSFORM - Applying Transformations COMPLETED
+  Stats: {"totalRecords":5,"transformedRecords":0,"skippedRecords":5}
+================================================================================
+
+[2025-11-17 13:25:26] [SUCCESS] ✓ Transformed danh_gia
+{
+  "transformed": 0,
+  "skipped": 5
+}
+
+
+================================================================================
+  TRANSFORM - Applying Transformations STARTED
+================================================================================
+
+================================================================================
+  TRANSFORM - Applying Transformations COMPLETED
+  Stats: {"totalRecords":5,"transformedRecords":0,"skippedRecords":5}
+================================================================================
+
+[2025-11-17 13:25:26] [SUCCESS] ✓ Transformed nhanvien_cskh
+{
+  "transformed": 0,
+  "skipped": 5
+}
+
+
+================================================================================
+  TRANSFORM - Applying Transformations STARTED
+================================================================================
+
+================================================================================
+  TRANSFORM - Applying Transformations COMPLETED
+  Stats: {"totalRecords":5,"transformedRecords":0,"skippedRecords":5}
+================================================================================
+
+[2025-11-17 13:25:26] [SUCCESS] ✓ Transformed phieu_xu_ly
+{
+  "transformed": 0,
+  "skipped": 5
+}
+
+[2025-11-17 13:25:26] [INFO] Re-validating after transformation...
+
+[2025-11-17 13:25:26] [INFO] Final validation for khach_hang
+{
+  "clean": 100,
+  "stillInvalid": 318
+}
+
+[2025-11-17 13:25:26] [INFO] Final validation for danh_muc
+{
+  "clean": 20,
+  "stillInvalid": 0
+}
+
+[2025-11-17 13:25:26] [INFO] Final validation for san_pham
+{
+  "clean": 494,
+  "stillInvalid": 3
+}
+
+[2025-11-17 13:25:26] [INFO] Final validation for don_hang
+{
+  "clean": 86,
+  "stillInvalid": 7
+}
+
+[2025-11-17 13:25:26] [INFO] Final validation for chi_tiet_don_hang
+{
+  "clean": 92,
+  "stillInvalid": 0
+}
+
+[2025-11-17 13:25:26] [INFO] Final validation for thanh_toan
+{
+  "clean": 21,
+  "stillInvalid": 72
+}
+
+[2025-11-17 13:25:26] [INFO] Final validation for phieu_ho_tro
+{
+  "clean": 3,
+  "stillInvalid": 2
+}
+
+[2025-11-17 13:25:26] [INFO] Final validation for danh_gia
+{
+  "clean": 5,
+  "stillInvalid": 0
+}
+
+[2025-11-17 13:25:26] [INFO] Final validation for nhanvien_cskh
+{
+  "clean": 1,
+  "stillInvalid": 4
+}
+
+[2025-11-17 13:25:26] [INFO] Final validation for phieu_xu_ly
+{
+  "clean": 5,
+  "stillInvalid": 0
+}
+
+[2025-11-17 13:25:26] [ERROR] Unfixable errors in khach_hang
+{
+  "count": 318,
+  "samples": [
+    {
+      "record": {
+        "ma_khach_hang": "KH0001",
+        "ho_ten": "Nguyễn Văn Hiếu",
+        "email": "hieunguyen@gmail.com",
+        "so_dien_thoai": "0905123456",
+        "dia_chi": "123 Nguyễn Trãi - Hà Nội",
+        "ngay_sinh": "1999-04-14",
+        "ngay_dang_ky": "2023-08-10T17:00:00.000Z",
+        "gioi_tinh": "Nam",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:16.480Z"
+      },
+      "errors": [
+        {
+          "code": "E001",
+          "field": "ho_ten",
+          "message": "Họ tên có viết tắt không đúng quy tắc",
+          "value": "Nguyễn Văn Hiếu",
+          "canFix": true,
+          "suggestion": "Chuẩn hóa chữ cái đầu tiên của mỗi từ viết hoa"
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_khach_hang": "KH0002",
+        "ho_ten": "Trần Thị Mai",
+        "email": "maitran@gmail.com",
+        "so_dien_thoai": "0912345678",
+        "dia_chi": "45 Lê Lợi - Đà Nẵng",
+        "ngay_sinh": "1996-09-20",
+        "ngay_dang_ky": "2023-09-01T17:00:00.000Z",
+        "gioi_tinh": "Nữ",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:16.491Z"
+      },
+      "errors": [
+        {
+          "code": "E001",
+          "field": "ho_ten",
+          "message": "Họ tên có viết tắt không đúng quy tắc",
+          "value": "Trần Thị Mai",
+          "canFix": true,
+          "suggestion": "Chuẩn hóa chữ cái đầu tiên của mỗi từ viết hoa"
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_khach_hang": "KH0004",
+        "ho_ten": "Phạm Thị Hoa",
+        "email": "hoapham@gmail.com",
+        "so_dien_thoai": "0933123456",
+        "dia_chi": "12 Phan Chu Trinh - TP. HCM",
+        "ngay_sinh": "1995-06-10",
+        "ngay_dang_ky": "2023-05-22T17:00:00.000Z",
+        "gioi_tinh": "Nữ",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:16.496Z"
+      },
+      "errors": [
+        {
+          "code": "E001",
+          "field": "ho_ten",
+          "message": "Họ tên có viết tắt không đúng quy tắc",
+          "value": "Phạm Thị Hoa",
+          "canFix": true,
+          "suggestion": "Chuẩn hóa chữ cái đầu tiên của mỗi từ viết hoa"
+        }
+      ]
+    }
+  ]
+}
+
+[2025-11-17 13:25:26] [ERROR] Unfixable errors in san_pham
+{
+  "count": 3,
+  "samples": [
+    {
+      "record": {
+        "ma_san_pham": "SP0076",
+        "ten_san_pham": "Xbox Game Pass",
+        "mo_ta": "Điện thoại gaming cầm tay",
+        "ma_danh_muc": "DM0017",
+        "don_gia": "-500000.00",
+        "ton_kho": -10,
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:16.648Z"
+      },
+      "errors": [
+        {
+          "code": "E003",
+          "field": "don_gia",
+          "message": "Đơn giá phải nằm trong khoảng từ 0 đến 999999999.",
+          "value": "-500000.00",
+          "canFix": false
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_san_pham": "SP0276",
+        "ten_san_pham": "PlayStation 5 Pro Edition",
+        "mo_ta": "Máy chơi game nâng cấp",
+        "ma_danh_muc": "DM0017",
+        "don_gia": "-25000000.00",
+        "ton_kho": -15,
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:17.010Z"
+      },
+      "errors": [
+        {
+          "code": "E003",
+          "field": "don_gia",
+          "message": "Đơn giá phải nằm trong khoảng từ 0 đến 999999999.",
+          "value": "-25000000.00",
+          "canFix": false
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_san_pham": "SP0467",
+        "ten_san_pham": "Ổ cứng SSD 0TB",
+        "mo_ta": "Sản phẩm lỗi thông số",
+        "ma_danh_muc": "DM0013",
+        "don_gia": "-1500000.00",
+        "ton_kho": -10,
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:17.484Z"
+      },
+      "errors": [
+        {
+          "code": "E003",
+          "field": "don_gia",
+          "message": "Đơn giá phải nằm trong khoảng từ 0 đến 999999999.",
+          "value": "-1500000.00",
+          "canFix": false
+        }
+      ]
+    }
+  ]
+}
+
+[2025-11-17 13:25:26] [ERROR] Unfixable errors in don_hang
+{
+  "count": 7,
+  "samples": [
+    {
+      "record": {
+        "ma_don_hang": "DH0010",
+        "ma_khach_hang": "KH0056",
+        "ngay_dat": "2024-01-26T17:00:00.000Z",
+        "tong_tien": "5990000.00",
+        "trang_thai": "Đã hủy",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:16.541Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Đã hủy",
+          "validStatuses": [
+            "Chờ xử lý",
+            "Đang chuẩn bị",
+            "Đang giao",
+            "Đã giao",
+            "Hủy",
+            "Trả hàng",
+            "Đang xử lý"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_don_hang": "DH0019",
+        "ma_khach_hang": "KH0142",
+        "ngay_dat": "2024-02-26T17:00:00.000Z",
+        "tong_tien": "2190000.00",
+        "trang_thai": "Đã hủy",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:16.559Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Đã hủy",
+          "validStatuses": [
+            "Chờ xử lý",
+            "Đang chuẩn bị",
+            "Đang giao",
+            "Đã giao",
+            "Hủy",
+            "Trả hàng",
+            "Đang xử lý"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_don_hang": "DH0030",
+        "ma_khach_hang": "KH0258",
+        "ngay_dat": "2024-04-03T17:00:00.000Z",
+        "tong_tien": "3290000.00",
+        "trang_thai": "Đã hủy",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:16.581Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Đã hủy",
+          "validStatuses": [
+            "Chờ xử lý",
+            "Đang chuẩn bị",
+            "Đang giao",
+            "Đã giao",
+            "Hủy",
+            "Trả hàng",
+            "Đang xử lý"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    }
+  ]
+}
+
+[2025-11-17 13:25:26] [ERROR] Unfixable errors in thanh_toan
+{
+  "count": 72,
+  "samples": [
+    {
+      "record": {
+        "ma_thanh_toan": "TT0001",
+        "ma_don_hang": "DH0001",
+        "ngay_thanh_toan": "2024-08-11T17:00:00.000Z",
+        "so_tien": "33990000.00",
+        "trang_thai": "Thành công",
+        "phuong_thuc": "Chuyển khoản",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:16.501Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Thành công",
+          "validStatuses": [
+            "Chờ xử lý",
+            "Đang chuẩn bị",
+            "Đang giao",
+            "Đã giao",
+            "Hủy",
+            "Trả hàng",
+            "Đang xử lý"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_thanh_toan": "TT0003",
+        "ma_don_hang": "DH0003",
+        "ngay_thanh_toan": "2024-09-14T17:00:00.000Z",
+        "so_tien": "2590000.00",
+        "trang_thai": "Thất bại",
+        "phuong_thuc": "MoMo",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:16.508Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Thất bại",
+          "validStatuses": [
+            "Chờ xử lý",
+            "Đang chuẩn bị",
+            "Đang giao",
+            "Đã giao",
+            "Hủy",
+            "Trả hàng",
+            "Đang xử lý"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_thanh_toan": "TT0004",
+        "ma_don_hang": "DH0004",
+        "ngay_thanh_toan": "2024-10-04T17:00:00.000Z",
+        "so_tien": "34990000.00",
+        "trang_thai": "Thành công",
+        "phuong_thuc": "Chuyển khoản",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:16.510Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Thành công",
+          "validStatuses": [
+            "Chờ xử lý",
+            "Đang chuẩn bị",
+            "Đang giao",
+            "Đã giao",
+            "Hủy",
+            "Trả hàng",
+            "Đang xử lý"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    }
+  ]
+}
+
+[2025-11-17 13:25:26] [ERROR] Unfixable errors in phieu_ho_tro
+{
+  "count": 2,
+  "samples": [
+    {
+      "record": {
+        "ma_phieu_ho_tro": "PHT0002",
+        "ma_khach_hang": "KH0002",
+        "loai_van_de": "Thanh toán thất bại",
+        "mo_ta": "Giao dịch bị lỗi khi thanh toán qua ví điện tử",
+        "ngay_tao": "2025-11-03T07:20:00.000Z",
+        "trang_thai": "Hoàn thành",
+        "do_uu_tien": "Trung bình",
+        "source": "csv",
+        "inserted_at": "2025-11-16T23:25:21.497Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Hoàn thành",
+          "validStatuses": [
+            "Mới",
+            "Đang xử lý",
+            "Chờ phản hồi",
+            "Đã giải quyết",
+            "Đóng",
+            "Hủy"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_phieu_ho_tro": "PHT0004",
+        "ma_khach_hang": "KH0004",
+        "loai_van_de": "Không nhận được email xác nhận",
+        "mo_ta": "Khách hàng đăng ký nhưng không nhận email",
+        "ngay_tao": "2025-11-07T03:15:00.000Z",
+        "trang_thai": "Mới tạo",
+        "do_uu_tien": "Trung bình",
+        "source": "csv",
+        "inserted_at": "2025-11-16T23:25:21.505Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Mới tạo",
+          "validStatuses": [
+            "Mới",
+            "Đang xử lý",
+            "Chờ phản hồi",
+            "Đã giải quyết",
+            "Đóng",
+            "Hủy"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    }
+  ]
+}
+
+[2025-11-17 13:25:26] [ERROR] Unfixable errors in nhanvien_cskh
+{
+  "count": 4,
+  "samples": [
+    {
+      "record": {
+        "ma_nhan_vien": "NV0001",
+        "ho_ten": "Nguyễn Thị Hằng",
+        "email": "hang.nguyen@cskh.vn",
+        "so_dien_thoai": "0905111222",
+        "chuc_vu": "Nhân viên CSKH",
+        "phong_ban": "Trung tâm hỗ trợ",
+        "ngay_tuyen_dung": "2023-06-14T17:00:00.000Z",
+        "trang_thai": "Đang làm",
+        "source": "csv",
+        "inserted_at": "2025-11-16T23:25:21.471Z"
+      },
+      "errors": [
+        {
+          "code": "E001",
+          "field": "ho_ten",
+          "message": "Họ tên có viết tắt không đúng quy tắc",
+          "value": "Nguyễn Thị Hằng",
+          "canFix": true,
+          "suggestion": "Chuẩn hóa chữ cái đầu tiên của mỗi từ viết hoa"
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_nhan_vien": "NV0002",
+        "ho_ten": "Lê Văn Minh",
+        "email": "minh.le@cskh.vn",
+        "so_dien_thoai": "0905222333",
+        "chuc_vu": "Trưởng nhóm",
+        "phong_ban": "Trung tâm hỗ trợ",
+        "ngay_tuyen_dung": "2022-09-19T17:00:00.000Z",
+        "trang_thai": "Đang làm",
+        "source": "csv",
+        "inserted_at": "2025-11-16T23:25:21.495Z"
+      },
+      "errors": [
+        {
+          "code": "E001",
+          "field": "ho_ten",
+          "message": "Họ tên có viết tắt không đúng quy tắc",
+          "value": "Lê Văn Minh",
+          "canFix": true,
+          "suggestion": "Chuẩn hóa chữ cái đầu tiên của mỗi từ viết hoa"
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_nhan_vien": "NV0003",
+        "ho_ten": "Phạm Quỳnh Anh",
+        "email": "anh.pham@cskh.vn",
+        "so_dien_thoai": "0905333444",
+        "chuc_vu": "Nhân viên CSKH",
+        "phong_ban": "Trung tâm hỗ trợ",
+        "ngay_tuyen_dung": "2024-02-09T17:00:00.000Z",
+        "trang_thai": "Đang làm",
+        "source": "csv",
+        "inserted_at": "2025-11-16T23:25:21.499Z"
+      },
+      "errors": [
+        {
+          "code": "E001",
+          "field": "ho_ten",
+          "message": "Họ tên có viết tắt không đúng quy tắc",
+          "value": "Phạm Quỳnh Anh",
+          "canFix": true,
+          "suggestion": "Chuẩn hóa chữ cái đầu tiên của mỗi từ viết hoa"
+        }
+      ]
+    }
+  ]
+}
+
+
+================================================================================
+  PHASE 3: DATA QUALITY COMPLETED
+================================================================================
+
+
+================================================================================
+  PHASE 4: LOAD TO DATA WAREHOUSE STARTED
+================================================================================
+[2025-11-17 13:25:26] [INFO] Initializing Data Warehouse...
+
+[2025-11-17 13:25:26] [SUCCESS] Data Warehouse tables created
+
+[2025-11-17 13:25:26] [SUCCESS] Data Warehouse initialized
+
+
+================================================================================
+  LOADING TO DATA WAREHOUSE STARTED
+================================================================================
+[2025-11-17 13:25:26] [INFO] Loading dimension tables...
+
+[2025-11-17 13:25:26] [SUCCESS] ✓ Loaded 0 records into dim_khach_hang
+
+[2025-11-17 13:25:26] [SUCCESS] ✓ Loaded 0 records into dim_danh_muc
+
+[2025-11-17 13:25:27] [SUCCESS] ✓ Loaded 0 records into dim_san_pham
+
+[2025-11-17 13:25:27] [SUCCESS] ✓ Loaded 0 records into dim_nhanvien_cskh
+
+[2025-11-17 13:25:27] [INFO] Loading fact tables...
+
+[2025-11-17 13:25:27] [ERROR] Failed to load fact_don_hang
+{
+  "message": "insert or update on table \"fact_don_hang\" violates foreign key constraint \"fact_don_hang_ma_khach_hang_fkey\"",
+  "stack": "error: insert or update on table \"fact_don_hang\" violates foreign key constraint \"fact_don_hang_ma_khach_hang_fkey\"\n    at E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async DataWarehouseLoader.loadTable (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\load\\DataWarehouseLoader.js:228:24)\n    at async DataWarehouseLoader.loadAll (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\load\\DataWarehouseLoader.js:176:41)\n    at async ETLPipeline.loadPhase (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:231:24)\n    at async ETLPipeline.run (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:61:7)\n    at async main (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:269:5)"
+}
+
+[2025-11-17 13:25:27] [ERROR] Failed to load data to warehouse
+{
+  "message": "insert or update on table \"fact_don_hang\" violates foreign key constraint \"fact_don_hang_ma_khach_hang_fkey\"",
+  "stack": "error: insert or update on table \"fact_don_hang\" violates foreign key constraint \"fact_don_hang_ma_khach_hang_fkey\"\n    at E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async DataWarehouseLoader.loadTable (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\load\\DataWarehouseLoader.js:228:24)\n    at async DataWarehouseLoader.loadAll (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\load\\DataWarehouseLoader.js:176:41)\n    at async ETLPipeline.loadPhase (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:231:24)\n    at async ETLPipeline.run (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:61:7)\n    at async main (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:269:5)"
+}
+
+[2025-11-17 13:25:27] [ERROR] ETL Pipeline failed
+{
+  "message": "insert or update on table \"fact_don_hang\" violates foreign key constraint \"fact_don_hang_ma_khach_hang_fkey\"",
+  "stack": "error: insert or update on table \"fact_don_hang\" violates foreign key constraint \"fact_don_hang_ma_khach_hang_fkey\"\n    at E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async DataWarehouseLoader.loadTable (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\load\\DataWarehouseLoader.js:228:24)\n    at async DataWarehouseLoader.loadAll (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\load\\DataWarehouseLoader.js:176:41)\n    at async ETLPipeline.loadPhase (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:231:24)\n    at async ETLPipeline.run (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:61:7)\n    at async main (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:269:5)"
+}
+
+[2025-11-17 13:25:27] [INFO] Cleaning up resources...
+
+[2025-11-17 13:25:27] [SUCCESS] ✓ Cleanup completed
+
+[2025-11-17 13:29:46] [INFO] Loaded 6 validation rules
+
+[2025-11-17 13:29:46] [INFO] Loaded 4 transformers
+
+
+================================================================================
+  ETL PIPELINE STARTED STARTED
+================================================================================
+
+================================================================================
+  PHASE 1: EXTRACT STARTED
+================================================================================
+
+================================================================================
+  EXTRACT - PostgreSQL Data Source 1 STARTED
+================================================================================
+[2025-11-17 13:29:46] [INFO] Extracting table: khach_hang
+
+[2025-11-17 13:29:47] [SUCCESS] ✓ Extracted 418 records from khach_hang
+
+[2025-11-17 13:29:47] [INFO] Extracting table: danh_muc
+
+[2025-11-17 13:29:47] [SUCCESS] ✓ Extracted 20 records from danh_muc
+
+[2025-11-17 13:29:47] [INFO] Extracting table: san_pham
+
+[2025-11-17 13:29:47] [SUCCESS] ✓ Extracted 497 records from san_pham
+
+[2025-11-17 13:29:47] [INFO] Extracting table: don_hang
+
+[2025-11-17 13:29:47] [SUCCESS] ✓ Extracted 93 records from don_hang
+
+[2025-11-17 13:29:47] [INFO] Extracting table: chi_tiet_don_hang
+
+[2025-11-17 13:29:47] [SUCCESS] ✓ Extracted 92 records from chi_tiet_don_hang
+
+[2025-11-17 13:29:47] [INFO] Extracting table: thanh_toan
+
+[2025-11-17 13:29:47] [SUCCESS] ✓ Extracted 93 records from thanh_toan
+
+
+================================================================================
+  EXTRACT - PostgreSQL Data Source 1 COMPLETED
+  Stats: {"totalTables":6,"totalRecords":1213}
+================================================================================
+
+[2025-11-17 13:29:47] [SUCCESS] ✓ Extracted PostgreSQL data
+{
+  "tables": 6,
+  "totalRecords": 1213
+}
+
+[2025-11-17 13:29:47] [SUCCESS] All CSV files validated
+
+
+================================================================================
+  EXTRACT - CSV Data Source 2 STARTED
+================================================================================
+[2025-11-17 13:29:47] [INFO] Extracting CSV: khach_hang.csv
+
+[2025-11-17 13:29:47] [SUCCESS] ✓ Extracted 5 records from khach_hang.csv
+
+[2025-11-17 13:29:47] [INFO] Extracting CSV: phieu_ho_tro.csv
+
+[2025-11-17 13:29:47] [SUCCESS] ✓ Extracted 5 records from phieu_ho_tro.csv
+
+[2025-11-17 13:29:47] [INFO] Extracting CSV: danh_gia.csv
+
+[2025-11-17 13:29:47] [SUCCESS] ✓ Extracted 5 records from danh_gia.csv
+
+[2025-11-17 13:29:47] [INFO] Extracting CSV: nhanvien_cskh.csv
+
+[2025-11-17 13:29:47] [SUCCESS] ✓ Extracted 5 records from nhanvien_cskh.csv
+
+[2025-11-17 13:29:47] [INFO] Extracting CSV: phieu_xu_ly.csv
+
+[2025-11-17 13:29:47] [SUCCESS] ✓ Extracted 5 records from phieu_xu_ly.csv
+
+
+================================================================================
+  EXTRACT - CSV Data Source 2 COMPLETED
+  Stats: {"totalFiles":5,"totalRecords":25}
+================================================================================
+
+[2025-11-17 13:29:47] [SUCCESS] ✓ Extracted CSV data
+{
+  "files": 5,
+  "totalRecords": 25
+}
+
+
+================================================================================
+  PHASE 1: EXTRACT COMPLETED
+================================================================================
+
+
+================================================================================
+  PHASE 2: QUEUE & STAGING STARTED
+================================================================================
+[2025-11-17 13:29:47] [INFO] Producer initialized
+
+[2025-11-17 13:29:47] [INFO] Initializing staging database...
+
+[2025-11-17 13:29:47] [SUCCESS] All staging tables created
+
+[2025-11-17 13:29:47] [INFO] Staging tables cleared
+
+[2025-11-17 13:29:47] [SUCCESS] Staging database initialized
+
+[2025-11-17 13:29:47] [INFO] Consumer initialized
+
+[2025-11-17 13:29:47] [INFO] Sending data to queues...
+
+[2025-11-17 13:29:47] [INFO] Sending data to queue: datasource1_queue
+{
+  "sourceType": "postgresql",
+  "tables": [
+    "khach_hang",
+    "danh_muc",
+    "san_pham",
+    "don_hang",
+    "chi_tiet_don_hang",
+    "thanh_toan"
+  ],
+  "totalRecords": 1213
+}
+
+[2025-11-17 13:29:47] [SUCCESS] ✓ Sent 418 records from khach_hang to datasource1_queue
+
+[2025-11-17 13:29:47] [SUCCESS] ✓ Sent 20 records from danh_muc to datasource1_queue
+
+[2025-11-17 13:29:47] [SUCCESS] ✓ Sent 497 records from san_pham to datasource1_queue
+
+[2025-11-17 13:29:47] [SUCCESS] ✓ Sent 93 records from don_hang to datasource1_queue
+
+[2025-11-17 13:29:47] [SUCCESS] ✓ Sent 92 records from chi_tiet_don_hang to datasource1_queue
+
+[2025-11-17 13:29:47] [SUCCESS] ✓ Sent 93 records from thanh_toan to datasource1_queue
+
+[2025-11-17 13:29:47] [SUCCESS] All data sent to queue: datasource1_queue
+
+[2025-11-17 13:29:47] [INFO] Sending data to queue: datasource2_queue
+{
+  "sourceType": "csv",
+  "tables": [
+    "khach_hang",
+    "phieu_ho_tro",
+    "danh_gia",
+    "nhanvien_cskh",
+    "phieu_xu_ly"
+  ],
+  "totalRecords": 25
+}
+
+[2025-11-17 13:29:47] [SUCCESS] ✓ Sent 5 records from khach_hang to datasource2_queue
+
+[2025-11-17 13:29:47] [SUCCESS] ✓ Sent 5 records from phieu_ho_tro to datasource2_queue
+
+[2025-11-17 13:29:47] [SUCCESS] ✓ Sent 5 records from danh_gia to datasource2_queue
+
+[2025-11-17 13:29:47] [SUCCESS] ✓ Sent 5 records from nhanvien_cskh to datasource2_queue
+
+[2025-11-17 13:29:47] [SUCCESS] ✓ Sent 5 records from phieu_xu_ly to datasource2_queue
+
+[2025-11-17 13:29:47] [SUCCESS] All data sent to queue: datasource2_queue
+
+[2025-11-17 13:29:47] [INFO] Consuming data from queues...
+
+
+================================================================================
+  CONSUME - All Data Sources STARTED
+================================================================================
+
+================================================================================
+  CONSUMING QUEUE: datasource1_queue STARTED
+================================================================================
+[2025-11-17 13:29:47] [INFO] Processing message from postgresql
+{
+  "table": "khach_hang",
+  "recordCount": 418,
+  "timestamp": "2025-11-17T06:29:47.772Z"
+}
+
+[2025-11-17 13:29:47] [INFO] Processing message from postgresql
+{
+  "table": "san_pham",
+  "recordCount": 497,
+  "timestamp": "2025-11-17T06:29:47.778Z"
+}
+
+[2025-11-17 13:29:47] [INFO] Processing message from postgresql
+{
+  "table": "danh_muc",
+  "recordCount": 20,
+  "timestamp": "2025-11-17T06:29:47.777Z"
+}
+
+[2025-11-17 13:29:47] [INFO] Processing message from postgresql
+{
+  "table": "don_hang",
+  "recordCount": 93,
+  "timestamp": "2025-11-17T06:29:47.781Z"
+}
+
+[2025-11-17 13:29:47] [INFO] Processing message from postgresql
+{
+  "table": "chi_tiet_don_hang",
+  "recordCount": 92,
+  "timestamp": "2025-11-17T06:29:47.782Z"
+}
+
+[2025-11-17 13:29:47] [INFO] Processing message from postgresql
+{
+  "table": "thanh_toan",
+  "recordCount": 93,
+  "timestamp": "2025-11-17T06:29:47.784Z"
+}
+
+[2025-11-17 13:29:47] [SUCCESS] Inserted 20 records into stg_danh_muc
+
+[2025-11-17 13:29:47] [SUCCESS] ✓ Processed 20 records from danh_muc
+
+[2025-11-17 13:29:48] [SUCCESS] Inserted 93 records into stg_don_hang
+
+[2025-11-17 13:29:48] [SUCCESS] ✓ Processed 93 records from don_hang
+
+[2025-11-17 13:29:48] [SUCCESS] Inserted 92 records into stg_chi_tiet_don_hang
+
+[2025-11-17 13:29:48] [SUCCESS] Inserted 93 records into stg_thanh_toan
+
+[2025-11-17 13:29:48] [SUCCESS] ✓ Processed 92 records from chi_tiet_don_hang
+
+[2025-11-17 13:29:48] [SUCCESS] ✓ Processed 93 records from thanh_toan
+
+[2025-11-17 13:29:48] [SUCCESS] Inserted 418 records into stg_khach_hang
+
+[2025-11-17 13:29:48] [SUCCESS] ✓ Processed 418 records from khach_hang
+
+[2025-11-17 13:29:48] [SUCCESS] Inserted 497 records into stg_san_pham
+
+[2025-11-17 13:29:48] [SUCCESS] ✓ Processed 497 records from san_pham
+
+
+================================================================================
+  CONSUMING QUEUE: datasource1_queue COMPLETED
+  Stats: {"processedMessages":6,"totalRecords":1213}
+================================================================================
+
+
+================================================================================
+  CONSUMING QUEUE: datasource2_queue STARTED
+================================================================================
+[2025-11-17 13:29:52] [INFO] Processing message from csv
+{
+  "table": "khach_hang",
+  "recordCount": 5,
+  "timestamp": "2025-11-17T06:29:47.788Z"
+}
+
+[2025-11-17 13:29:52] [INFO] Processing message from csv
+{
+  "table": "phieu_ho_tro",
+  "recordCount": 5,
+  "timestamp": "2025-11-17T06:29:47.789Z"
+}
+
+[2025-11-17 13:29:52] [INFO] Processing message from csv
+{
+  "table": "nhanvien_cskh",
+  "recordCount": 5,
+  "timestamp": "2025-11-17T06:29:47.792Z"
+}
+
+[2025-11-17 13:29:52] [INFO] Processing message from csv
+{
+  "table": "phieu_xu_ly",
+  "recordCount": 5,
+  "timestamp": "2025-11-17T06:29:47.794Z"
+}
+
+[2025-11-17 13:29:52] [INFO] Processing message from csv
+{
+  "table": "danh_gia",
+  "recordCount": 5,
+  "timestamp": "2025-11-17T06:29:47.790Z"
+}
+
+[2025-11-17 13:29:52] [ERROR] Failed to insert into stg_khach_hang
+{
+  "message": "column \"loai_khach_hang\" of relation \"stg_khach_hang\" does not exist",
+  "stack": "error: column \"loai_khach_hang\" of relation \"stg_khach_hang\" does not exist\n    at E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async StagingService.insertRecords (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\staging\\StagingService.js:183:9)\n    at async Consumer.processMessage (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\queue\\Consumer.js:84:5)\n    at async channel.consume.noAck (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\queue\\Consumer.js:34:17)"
+}
+
+[2025-11-17 13:29:52] [ERROR] Error processing message
+{
+  "message": "{\"source\":\"csv\",\"table\":\"khach_hang\",\"records\":[{\"ma_khach_hang\":\"KH0001\",\"ho_ten\":\"Doãn Thanh Việt\",\"email\":\"an.nguyen@example.com\",\"so_dien_thoai\":\"0905123456\",\"loai_khach_hang\":\"Cá nhân\"},{\"ma_khac",
+  "stack": "error: column \"loai_khach_hang\" of relation \"stg_khach_hang\" does not exist\n    at E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async StagingService.insertRecords (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\staging\\StagingService.js:183:9)\n    at async Consumer.processMessage (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\queue\\Consumer.js:84:5)\n    at async channel.consume.noAck (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\queue\\Consumer.js:34:17)",
+  "queue": "datasource2_queue"
+}
+
+[2025-11-17 13:29:52] [SUCCESS] Inserted 5 records into stg_danh_gia
+
+[2025-11-17 13:29:52] [SUCCESS] Inserted 5 records into stg_phieu_ho_tro
+
+[2025-11-17 13:29:52] [SUCCESS] Inserted 5 records into stg_nhanvien_cskh
+
+[2025-11-17 13:29:52] [SUCCESS] Inserted 5 records into stg_phieu_xu_ly
+
+[2025-11-17 13:29:52] [SUCCESS] ✓ Processed 5 records from danh_gia
+
+[2025-11-17 13:29:52] [SUCCESS] ✓ Processed 5 records from phieu_ho_tro
+
+[2025-11-17 13:29:52] [SUCCESS] ✓ Processed 5 records from nhanvien_cskh
+
+[2025-11-17 13:29:52] [SUCCESS] ✓ Processed 5 records from phieu_xu_ly
+
+
+================================================================================
+  CONSUMING QUEUE: datasource2_queue COMPLETED
+  Stats: {"processedMessages":10,"totalRecords":1233}
+================================================================================
+
+
+================================================================================
+  CONSUME - All Data Sources COMPLETED
+  Stats: {"totalMessages":10,"totalRecords":1233}
+================================================================================
+
+
+================================================================================
+  PHASE 2: QUEUE & STAGING COMPLETED
+================================================================================
+
+
+================================================================================
+  PHASE 3: DATA QUALITY STARTED
+================================================================================
+[2025-11-17 13:29:57] [INFO] Starting deduplication...
+
+
+================================================================================
+  DEDUPLICATION STARTED
+================================================================================
+[2025-11-17 13:29:57] [SUCCESS] No duplicates in khach_hang
+
+[2025-11-17 13:29:57] [SUCCESS] No duplicates in danh_muc
+
+[2025-11-17 13:29:57] [SUCCESS] No duplicates in san_pham
+
+[2025-11-17 13:29:57] [SUCCESS] No duplicates in don_hang
+
+[2025-11-17 13:29:57] [SUCCESS] No duplicates in chi_tiet_don_hang
+
+[2025-11-17 13:29:57] [SUCCESS] No duplicates in thanh_toan
+
+[2025-11-17 13:29:57] [SUCCESS] No duplicates in phieu_ho_tro
+
+[2025-11-17 13:29:57] [SUCCESS] No duplicates in danh_gia
+
+[2025-11-17 13:29:57] [SUCCESS] No duplicates in nhanvien_cskh
+
+[2025-11-17 13:29:57] [SUCCESS] No duplicates in phieu_xu_ly
+
+
+================================================================================
+  DEDUPLICATION COMPLETED
+  Stats: {"totalOriginal":1233,"totalAfter":1233,"totalRemoved":0,"byTable":{"khach_hang":{"original":418,"after":418,"removed":0},"danh_muc":{"original":20,"after":20,"removed":0},"san_pham":{"original":497,"after":497,"removed":0},"don_hang":{"original":93,"after":93,"removed":0},"chi_tiet_don_hang":{"original":92,"after":92,"removed":0},"thanh_toan":{"original":93,"after":93,"removed":0},"phieu_ho_tro":{"original":5,"after":5,"removed":0},"danh_gia":{"original":5,"after":5,"removed":0},"nhanvien_cskh":{"original":5,"after":5,"removed":0},"phieu_xu_ly":{"original":5,"after":5,"removed":0}}}
+================================================================================
+
+[2025-11-17 13:29:57] [SUCCESS] ✓ Deduplication completed
+{
+  "originalRecords": 1233,
+  "afterDedup": 1233,
+  "removed": 0
+}
+
+[2025-11-17 13:29:57] [INFO] Starting validation...
+
+[2025-11-17 13:29:57] [INFO] Validated khach_hang
+{
+  "total": 418,
+  "valid": 0,
+  "fixable": 389,
+  "unfixable": 29
+}
+
+[2025-11-17 13:29:57] [INFO] Validated danh_muc
+{
+  "total": 20,
+  "valid": 20,
+  "fixable": 0,
+  "unfixable": 0
+}
+
+[2025-11-17 13:29:57] [INFO] Validated san_pham
+{
+  "total": 497,
+  "valid": 494,
+  "fixable": 0,
+  "unfixable": 3
+}
+
+[2025-11-17 13:29:57] [INFO] Validated don_hang
+{
+  "total": 93,
+  "valid": 86,
+  "fixable": 0,
+  "unfixable": 7
+}
+
+[2025-11-17 13:29:57] [INFO] Validated chi_tiet_don_hang
+{
+  "total": 92,
+  "valid": 92,
+  "fixable": 0,
+  "unfixable": 0
+}
+
+[2025-11-17 13:29:57] [INFO] Validated thanh_toan
+{
+  "total": 93,
+  "valid": 21,
+  "fixable": 0,
+  "unfixable": 72
+}
+
+[2025-11-17 13:29:57] [INFO] Validated phieu_ho_tro
+{
+  "total": 5,
+  "valid": 3,
+  "fixable": 0,
+  "unfixable": 2
+}
+
+[2025-11-17 13:29:57] [INFO] Validated danh_gia
+{
+  "total": 5,
+  "valid": 5,
+  "fixable": 0,
+  "unfixable": 0
+}
+
+[2025-11-17 13:29:57] [INFO] Validated nhanvien_cskh
+{
+  "total": 5,
+  "valid": 1,
+  "fixable": 4,
+  "unfixable": 0
+}
+
+[2025-11-17 13:29:57] [INFO] Validated phieu_xu_ly
+{
+  "total": 5,
+  "valid": 5,
+  "fixable": 0,
+  "unfixable": 0
+}
+
+[2025-11-17 13:29:57] [INFO] Starting transformation...
+
+
+================================================================================
+  TRANSFORM - Applying Transformations STARTED
+================================================================================
+
+================================================================================
+  TRANSFORM - Applying Transformations COMPLETED
+  Stats: {"totalRecords":418,"transformedRecords":409,"skippedRecords":9}
+================================================================================
+
+[2025-11-17 13:29:57] [INFO] Transform details
+{
+  "sampleTransforms": [
+    {
+      "recordIndex": 0,
+      "originalRecord": {
+        "ma_khach_hang": "KH0001",
+        "ho_ten": "Nguyễn Văn Hiếu",
+        "email": "hieunguyen@gmail.com",
+        "so_dien_thoai": "0905123456",
+        "dia_chi": "123 Nguyễn Trãi - Hà Nội",
+        "ngay_sinh": "1999-04-13T17:00:00.000Z",
+        "ngay_dang_ky": "2023-08-10T17:00:00.000Z",
+        "gioi_tinh": "Nam",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:47.842Z"
+      },
+      "transformedRecord": {
+        "ma_khach_hang": "KH0001",
+        "ho_ten": "Nguyễn Văn Hiếu",
+        "email": "hieunguyen@gmail.com",
+        "so_dien_thoai": "0905123456",
+        "dia_chi": "123 Nguyễn Trãi - Hà Nội",
+        "ngay_sinh": "1999-04-14",
+        "ngay_dang_ky": "2023-08-10T17:00:00.000Z",
+        "gioi_tinh": "Nam",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:47.842Z"
+      },
+      "transformLog": [
+        {
+          "field": "ngay_sinh",
+          "original": "1999-04-13T17:00:00.000Z",
+          "transformed": "1999-04-14",
+          "action": "format_date_to_yyyy_mm_dd"
+        }
+      ]
+    },
+    {
+      "recordIndex": 1,
+      "originalRecord": {
+        "ma_khach_hang": "KH0002",
+        "ho_ten": "Trần Thị Mai",
+        "email": "maitran@gmail.com",
+        "so_dien_thoai": "0912345678",
+        "dia_chi": "45 Lê Lợi - Đà Nẵng",
+        "ngay_sinh": "1996-09-19T17:00:00.000Z",
+        "ngay_dang_ky": "2023-09-01T17:00:00.000Z",
+        "gioi_tinh": "Nữ",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:47.847Z"
+      },
+      "transformedRecord": {
+        "ma_khach_hang": "KH0002",
+        "ho_ten": "Trần Thị Mai",
+        "email": "maitran@gmail.com",
+        "so_dien_thoai": "0912345678",
+        "dia_chi": "45 Lê Lợi - Đà Nẵng",
+        "ngay_sinh": "1996-09-20",
+        "ngay_dang_ky": "2023-09-01T17:00:00.000Z",
+        "gioi_tinh": "Nữ",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:47.847Z"
+      },
+      "transformLog": [
+        {
+          "field": "ngay_sinh",
+          "original": "1996-09-19T17:00:00.000Z",
+          "transformed": "1996-09-20",
+          "action": "format_date_to_yyyy_mm_dd"
+        }
+      ]
+    },
+    {
+      "recordIndex": 2,
+      "originalRecord": {
+        "ma_khach_hang": "KH0003",
+        "ho_ten": "Lê Quang Minh",
+        "email": "minhleq@gmail.com",
+        "so_dien_thoai": "0987654321",
+        "dia_chi": "78 Hai Bà Trưng - Huế",
+        "ngay_sinh": "1998-02-06T17:00:00.000Z",
+        "ngay_dang_ky": "2022-11-13T17:00:00.000Z",
+        "gioi_tinh": "Nam",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:47.851Z"
+      },
+      "transformedRecord": {
+        "ma_khach_hang": "KH0003",
+        "ho_ten": "Lê Quang Minh",
+        "email": "minhleq@gmail.com",
+        "so_dien_thoai": "0987654321",
+        "dia_chi": "78 Hai Bà Trưng - Huế",
+        "ngay_sinh": "1998-02-07",
+        "ngay_dang_ky": "2022-11-13T17:00:00.000Z",
+        "gioi_tinh": "Nam",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:47.851Z"
+      },
+      "transformLog": [
+        {
+          "field": "ngay_sinh",
+          "original": "1998-02-06T17:00:00.000Z",
+          "transformed": "1998-02-07",
+          "action": "format_date_to_yyyy_mm_dd"
+        }
+      ]
+    },
+    {
+      "recordIndex": 3,
+      "originalRecord": {
+        "ma_khach_hang": "KH0004",
+        "ho_ten": "Phạm Thị Hoa",
+        "email": "hoapham@gmail.com",
+        "so_dien_thoai": "0933123456",
+        "dia_chi": "12 Phan Chu Trinh - TP. HCM",
+        "ngay_sinh": "1995-06-09T17:00:00.000Z",
+        "ngay_dang_ky": "2023-05-22T17:00:00.000Z",
+        "gioi_tinh": "Nữ",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:47.855Z"
+      },
+      "transformedRecord": {
+        "ma_khach_hang": "KH0004",
+        "ho_ten": "Phạm Thị Hoa",
+        "email": "hoapham@gmail.com",
+        "so_dien_thoai": "0933123456",
+        "dia_chi": "12 Phan Chu Trinh - TP. HCM",
+        "ngay_sinh": "1995-06-10",
+        "ngay_dang_ky": "2023-05-22T17:00:00.000Z",
+        "gioi_tinh": "Nữ",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:47.855Z"
+      },
+      "transformLog": [
+        {
+          "field": "ngay_sinh",
+          "original": "1995-06-09T17:00:00.000Z",
+          "transformed": "1995-06-10",
+          "action": "format_date_to_yyyy_mm_dd"
+        }
+      ]
+    },
+    {
+      "recordIndex": 4,
+      "originalRecord": {
+        "ma_khach_hang": "KH0005",
+        "ho_ten": "Đỗ Văn An",
+        "email": "an.do@gmail.com",
+        "so_dien_thoai": "0977888999",
+        "dia_chi": "56 Trần Phú - Đà Lạt",
+        "ngay_sinh": "1993-12-01T17:00:00.000Z",
+        "ngay_dang_ky": "2024-02-16T17:00:00.000Z",
+        "gioi_tinh": "Nam",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:47.859Z"
+      },
+      "transformedRecord": {
+        "ma_khach_hang": "KH0005",
+        "ho_ten": "Đỗ Văn An",
+        "email": "an.do@gmail.com",
+        "so_dien_thoai": "0977888999",
+        "dia_chi": "56 Trần Phú - Đà Lạt",
+        "ngay_sinh": "1993-12-02",
+        "ngay_dang_ky": "2024-02-16T17:00:00.000Z",
+        "gioi_tinh": "Nam",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:47.859Z"
+      },
+      "transformLog": [
+        {
+          "field": "ngay_sinh",
+          "original": "1993-12-01T17:00:00.000Z",
+          "transformed": "1993-12-02",
+          "action": "format_date_to_yyyy_mm_dd"
+        }
+      ]
+    }
+  ]
+}
+
+[2025-11-17 13:29:57] [SUCCESS] ✓ Transformed khach_hang
+{
+  "transformed": 409,
+  "skipped": 9
+}
+
+
+================================================================================
+  TRANSFORM - Applying Transformations STARTED
+================================================================================
+
+================================================================================
+  TRANSFORM - Applying Transformations COMPLETED
+  Stats: {"totalRecords":20,"transformedRecords":0,"skippedRecords":20}
+================================================================================
+
+[2025-11-17 13:29:57] [SUCCESS] ✓ Transformed danh_muc
+{
+  "transformed": 0,
+  "skipped": 20
+}
+
+
+================================================================================
+  TRANSFORM - Applying Transformations STARTED
+================================================================================
+
+================================================================================
+  TRANSFORM - Applying Transformations COMPLETED
+  Stats: {"totalRecords":497,"transformedRecords":0,"skippedRecords":497}
+================================================================================
+
+[2025-11-17 13:29:57] [SUCCESS] ✓ Transformed san_pham
+{
+  "transformed": 0,
+  "skipped": 497
+}
+
+
+================================================================================
+  TRANSFORM - Applying Transformations STARTED
+================================================================================
+
+================================================================================
+  TRANSFORM - Applying Transformations COMPLETED
+  Stats: {"totalRecords":93,"transformedRecords":0,"skippedRecords":93}
+================================================================================
+
+[2025-11-17 13:29:57] [SUCCESS] ✓ Transformed don_hang
+{
+  "transformed": 0,
+  "skipped": 93
+}
+
+
+================================================================================
+  TRANSFORM - Applying Transformations STARTED
+================================================================================
+
+================================================================================
+  TRANSFORM - Applying Transformations COMPLETED
+  Stats: {"totalRecords":92,"transformedRecords":0,"skippedRecords":92}
+================================================================================
+
+[2025-11-17 13:29:57] [SUCCESS] ✓ Transformed chi_tiet_don_hang
+{
+  "transformed": 0,
+  "skipped": 92
+}
+
+
+================================================================================
+  TRANSFORM - Applying Transformations STARTED
+================================================================================
+
+================================================================================
+  TRANSFORM - Applying Transformations COMPLETED
+  Stats: {"totalRecords":93,"transformedRecords":0,"skippedRecords":93}
+================================================================================
+
+[2025-11-17 13:29:57] [SUCCESS] ✓ Transformed thanh_toan
+{
+  "transformed": 0,
+  "skipped": 93
+}
+
+
+================================================================================
+  TRANSFORM - Applying Transformations STARTED
+================================================================================
+
+================================================================================
+  TRANSFORM - Applying Transformations COMPLETED
+  Stats: {"totalRecords":5,"transformedRecords":0,"skippedRecords":5}
+================================================================================
+
+[2025-11-17 13:29:57] [SUCCESS] ✓ Transformed phieu_ho_tro
+{
+  "transformed": 0,
+  "skipped": 5
+}
+
+
+================================================================================
+  TRANSFORM - Applying Transformations STARTED
+================================================================================
+
+================================================================================
+  TRANSFORM - Applying Transformations COMPLETED
+  Stats: {"totalRecords":5,"transformedRecords":0,"skippedRecords":5}
+================================================================================
+
+[2025-11-17 13:29:57] [SUCCESS] ✓ Transformed danh_gia
+{
+  "transformed": 0,
+  "skipped": 5
+}
+
+
+================================================================================
+  TRANSFORM - Applying Transformations STARTED
+================================================================================
+
+================================================================================
+  TRANSFORM - Applying Transformations COMPLETED
+  Stats: {"totalRecords":5,"transformedRecords":0,"skippedRecords":5}
+================================================================================
+
+[2025-11-17 13:29:57] [SUCCESS] ✓ Transformed nhanvien_cskh
+{
+  "transformed": 0,
+  "skipped": 5
+}
+
+
+================================================================================
+  TRANSFORM - Applying Transformations STARTED
+================================================================================
+
+================================================================================
+  TRANSFORM - Applying Transformations COMPLETED
+  Stats: {"totalRecords":5,"transformedRecords":0,"skippedRecords":5}
+================================================================================
+
+[2025-11-17 13:29:57] [SUCCESS] ✓ Transformed phieu_xu_ly
+{
+  "transformed": 0,
+  "skipped": 5
+}
+
+[2025-11-17 13:29:57] [INFO] Re-validating after transformation...
+
+[2025-11-17 13:29:57] [INFO] Final validation for khach_hang
+{
+  "clean": 100,
+  "stillInvalid": 318
+}
+
+[2025-11-17 13:29:58] [INFO] Final validation for danh_muc
+{
+  "clean": 20,
+  "stillInvalid": 0
+}
+
+[2025-11-17 13:29:58] [INFO] Final validation for san_pham
+{
+  "clean": 494,
+  "stillInvalid": 3
+}
+
+[2025-11-17 13:29:58] [INFO] Final validation for don_hang
+{
+  "clean": 86,
+  "stillInvalid": 7
+}
+
+[2025-11-17 13:29:58] [INFO] Final validation for chi_tiet_don_hang
+{
+  "clean": 92,
+  "stillInvalid": 0
+}
+
+[2025-11-17 13:29:58] [INFO] Final validation for thanh_toan
+{
+  "clean": 21,
+  "stillInvalid": 72
+}
+
+[2025-11-17 13:29:58] [INFO] Final validation for phieu_ho_tro
+{
+  "clean": 3,
+  "stillInvalid": 2
+}
+
+[2025-11-17 13:29:58] [INFO] Final validation for danh_gia
+{
+  "clean": 5,
+  "stillInvalid": 0
+}
+
+[2025-11-17 13:29:58] [INFO] Final validation for nhanvien_cskh
+{
+  "clean": 1,
+  "stillInvalid": 4
+}
+
+[2025-11-17 13:29:58] [INFO] Final validation for phieu_xu_ly
+{
+  "clean": 5,
+  "stillInvalid": 0
+}
+
+[2025-11-17 13:29:58] [ERROR] Unfixable errors in khach_hang
+{
+  "count": 318,
+  "samples": [
+    {
+      "record": {
+        "ma_khach_hang": "KH0001",
+        "ho_ten": "Nguyễn Văn Hiếu",
+        "email": "hieunguyen@gmail.com",
+        "so_dien_thoai": "0905123456",
+        "dia_chi": "123 Nguyễn Trãi - Hà Nội",
+        "ngay_sinh": "1999-04-14",
+        "ngay_dang_ky": "2023-08-10T17:00:00.000Z",
+        "gioi_tinh": "Nam",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:47.842Z"
+      },
+      "errors": [
+        {
+          "code": "E001",
+          "field": "ho_ten",
+          "message": "Họ tên có viết tắt không đúng quy tắc",
+          "value": "Nguyễn Văn Hiếu",
+          "canFix": true,
+          "suggestion": "Chuẩn hóa chữ cái đầu tiên của mỗi từ viết hoa"
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_khach_hang": "KH0002",
+        "ho_ten": "Trần Thị Mai",
+        "email": "maitran@gmail.com",
+        "so_dien_thoai": "0912345678",
+        "dia_chi": "45 Lê Lợi - Đà Nẵng",
+        "ngay_sinh": "1996-09-20",
+        "ngay_dang_ky": "2023-09-01T17:00:00.000Z",
+        "gioi_tinh": "Nữ",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:47.847Z"
+      },
+      "errors": [
+        {
+          "code": "E001",
+          "field": "ho_ten",
+          "message": "Họ tên có viết tắt không đúng quy tắc",
+          "value": "Trần Thị Mai",
+          "canFix": true,
+          "suggestion": "Chuẩn hóa chữ cái đầu tiên của mỗi từ viết hoa"
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_khach_hang": "KH0004",
+        "ho_ten": "Phạm Thị Hoa",
+        "email": "hoapham@gmail.com",
+        "so_dien_thoai": "0933123456",
+        "dia_chi": "12 Phan Chu Trinh - TP. HCM",
+        "ngay_sinh": "1995-06-10",
+        "ngay_dang_ky": "2023-05-22T17:00:00.000Z",
+        "gioi_tinh": "Nữ",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:47.855Z"
+      },
+      "errors": [
+        {
+          "code": "E001",
+          "field": "ho_ten",
+          "message": "Họ tên có viết tắt không đúng quy tắc",
+          "value": "Phạm Thị Hoa",
+          "canFix": true,
+          "suggestion": "Chuẩn hóa chữ cái đầu tiên của mỗi từ viết hoa"
+        }
+      ]
+    }
+  ]
+}
+
+[2025-11-17 13:29:58] [ERROR] Unfixable errors in san_pham
+{
+  "count": 3,
+  "samples": [
+    {
+      "record": {
+        "ma_san_pham": "SP0076",
+        "ten_san_pham": "Xbox Game Pass",
+        "mo_ta": "Điện thoại gaming cầm tay",
+        "ma_danh_muc": "DM0017",
+        "don_gia": "-500000.00",
+        "ton_kho": -10,
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:48.059Z"
+      },
+      "errors": [
+        {
+          "code": "E003",
+          "field": "don_gia",
+          "message": "Đơn giá phải nằm trong khoảng từ 0 đến 999999999.",
+          "value": "-500000.00",
+          "canFix": false
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_san_pham": "SP0276",
+        "ten_san_pham": "PlayStation 5 Pro Edition",
+        "mo_ta": "Máy chơi game nâng cấp",
+        "ma_danh_muc": "DM0017",
+        "don_gia": "-25000000.00",
+        "ton_kho": -15,
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:48.507Z"
+      },
+      "errors": [
+        {
+          "code": "E003",
+          "field": "don_gia",
+          "message": "Đơn giá phải nằm trong khoảng từ 0 đến 999999999.",
+          "value": "-25000000.00",
+          "canFix": false
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_san_pham": "SP0467",
+        "ten_san_pham": "Ổ cứng SSD 0TB",
+        "mo_ta": "Sản phẩm lỗi thông số",
+        "ma_danh_muc": "DM0013",
+        "don_gia": "-1500000.00",
+        "ton_kho": -10,
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:48.814Z"
+      },
+      "errors": [
+        {
+          "code": "E003",
+          "field": "don_gia",
+          "message": "Đơn giá phải nằm trong khoảng từ 0 đến 999999999.",
+          "value": "-1500000.00",
+          "canFix": false
+        }
+      ]
+    }
+  ]
+}
+
+[2025-11-17 13:29:58] [ERROR] Unfixable errors in don_hang
+{
+  "count": 7,
+  "samples": [
+    {
+      "record": {
+        "ma_don_hang": "DH0010",
+        "ma_khach_hang": "KH0056",
+        "ngay_dat": "2024-01-26T17:00:00.000Z",
+        "tong_tien": "5990000.00",
+        "trang_thai": "Đã hủy",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:47.897Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Đã hủy",
+          "validStatuses": [
+            "Chờ xử lý",
+            "Đang chuẩn bị",
+            "Đang giao",
+            "Đã giao",
+            "Hủy",
+            "Trả hàng",
+            "Đang xử lý"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_don_hang": "DH0019",
+        "ma_khach_hang": "KH0142",
+        "ngay_dat": "2024-02-26T17:00:00.000Z",
+        "tong_tien": "2190000.00",
+        "trang_thai": "Đã hủy",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:47.922Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Đã hủy",
+          "validStatuses": [
+            "Chờ xử lý",
+            "Đang chuẩn bị",
+            "Đang giao",
+            "Đã giao",
+            "Hủy",
+            "Trả hàng",
+            "Đang xử lý"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_don_hang": "DH0030",
+        "ma_khach_hang": "KH0258",
+        "ngay_dat": "2024-04-03T17:00:00.000Z",
+        "tong_tien": "3290000.00",
+        "trang_thai": "Đã hủy",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:47.945Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Đã hủy",
+          "validStatuses": [
+            "Chờ xử lý",
+            "Đang chuẩn bị",
+            "Đang giao",
+            "Đã giao",
+            "Hủy",
+            "Trả hàng",
+            "Đang xử lý"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    }
+  ]
+}
+
+[2025-11-17 13:29:58] [ERROR] Unfixable errors in thanh_toan
+{
+  "count": 72,
+  "samples": [
+    {
+      "record": {
+        "ma_thanh_toan": "TT0001",
+        "ma_don_hang": "DH0001",
+        "ngay_thanh_toan": "2024-08-11T17:00:00.000Z",
+        "so_tien": "33990000.00",
+        "trang_thai": "Thành công",
+        "phuong_thuc": "Chuyển khoản",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:47.872Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Thành công",
+          "validStatuses": [
+            "Chờ xử lý",
+            "Đang chuẩn bị",
+            "Đang giao",
+            "Đã giao",
+            "Hủy",
+            "Trả hàng",
+            "Đang xử lý"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_thanh_toan": "TT0003",
+        "ma_don_hang": "DH0003",
+        "ngay_thanh_toan": "2024-09-14T17:00:00.000Z",
+        "so_tien": "2590000.00",
+        "trang_thai": "Thất bại",
+        "phuong_thuc": "MoMo",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:47.878Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Thất bại",
+          "validStatuses": [
+            "Chờ xử lý",
+            "Đang chuẩn bị",
+            "Đang giao",
+            "Đã giao",
+            "Hủy",
+            "Trả hàng",
+            "Đang xử lý"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_thanh_toan": "TT0004",
+        "ma_don_hang": "DH0004",
+        "ngay_thanh_toan": "2024-10-04T17:00:00.000Z",
+        "so_tien": "34990000.00",
+        "trang_thai": "Thành công",
+        "phuong_thuc": "Chuyển khoản",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:47.881Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Thành công",
+          "validStatuses": [
+            "Chờ xử lý",
+            "Đang chuẩn bị",
+            "Đang giao",
+            "Đã giao",
+            "Hủy",
+            "Trả hàng",
+            "Đang xử lý"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    }
+  ]
+}
+
+[2025-11-17 13:29:58] [ERROR] Unfixable errors in phieu_ho_tro
+{
+  "count": 2,
+  "samples": [
+    {
+      "record": {
+        "ma_phieu_ho_tro": "PHT0002",
+        "ma_khach_hang": "KH0002",
+        "loai_van_de": "Thanh toán thất bại",
+        "mo_ta": "Giao dịch bị lỗi khi thanh toán qua ví điện tử",
+        "ngay_tao": "2025-11-03T07:20:00.000Z",
+        "trang_thai": "Hoàn thành",
+        "do_uu_tien": "Trung bình",
+        "source": "csv",
+        "inserted_at": "2025-11-16T23:29:52.854Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Hoàn thành",
+          "validStatuses": [
+            "Mới",
+            "Đang xử lý",
+            "Chờ phản hồi",
+            "Đã giải quyết",
+            "Đóng",
+            "Hủy"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_phieu_ho_tro": "PHT0004",
+        "ma_khach_hang": "KH0004",
+        "loai_van_de": "Không nhận được email xác nhận",
+        "mo_ta": "Khách hàng đăng ký nhưng không nhận email",
+        "ngay_tao": "2025-11-07T03:15:00.000Z",
+        "trang_thai": "Mới tạo",
+        "do_uu_tien": "Trung bình",
+        "source": "csv",
+        "inserted_at": "2025-11-16T23:29:52.859Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Mới tạo",
+          "validStatuses": [
+            "Mới",
+            "Đang xử lý",
+            "Chờ phản hồi",
+            "Đã giải quyết",
+            "Đóng",
+            "Hủy"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    }
+  ]
+}
+
+[2025-11-17 13:29:58] [ERROR] Unfixable errors in nhanvien_cskh
+{
+  "count": 4,
+  "samples": [
+    {
+      "record": {
+        "ma_nhan_vien": "NV0001",
+        "ho_ten": "Nguyễn Thị Hằng",
+        "email": "hang.nguyen@cskh.vn",
+        "so_dien_thoai": "0905111222",
+        "chuc_vu": "Nhân viên CSKH",
+        "phong_ban": "Trung tâm hỗ trợ",
+        "ngay_tuyen_dung": "2023-06-14T17:00:00.000Z",
+        "trang_thai": "Đang làm",
+        "source": "csv",
+        "inserted_at": "2025-11-16T23:29:52.829Z"
+      },
+      "errors": [
+        {
+          "code": "E001",
+          "field": "ho_ten",
+          "message": "Họ tên có viết tắt không đúng quy tắc",
+          "value": "Nguyễn Thị Hằng",
+          "canFix": true,
+          "suggestion": "Chuẩn hóa chữ cái đầu tiên của mỗi từ viết hoa"
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_nhan_vien": "NV0002",
+        "ho_ten": "Lê Văn Minh",
+        "email": "minh.le@cskh.vn",
+        "so_dien_thoai": "0905222333",
+        "chuc_vu": "Trưởng nhóm",
+        "phong_ban": "Trung tâm hỗ trợ",
+        "ngay_tuyen_dung": "2022-09-19T17:00:00.000Z",
+        "trang_thai": "Đang làm",
+        "source": "csv",
+        "inserted_at": "2025-11-16T23:29:52.853Z"
+      },
+      "errors": [
+        {
+          "code": "E001",
+          "field": "ho_ten",
+          "message": "Họ tên có viết tắt không đúng quy tắc",
+          "value": "Lê Văn Minh",
+          "canFix": true,
+          "suggestion": "Chuẩn hóa chữ cái đầu tiên của mỗi từ viết hoa"
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_nhan_vien": "NV0003",
+        "ho_ten": "Phạm Quỳnh Anh",
+        "email": "anh.pham@cskh.vn",
+        "so_dien_thoai": "0905333444",
+        "chuc_vu": "Nhân viên CSKH",
+        "phong_ban": "Trung tâm hỗ trợ",
+        "ngay_tuyen_dung": "2024-02-09T17:00:00.000Z",
+        "trang_thai": "Đang làm",
+        "source": "csv",
+        "inserted_at": "2025-11-16T23:29:52.856Z"
+      },
+      "errors": [
+        {
+          "code": "E001",
+          "field": "ho_ten",
+          "message": "Họ tên có viết tắt không đúng quy tắc",
+          "value": "Phạm Quỳnh Anh",
+          "canFix": true,
+          "suggestion": "Chuẩn hóa chữ cái đầu tiên của mỗi từ viết hoa"
+        }
+      ]
+    }
+  ]
+}
+
+
+================================================================================
+  PHASE 3: DATA QUALITY COMPLETED
+================================================================================
+
+
+================================================================================
+  PHASE 4: LOAD TO DATA WAREHOUSE STARTED
+================================================================================
+[2025-11-17 13:29:58] [INFO] Initializing Data Warehouse...
+
+[2025-11-17 13:29:58] [SUCCESS] Data Warehouse tables created
+
+[2025-11-17 13:29:58] [SUCCESS] Data Warehouse initialized
+
+
+================================================================================
+  LOADING TO DATA WAREHOUSE STARTED
+================================================================================
+[2025-11-17 13:29:58] [INFO] Loading dimension tables...
+
+[2025-11-17 13:29:58] [SUCCESS] ✓ Loaded 0 records into dim_khach_hang
+
+[2025-11-17 13:29:58] [SUCCESS] ✓ Loaded 0 records into dim_danh_muc
+
+[2025-11-17 13:29:58] [SUCCESS] ✓ Loaded 0 records into dim_san_pham
+
+[2025-11-17 13:29:58] [SUCCESS] ✓ Loaded 0 records into dim_nhanvien_cskh
+
+[2025-11-17 13:29:58] [INFO] Loading fact tables...
+
+[2025-11-17 13:29:58] [ERROR] Failed to load fact_don_hang
+{
+  "message": "insert or update on table \"fact_don_hang\" violates foreign key constraint \"fact_don_hang_ma_khach_hang_fkey\"",
+  "stack": "error: insert or update on table \"fact_don_hang\" violates foreign key constraint \"fact_don_hang_ma_khach_hang_fkey\"\n    at E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async DataWarehouseLoader.loadTable (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\load\\DataWarehouseLoader.js:228:24)\n    at async DataWarehouseLoader.loadAll (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\load\\DataWarehouseLoader.js:176:41)\n    at async ETLPipeline.loadPhase (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:231:24)\n    at async ETLPipeline.run (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:61:7)\n    at async main (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:269:5)"
+}
+
+[2025-11-17 13:29:58] [ERROR] Failed to load data to warehouse
+{
+  "message": "insert or update on table \"fact_don_hang\" violates foreign key constraint \"fact_don_hang_ma_khach_hang_fkey\"",
+  "stack": "error: insert or update on table \"fact_don_hang\" violates foreign key constraint \"fact_don_hang_ma_khach_hang_fkey\"\n    at E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async DataWarehouseLoader.loadTable (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\load\\DataWarehouseLoader.js:228:24)\n    at async DataWarehouseLoader.loadAll (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\load\\DataWarehouseLoader.js:176:41)\n    at async ETLPipeline.loadPhase (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:231:24)\n    at async ETLPipeline.run (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:61:7)\n    at async main (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:269:5)"
+}
+
+[2025-11-17 13:29:58] [ERROR] ETL Pipeline failed
+{
+  "message": "insert or update on table \"fact_don_hang\" violates foreign key constraint \"fact_don_hang_ma_khach_hang_fkey\"",
+  "stack": "error: insert or update on table \"fact_don_hang\" violates foreign key constraint \"fact_don_hang_ma_khach_hang_fkey\"\n    at E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async DataWarehouseLoader.loadTable (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\load\\DataWarehouseLoader.js:228:24)\n    at async DataWarehouseLoader.loadAll (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\load\\DataWarehouseLoader.js:176:41)\n    at async ETLPipeline.loadPhase (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:231:24)\n    at async ETLPipeline.run (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:61:7)\n    at async main (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:269:5)"
+}
+
+[2025-11-17 13:29:58] [INFO] Cleaning up resources...
+
+[2025-11-17 13:29:58] [SUCCESS] ✓ Cleanup completed
+

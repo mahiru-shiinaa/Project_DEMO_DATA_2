@@ -1,0 +1,1050 @@
+[2025-11-17 13:25:21] [ERROR] Failed to insert into stg_khach_hang
+{
+  "message": "column \"loai_khach_hang\" of relation \"stg_khach_hang\" does not exist",
+  "stack": "error: column \"loai_khach_hang\" of relation \"stg_khach_hang\" does not exist\n    at E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async StagingService.insertRecords (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\staging\\StagingService.js:183:9)\n    at async Consumer.processMessage (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\queue\\Consumer.js:84:5)\n    at async channel.consume.noAck (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\queue\\Consumer.js:34:17)"
+}
+
+[2025-11-17 13:25:21] [ERROR] Error processing message
+{
+  "message": "{\"source\":\"csv\",\"table\":\"khach_hang\",\"records\":[{\"ma_khach_hang\":\"KH0001\",\"ho_ten\":\"Doãn Thanh Việt\",\"email\":\"an.nguyen@example.com\",\"so_dien_thoai\":\"0905123456\",\"loai_khach_hang\":\"Cá nhân\"},{\"ma_khac",
+  "stack": "error: column \"loai_khach_hang\" of relation \"stg_khach_hang\" does not exist\n    at E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async StagingService.insertRecords (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\staging\\StagingService.js:183:9)\n    at async Consumer.processMessage (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\queue\\Consumer.js:84:5)\n    at async channel.consume.noAck (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\queue\\Consumer.js:34:17)",
+  "queue": "datasource2_queue"
+}
+
+[2025-11-17 13:25:26] [ERROR] Unfixable errors in khach_hang
+{
+  "count": 318,
+  "samples": [
+    {
+      "record": {
+        "ma_khach_hang": "KH0001",
+        "ho_ten": "Nguyễn Văn Hiếu",
+        "email": "hieunguyen@gmail.com",
+        "so_dien_thoai": "0905123456",
+        "dia_chi": "123 Nguyễn Trãi - Hà Nội",
+        "ngay_sinh": "1999-04-14",
+        "ngay_dang_ky": "2023-08-10T17:00:00.000Z",
+        "gioi_tinh": "Nam",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:16.480Z"
+      },
+      "errors": [
+        {
+          "code": "E001",
+          "field": "ho_ten",
+          "message": "Họ tên có viết tắt không đúng quy tắc",
+          "value": "Nguyễn Văn Hiếu",
+          "canFix": true,
+          "suggestion": "Chuẩn hóa chữ cái đầu tiên của mỗi từ viết hoa"
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_khach_hang": "KH0002",
+        "ho_ten": "Trần Thị Mai",
+        "email": "maitran@gmail.com",
+        "so_dien_thoai": "0912345678",
+        "dia_chi": "45 Lê Lợi - Đà Nẵng",
+        "ngay_sinh": "1996-09-20",
+        "ngay_dang_ky": "2023-09-01T17:00:00.000Z",
+        "gioi_tinh": "Nữ",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:16.491Z"
+      },
+      "errors": [
+        {
+          "code": "E001",
+          "field": "ho_ten",
+          "message": "Họ tên có viết tắt không đúng quy tắc",
+          "value": "Trần Thị Mai",
+          "canFix": true,
+          "suggestion": "Chuẩn hóa chữ cái đầu tiên của mỗi từ viết hoa"
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_khach_hang": "KH0004",
+        "ho_ten": "Phạm Thị Hoa",
+        "email": "hoapham@gmail.com",
+        "so_dien_thoai": "0933123456",
+        "dia_chi": "12 Phan Chu Trinh - TP. HCM",
+        "ngay_sinh": "1995-06-10",
+        "ngay_dang_ky": "2023-05-22T17:00:00.000Z",
+        "gioi_tinh": "Nữ",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:16.496Z"
+      },
+      "errors": [
+        {
+          "code": "E001",
+          "field": "ho_ten",
+          "message": "Họ tên có viết tắt không đúng quy tắc",
+          "value": "Phạm Thị Hoa",
+          "canFix": true,
+          "suggestion": "Chuẩn hóa chữ cái đầu tiên của mỗi từ viết hoa"
+        }
+      ]
+    }
+  ]
+}
+
+[2025-11-17 13:25:26] [ERROR] Unfixable errors in san_pham
+{
+  "count": 3,
+  "samples": [
+    {
+      "record": {
+        "ma_san_pham": "SP0076",
+        "ten_san_pham": "Xbox Game Pass",
+        "mo_ta": "Điện thoại gaming cầm tay",
+        "ma_danh_muc": "DM0017",
+        "don_gia": "-500000.00",
+        "ton_kho": -10,
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:16.648Z"
+      },
+      "errors": [
+        {
+          "code": "E003",
+          "field": "don_gia",
+          "message": "Đơn giá phải nằm trong khoảng từ 0 đến 999999999.",
+          "value": "-500000.00",
+          "canFix": false
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_san_pham": "SP0276",
+        "ten_san_pham": "PlayStation 5 Pro Edition",
+        "mo_ta": "Máy chơi game nâng cấp",
+        "ma_danh_muc": "DM0017",
+        "don_gia": "-25000000.00",
+        "ton_kho": -15,
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:17.010Z"
+      },
+      "errors": [
+        {
+          "code": "E003",
+          "field": "don_gia",
+          "message": "Đơn giá phải nằm trong khoảng từ 0 đến 999999999.",
+          "value": "-25000000.00",
+          "canFix": false
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_san_pham": "SP0467",
+        "ten_san_pham": "Ổ cứng SSD 0TB",
+        "mo_ta": "Sản phẩm lỗi thông số",
+        "ma_danh_muc": "DM0013",
+        "don_gia": "-1500000.00",
+        "ton_kho": -10,
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:17.484Z"
+      },
+      "errors": [
+        {
+          "code": "E003",
+          "field": "don_gia",
+          "message": "Đơn giá phải nằm trong khoảng từ 0 đến 999999999.",
+          "value": "-1500000.00",
+          "canFix": false
+        }
+      ]
+    }
+  ]
+}
+
+[2025-11-17 13:25:26] [ERROR] Unfixable errors in don_hang
+{
+  "count": 7,
+  "samples": [
+    {
+      "record": {
+        "ma_don_hang": "DH0010",
+        "ma_khach_hang": "KH0056",
+        "ngay_dat": "2024-01-26T17:00:00.000Z",
+        "tong_tien": "5990000.00",
+        "trang_thai": "Đã hủy",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:16.541Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Đã hủy",
+          "validStatuses": [
+            "Chờ xử lý",
+            "Đang chuẩn bị",
+            "Đang giao",
+            "Đã giao",
+            "Hủy",
+            "Trả hàng",
+            "Đang xử lý"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_don_hang": "DH0019",
+        "ma_khach_hang": "KH0142",
+        "ngay_dat": "2024-02-26T17:00:00.000Z",
+        "tong_tien": "2190000.00",
+        "trang_thai": "Đã hủy",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:16.559Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Đã hủy",
+          "validStatuses": [
+            "Chờ xử lý",
+            "Đang chuẩn bị",
+            "Đang giao",
+            "Đã giao",
+            "Hủy",
+            "Trả hàng",
+            "Đang xử lý"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_don_hang": "DH0030",
+        "ma_khach_hang": "KH0258",
+        "ngay_dat": "2024-04-03T17:00:00.000Z",
+        "tong_tien": "3290000.00",
+        "trang_thai": "Đã hủy",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:16.581Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Đã hủy",
+          "validStatuses": [
+            "Chờ xử lý",
+            "Đang chuẩn bị",
+            "Đang giao",
+            "Đã giao",
+            "Hủy",
+            "Trả hàng",
+            "Đang xử lý"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    }
+  ]
+}
+
+[2025-11-17 13:25:26] [ERROR] Unfixable errors in thanh_toan
+{
+  "count": 72,
+  "samples": [
+    {
+      "record": {
+        "ma_thanh_toan": "TT0001",
+        "ma_don_hang": "DH0001",
+        "ngay_thanh_toan": "2024-08-11T17:00:00.000Z",
+        "so_tien": "33990000.00",
+        "trang_thai": "Thành công",
+        "phuong_thuc": "Chuyển khoản",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:16.501Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Thành công",
+          "validStatuses": [
+            "Chờ xử lý",
+            "Đang chuẩn bị",
+            "Đang giao",
+            "Đã giao",
+            "Hủy",
+            "Trả hàng",
+            "Đang xử lý"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_thanh_toan": "TT0003",
+        "ma_don_hang": "DH0003",
+        "ngay_thanh_toan": "2024-09-14T17:00:00.000Z",
+        "so_tien": "2590000.00",
+        "trang_thai": "Thất bại",
+        "phuong_thuc": "MoMo",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:16.508Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Thất bại",
+          "validStatuses": [
+            "Chờ xử lý",
+            "Đang chuẩn bị",
+            "Đang giao",
+            "Đã giao",
+            "Hủy",
+            "Trả hàng",
+            "Đang xử lý"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_thanh_toan": "TT0004",
+        "ma_don_hang": "DH0004",
+        "ngay_thanh_toan": "2024-10-04T17:00:00.000Z",
+        "so_tien": "34990000.00",
+        "trang_thai": "Thành công",
+        "phuong_thuc": "Chuyển khoản",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:25:16.510Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Thành công",
+          "validStatuses": [
+            "Chờ xử lý",
+            "Đang chuẩn bị",
+            "Đang giao",
+            "Đã giao",
+            "Hủy",
+            "Trả hàng",
+            "Đang xử lý"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    }
+  ]
+}
+
+[2025-11-17 13:25:26] [ERROR] Unfixable errors in phieu_ho_tro
+{
+  "count": 2,
+  "samples": [
+    {
+      "record": {
+        "ma_phieu_ho_tro": "PHT0002",
+        "ma_khach_hang": "KH0002",
+        "loai_van_de": "Thanh toán thất bại",
+        "mo_ta": "Giao dịch bị lỗi khi thanh toán qua ví điện tử",
+        "ngay_tao": "2025-11-03T07:20:00.000Z",
+        "trang_thai": "Hoàn thành",
+        "do_uu_tien": "Trung bình",
+        "source": "csv",
+        "inserted_at": "2025-11-16T23:25:21.497Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Hoàn thành",
+          "validStatuses": [
+            "Mới",
+            "Đang xử lý",
+            "Chờ phản hồi",
+            "Đã giải quyết",
+            "Đóng",
+            "Hủy"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_phieu_ho_tro": "PHT0004",
+        "ma_khach_hang": "KH0004",
+        "loai_van_de": "Không nhận được email xác nhận",
+        "mo_ta": "Khách hàng đăng ký nhưng không nhận email",
+        "ngay_tao": "2025-11-07T03:15:00.000Z",
+        "trang_thai": "Mới tạo",
+        "do_uu_tien": "Trung bình",
+        "source": "csv",
+        "inserted_at": "2025-11-16T23:25:21.505Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Mới tạo",
+          "validStatuses": [
+            "Mới",
+            "Đang xử lý",
+            "Chờ phản hồi",
+            "Đã giải quyết",
+            "Đóng",
+            "Hủy"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    }
+  ]
+}
+
+[2025-11-17 13:25:26] [ERROR] Unfixable errors in nhanvien_cskh
+{
+  "count": 4,
+  "samples": [
+    {
+      "record": {
+        "ma_nhan_vien": "NV0001",
+        "ho_ten": "Nguyễn Thị Hằng",
+        "email": "hang.nguyen@cskh.vn",
+        "so_dien_thoai": "0905111222",
+        "chuc_vu": "Nhân viên CSKH",
+        "phong_ban": "Trung tâm hỗ trợ",
+        "ngay_tuyen_dung": "2023-06-14T17:00:00.000Z",
+        "trang_thai": "Đang làm",
+        "source": "csv",
+        "inserted_at": "2025-11-16T23:25:21.471Z"
+      },
+      "errors": [
+        {
+          "code": "E001",
+          "field": "ho_ten",
+          "message": "Họ tên có viết tắt không đúng quy tắc",
+          "value": "Nguyễn Thị Hằng",
+          "canFix": true,
+          "suggestion": "Chuẩn hóa chữ cái đầu tiên của mỗi từ viết hoa"
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_nhan_vien": "NV0002",
+        "ho_ten": "Lê Văn Minh",
+        "email": "minh.le@cskh.vn",
+        "so_dien_thoai": "0905222333",
+        "chuc_vu": "Trưởng nhóm",
+        "phong_ban": "Trung tâm hỗ trợ",
+        "ngay_tuyen_dung": "2022-09-19T17:00:00.000Z",
+        "trang_thai": "Đang làm",
+        "source": "csv",
+        "inserted_at": "2025-11-16T23:25:21.495Z"
+      },
+      "errors": [
+        {
+          "code": "E001",
+          "field": "ho_ten",
+          "message": "Họ tên có viết tắt không đúng quy tắc",
+          "value": "Lê Văn Minh",
+          "canFix": true,
+          "suggestion": "Chuẩn hóa chữ cái đầu tiên của mỗi từ viết hoa"
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_nhan_vien": "NV0003",
+        "ho_ten": "Phạm Quỳnh Anh",
+        "email": "anh.pham@cskh.vn",
+        "so_dien_thoai": "0905333444",
+        "chuc_vu": "Nhân viên CSKH",
+        "phong_ban": "Trung tâm hỗ trợ",
+        "ngay_tuyen_dung": "2024-02-09T17:00:00.000Z",
+        "trang_thai": "Đang làm",
+        "source": "csv",
+        "inserted_at": "2025-11-16T23:25:21.499Z"
+      },
+      "errors": [
+        {
+          "code": "E001",
+          "field": "ho_ten",
+          "message": "Họ tên có viết tắt không đúng quy tắc",
+          "value": "Phạm Quỳnh Anh",
+          "canFix": true,
+          "suggestion": "Chuẩn hóa chữ cái đầu tiên của mỗi từ viết hoa"
+        }
+      ]
+    }
+  ]
+}
+
+[2025-11-17 13:25:27] [ERROR] Failed to load fact_don_hang
+{
+  "message": "insert or update on table \"fact_don_hang\" violates foreign key constraint \"fact_don_hang_ma_khach_hang_fkey\"",
+  "stack": "error: insert or update on table \"fact_don_hang\" violates foreign key constraint \"fact_don_hang_ma_khach_hang_fkey\"\n    at E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async DataWarehouseLoader.loadTable (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\load\\DataWarehouseLoader.js:228:24)\n    at async DataWarehouseLoader.loadAll (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\load\\DataWarehouseLoader.js:176:41)\n    at async ETLPipeline.loadPhase (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:231:24)\n    at async ETLPipeline.run (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:61:7)\n    at async main (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:269:5)"
+}
+
+[2025-11-17 13:25:27] [ERROR] Failed to load data to warehouse
+{
+  "message": "insert or update on table \"fact_don_hang\" violates foreign key constraint \"fact_don_hang_ma_khach_hang_fkey\"",
+  "stack": "error: insert or update on table \"fact_don_hang\" violates foreign key constraint \"fact_don_hang_ma_khach_hang_fkey\"\n    at E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async DataWarehouseLoader.loadTable (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\load\\DataWarehouseLoader.js:228:24)\n    at async DataWarehouseLoader.loadAll (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\load\\DataWarehouseLoader.js:176:41)\n    at async ETLPipeline.loadPhase (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:231:24)\n    at async ETLPipeline.run (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:61:7)\n    at async main (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:269:5)"
+}
+
+[2025-11-17 13:25:27] [ERROR] ETL Pipeline failed
+{
+  "message": "insert or update on table \"fact_don_hang\" violates foreign key constraint \"fact_don_hang_ma_khach_hang_fkey\"",
+  "stack": "error: insert or update on table \"fact_don_hang\" violates foreign key constraint \"fact_don_hang_ma_khach_hang_fkey\"\n    at E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async DataWarehouseLoader.loadTable (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\load\\DataWarehouseLoader.js:228:24)\n    at async DataWarehouseLoader.loadAll (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\load\\DataWarehouseLoader.js:176:41)\n    at async ETLPipeline.loadPhase (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:231:24)\n    at async ETLPipeline.run (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:61:7)\n    at async main (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:269:5)"
+}
+
+[2025-11-17 13:29:52] [ERROR] Failed to insert into stg_khach_hang
+{
+  "message": "column \"loai_khach_hang\" of relation \"stg_khach_hang\" does not exist",
+  "stack": "error: column \"loai_khach_hang\" of relation \"stg_khach_hang\" does not exist\n    at E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async StagingService.insertRecords (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\staging\\StagingService.js:183:9)\n    at async Consumer.processMessage (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\queue\\Consumer.js:84:5)\n    at async channel.consume.noAck (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\queue\\Consumer.js:34:17)"
+}
+
+[2025-11-17 13:29:52] [ERROR] Error processing message
+{
+  "message": "{\"source\":\"csv\",\"table\":\"khach_hang\",\"records\":[{\"ma_khach_hang\":\"KH0001\",\"ho_ten\":\"Doãn Thanh Việt\",\"email\":\"an.nguyen@example.com\",\"so_dien_thoai\":\"0905123456\",\"loai_khach_hang\":\"Cá nhân\"},{\"ma_khac",
+  "stack": "error: column \"loai_khach_hang\" of relation \"stg_khach_hang\" does not exist\n    at E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async StagingService.insertRecords (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\staging\\StagingService.js:183:9)\n    at async Consumer.processMessage (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\queue\\Consumer.js:84:5)\n    at async channel.consume.noAck (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\queue\\Consumer.js:34:17)",
+  "queue": "datasource2_queue"
+}
+
+[2025-11-17 13:29:58] [ERROR] Unfixable errors in khach_hang
+{
+  "count": 318,
+  "samples": [
+    {
+      "record": {
+        "ma_khach_hang": "KH0001",
+        "ho_ten": "Nguyễn Văn Hiếu",
+        "email": "hieunguyen@gmail.com",
+        "so_dien_thoai": "0905123456",
+        "dia_chi": "123 Nguyễn Trãi - Hà Nội",
+        "ngay_sinh": "1999-04-14",
+        "ngay_dang_ky": "2023-08-10T17:00:00.000Z",
+        "gioi_tinh": "Nam",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:47.842Z"
+      },
+      "errors": [
+        {
+          "code": "E001",
+          "field": "ho_ten",
+          "message": "Họ tên có viết tắt không đúng quy tắc",
+          "value": "Nguyễn Văn Hiếu",
+          "canFix": true,
+          "suggestion": "Chuẩn hóa chữ cái đầu tiên của mỗi từ viết hoa"
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_khach_hang": "KH0002",
+        "ho_ten": "Trần Thị Mai",
+        "email": "maitran@gmail.com",
+        "so_dien_thoai": "0912345678",
+        "dia_chi": "45 Lê Lợi - Đà Nẵng",
+        "ngay_sinh": "1996-09-20",
+        "ngay_dang_ky": "2023-09-01T17:00:00.000Z",
+        "gioi_tinh": "Nữ",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:47.847Z"
+      },
+      "errors": [
+        {
+          "code": "E001",
+          "field": "ho_ten",
+          "message": "Họ tên có viết tắt không đúng quy tắc",
+          "value": "Trần Thị Mai",
+          "canFix": true,
+          "suggestion": "Chuẩn hóa chữ cái đầu tiên của mỗi từ viết hoa"
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_khach_hang": "KH0004",
+        "ho_ten": "Phạm Thị Hoa",
+        "email": "hoapham@gmail.com",
+        "so_dien_thoai": "0933123456",
+        "dia_chi": "12 Phan Chu Trinh - TP. HCM",
+        "ngay_sinh": "1995-06-10",
+        "ngay_dang_ky": "2023-05-22T17:00:00.000Z",
+        "gioi_tinh": "Nữ",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:47.855Z"
+      },
+      "errors": [
+        {
+          "code": "E001",
+          "field": "ho_ten",
+          "message": "Họ tên có viết tắt không đúng quy tắc",
+          "value": "Phạm Thị Hoa",
+          "canFix": true,
+          "suggestion": "Chuẩn hóa chữ cái đầu tiên của mỗi từ viết hoa"
+        }
+      ]
+    }
+  ]
+}
+
+[2025-11-17 13:29:58] [ERROR] Unfixable errors in san_pham
+{
+  "count": 3,
+  "samples": [
+    {
+      "record": {
+        "ma_san_pham": "SP0076",
+        "ten_san_pham": "Xbox Game Pass",
+        "mo_ta": "Điện thoại gaming cầm tay",
+        "ma_danh_muc": "DM0017",
+        "don_gia": "-500000.00",
+        "ton_kho": -10,
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:48.059Z"
+      },
+      "errors": [
+        {
+          "code": "E003",
+          "field": "don_gia",
+          "message": "Đơn giá phải nằm trong khoảng từ 0 đến 999999999.",
+          "value": "-500000.00",
+          "canFix": false
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_san_pham": "SP0276",
+        "ten_san_pham": "PlayStation 5 Pro Edition",
+        "mo_ta": "Máy chơi game nâng cấp",
+        "ma_danh_muc": "DM0017",
+        "don_gia": "-25000000.00",
+        "ton_kho": -15,
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:48.507Z"
+      },
+      "errors": [
+        {
+          "code": "E003",
+          "field": "don_gia",
+          "message": "Đơn giá phải nằm trong khoảng từ 0 đến 999999999.",
+          "value": "-25000000.00",
+          "canFix": false
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_san_pham": "SP0467",
+        "ten_san_pham": "Ổ cứng SSD 0TB",
+        "mo_ta": "Sản phẩm lỗi thông số",
+        "ma_danh_muc": "DM0013",
+        "don_gia": "-1500000.00",
+        "ton_kho": -10,
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:48.814Z"
+      },
+      "errors": [
+        {
+          "code": "E003",
+          "field": "don_gia",
+          "message": "Đơn giá phải nằm trong khoảng từ 0 đến 999999999.",
+          "value": "-1500000.00",
+          "canFix": false
+        }
+      ]
+    }
+  ]
+}
+
+[2025-11-17 13:29:58] [ERROR] Unfixable errors in don_hang
+{
+  "count": 7,
+  "samples": [
+    {
+      "record": {
+        "ma_don_hang": "DH0010",
+        "ma_khach_hang": "KH0056",
+        "ngay_dat": "2024-01-26T17:00:00.000Z",
+        "tong_tien": "5990000.00",
+        "trang_thai": "Đã hủy",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:47.897Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Đã hủy",
+          "validStatuses": [
+            "Chờ xử lý",
+            "Đang chuẩn bị",
+            "Đang giao",
+            "Đã giao",
+            "Hủy",
+            "Trả hàng",
+            "Đang xử lý"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_don_hang": "DH0019",
+        "ma_khach_hang": "KH0142",
+        "ngay_dat": "2024-02-26T17:00:00.000Z",
+        "tong_tien": "2190000.00",
+        "trang_thai": "Đã hủy",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:47.922Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Đã hủy",
+          "validStatuses": [
+            "Chờ xử lý",
+            "Đang chuẩn bị",
+            "Đang giao",
+            "Đã giao",
+            "Hủy",
+            "Trả hàng",
+            "Đang xử lý"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_don_hang": "DH0030",
+        "ma_khach_hang": "KH0258",
+        "ngay_dat": "2024-04-03T17:00:00.000Z",
+        "tong_tien": "3290000.00",
+        "trang_thai": "Đã hủy",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:47.945Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Đã hủy",
+          "validStatuses": [
+            "Chờ xử lý",
+            "Đang chuẩn bị",
+            "Đang giao",
+            "Đã giao",
+            "Hủy",
+            "Trả hàng",
+            "Đang xử lý"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    }
+  ]
+}
+
+[2025-11-17 13:29:58] [ERROR] Unfixable errors in thanh_toan
+{
+  "count": 72,
+  "samples": [
+    {
+      "record": {
+        "ma_thanh_toan": "TT0001",
+        "ma_don_hang": "DH0001",
+        "ngay_thanh_toan": "2024-08-11T17:00:00.000Z",
+        "so_tien": "33990000.00",
+        "trang_thai": "Thành công",
+        "phuong_thuc": "Chuyển khoản",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:47.872Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Thành công",
+          "validStatuses": [
+            "Chờ xử lý",
+            "Đang chuẩn bị",
+            "Đang giao",
+            "Đã giao",
+            "Hủy",
+            "Trả hàng",
+            "Đang xử lý"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_thanh_toan": "TT0003",
+        "ma_don_hang": "DH0003",
+        "ngay_thanh_toan": "2024-09-14T17:00:00.000Z",
+        "so_tien": "2590000.00",
+        "trang_thai": "Thất bại",
+        "phuong_thuc": "MoMo",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:47.878Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Thất bại",
+          "validStatuses": [
+            "Chờ xử lý",
+            "Đang chuẩn bị",
+            "Đang giao",
+            "Đã giao",
+            "Hủy",
+            "Trả hàng",
+            "Đang xử lý"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_thanh_toan": "TT0004",
+        "ma_don_hang": "DH0004",
+        "ngay_thanh_toan": "2024-10-04T17:00:00.000Z",
+        "so_tien": "34990000.00",
+        "trang_thai": "Thành công",
+        "phuong_thuc": "Chuyển khoản",
+        "source": "postgresql",
+        "inserted_at": "2025-11-16T23:29:47.881Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Thành công",
+          "validStatuses": [
+            "Chờ xử lý",
+            "Đang chuẩn bị",
+            "Đang giao",
+            "Đã giao",
+            "Hủy",
+            "Trả hàng",
+            "Đang xử lý"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    }
+  ]
+}
+
+[2025-11-17 13:29:58] [ERROR] Unfixable errors in phieu_ho_tro
+{
+  "count": 2,
+  "samples": [
+    {
+      "record": {
+        "ma_phieu_ho_tro": "PHT0002",
+        "ma_khach_hang": "KH0002",
+        "loai_van_de": "Thanh toán thất bại",
+        "mo_ta": "Giao dịch bị lỗi khi thanh toán qua ví điện tử",
+        "ngay_tao": "2025-11-03T07:20:00.000Z",
+        "trang_thai": "Hoàn thành",
+        "do_uu_tien": "Trung bình",
+        "source": "csv",
+        "inserted_at": "2025-11-16T23:29:52.854Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Hoàn thành",
+          "validStatuses": [
+            "Mới",
+            "Đang xử lý",
+            "Chờ phản hồi",
+            "Đã giải quyết",
+            "Đóng",
+            "Hủy"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_phieu_ho_tro": "PHT0004",
+        "ma_khach_hang": "KH0004",
+        "loai_van_de": "Không nhận được email xác nhận",
+        "mo_ta": "Khách hàng đăng ký nhưng không nhận email",
+        "ngay_tao": "2025-11-07T03:15:00.000Z",
+        "trang_thai": "Mới tạo",
+        "do_uu_tien": "Trung bình",
+        "source": "csv",
+        "inserted_at": "2025-11-16T23:29:52.859Z"
+      },
+      "errors": [
+        {
+          "code": "E007",
+          "field": "trang_thai",
+          "message": "Trạng thái không hợp lệ",
+          "value": "Mới tạo",
+          "validStatuses": [
+            "Mới",
+            "Đang xử lý",
+            "Chờ phản hồi",
+            "Đã giải quyết",
+            "Đóng",
+            "Hủy"
+          ],
+          "canFix": false,
+          "suggestion": null
+        }
+      ]
+    }
+  ]
+}
+
+[2025-11-17 13:29:58] [ERROR] Unfixable errors in nhanvien_cskh
+{
+  "count": 4,
+  "samples": [
+    {
+      "record": {
+        "ma_nhan_vien": "NV0001",
+        "ho_ten": "Nguyễn Thị Hằng",
+        "email": "hang.nguyen@cskh.vn",
+        "so_dien_thoai": "0905111222",
+        "chuc_vu": "Nhân viên CSKH",
+        "phong_ban": "Trung tâm hỗ trợ",
+        "ngay_tuyen_dung": "2023-06-14T17:00:00.000Z",
+        "trang_thai": "Đang làm",
+        "source": "csv",
+        "inserted_at": "2025-11-16T23:29:52.829Z"
+      },
+      "errors": [
+        {
+          "code": "E001",
+          "field": "ho_ten",
+          "message": "Họ tên có viết tắt không đúng quy tắc",
+          "value": "Nguyễn Thị Hằng",
+          "canFix": true,
+          "suggestion": "Chuẩn hóa chữ cái đầu tiên của mỗi từ viết hoa"
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_nhan_vien": "NV0002",
+        "ho_ten": "Lê Văn Minh",
+        "email": "minh.le@cskh.vn",
+        "so_dien_thoai": "0905222333",
+        "chuc_vu": "Trưởng nhóm",
+        "phong_ban": "Trung tâm hỗ trợ",
+        "ngay_tuyen_dung": "2022-09-19T17:00:00.000Z",
+        "trang_thai": "Đang làm",
+        "source": "csv",
+        "inserted_at": "2025-11-16T23:29:52.853Z"
+      },
+      "errors": [
+        {
+          "code": "E001",
+          "field": "ho_ten",
+          "message": "Họ tên có viết tắt không đúng quy tắc",
+          "value": "Lê Văn Minh",
+          "canFix": true,
+          "suggestion": "Chuẩn hóa chữ cái đầu tiên của mỗi từ viết hoa"
+        }
+      ]
+    },
+    {
+      "record": {
+        "ma_nhan_vien": "NV0003",
+        "ho_ten": "Phạm Quỳnh Anh",
+        "email": "anh.pham@cskh.vn",
+        "so_dien_thoai": "0905333444",
+        "chuc_vu": "Nhân viên CSKH",
+        "phong_ban": "Trung tâm hỗ trợ",
+        "ngay_tuyen_dung": "2024-02-09T17:00:00.000Z",
+        "trang_thai": "Đang làm",
+        "source": "csv",
+        "inserted_at": "2025-11-16T23:29:52.856Z"
+      },
+      "errors": [
+        {
+          "code": "E001",
+          "field": "ho_ten",
+          "message": "Họ tên có viết tắt không đúng quy tắc",
+          "value": "Phạm Quỳnh Anh",
+          "canFix": true,
+          "suggestion": "Chuẩn hóa chữ cái đầu tiên của mỗi từ viết hoa"
+        }
+      ]
+    }
+  ]
+}
+
+[2025-11-17 13:29:58] [ERROR] Failed to load fact_don_hang
+{
+  "message": "insert or update on table \"fact_don_hang\" violates foreign key constraint \"fact_don_hang_ma_khach_hang_fkey\"",
+  "stack": "error: insert or update on table \"fact_don_hang\" violates foreign key constraint \"fact_don_hang_ma_khach_hang_fkey\"\n    at E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async DataWarehouseLoader.loadTable (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\load\\DataWarehouseLoader.js:228:24)\n    at async DataWarehouseLoader.loadAll (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\load\\DataWarehouseLoader.js:176:41)\n    at async ETLPipeline.loadPhase (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:231:24)\n    at async ETLPipeline.run (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:61:7)\n    at async main (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:269:5)"
+}
+
+[2025-11-17 13:29:58] [ERROR] Failed to load data to warehouse
+{
+  "message": "insert or update on table \"fact_don_hang\" violates foreign key constraint \"fact_don_hang_ma_khach_hang_fkey\"",
+  "stack": "error: insert or update on table \"fact_don_hang\" violates foreign key constraint \"fact_don_hang_ma_khach_hang_fkey\"\n    at E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async DataWarehouseLoader.loadTable (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\load\\DataWarehouseLoader.js:228:24)\n    at async DataWarehouseLoader.loadAll (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\load\\DataWarehouseLoader.js:176:41)\n    at async ETLPipeline.loadPhase (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:231:24)\n    at async ETLPipeline.run (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:61:7)\n    at async main (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:269:5)"
+}
+
+[2025-11-17 13:29:58] [ERROR] ETL Pipeline failed
+{
+  "message": "insert or update on table \"fact_don_hang\" violates foreign key constraint \"fact_don_hang_ma_khach_hang_fkey\"",
+  "stack": "error: insert or update on table \"fact_don_hang\" violates foreign key constraint \"fact_don_hang_ma_khach_hang_fkey\"\n    at E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async DataWarehouseLoader.loadTable (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\load\\DataWarehouseLoader.js:228:24)\n    at async DataWarehouseLoader.loadAll (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\src\\load\\DataWarehouseLoader.js:176:41)\n    at async ETLPipeline.loadPhase (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:231:24)\n    at async ETLPipeline.run (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:61:7)\n    at async main (E:\\HTMLCSS\\PROJECT_ONTAP\\Project_DEMO_DATA_2\\index.js:269:5)"
+}
+

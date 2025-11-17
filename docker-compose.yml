@@ -1,0 +1,95 @@
+version: '3.8'
+
+services:
+  # RabbitMQ Message Broker
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    container_name: etl-rabbitmq
+    ports:
+      - "5672:5672"    # AMQP protocol
+      - "15672:15672"  # Management UI
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - etl-network
+
+  # PostgreSQL - Staging Database
+  postgres-staging:
+    image: postgres:15
+    container_name: etl-staging-db
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: staging_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - staging_data:/var/lib/postgresql/data
+      - ./src/staging/schema.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - etl-network
+
+  # PostgreSQL - Data Warehouse
+  postgres-warehouse:
+    image: postgres:15
+    container_name: etl-warehouse-db
+    ports:
+      - "5434:5432"
+    environment:
+      POSTGRES_DB: datawarehouse
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - warehouse_data:/var/lib/postgresql/data
+      - ./src/load/schema.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - etl-network
+
+  # pgAdmin (Optional - for database management)
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: etl-pgadmin
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - etl-network
+    depends_on:
+      - postgres-staging
+      - postgres-warehouse
+
+volumes:
+  rabbitmq_data:
+    driver: local
+  staging_data:
+    driver: local
+  warehouse_data:
+    driver: local
+  pgadmin_data:
+    driver: local
+
+networks:
+  etl-network:
+    driver: bridge

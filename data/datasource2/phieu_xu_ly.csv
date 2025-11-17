@@ -1,0 +1,6 @@
+ma_phieu_xu_ly,ma_phieu_ho_tro,ma_nhan_vien,ngay_xu_ly,hanh_dong,ket_qua,ghi_chu
+PXL0001,PHT0001,NV0001,2025-11-01 10:00:00.000000,Hướng dẫn đặt lại mật khẩu,Thành công,Khách hàng đã đăng nhập được
+PXL0002,PHT0002,NV0003,2025-11-03 15:00:00.000000,Kiểm tra hệ thống thanh toán,Thành công,Xác nhận giao dịch hoàn tất
+PXL0003,PHT0003,NV0004,2025-11-05 09:30:00.000000,Cập nhật thông tin doanh nghiệp,Đang xử lý,Đợi xác nhận từ khách hàng
+PXL0004,PHT0004,NV0001,2025-11-07 10:30:00.000000,Gửi lại email xác nhận,Thành công,Email đã được gửi lại
+PXL0005,PHT0005,NV0002,2025-11-08 12:00:00.000000,Kiểm tra lỗi API,Đang xử lý,Đang phối hợp với bộ phận kỹ thuật

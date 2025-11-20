@@ -43,7 +43,7 @@ class Producer {
         );
 
         if (sent) {
-          await logger.success(`✓ Sent ${records.length} records from ${tableName} to ${queueName}`);
+          await logger.success(`Sent ${records.length} records from ${tableName} to ${queueName}`);
         } else {
           await logger.warn(`Queue ${queueName} is full, waiting...`);
           // Đợi queue available

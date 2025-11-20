@@ -32,7 +32,7 @@ class CsvExtractor {
         results[tableName] = data;
         totalRecords += data.length;
 
-        await logger.success(`✓ Extracted ${data.length} records from ${fileName}`);
+        await logger.success(`Extracted ${data.length} records from ${fileName}`);
       }
 
       await logger.endPhase('EXTRACT - CSV Data Source 2', {

@@ -30,7 +30,7 @@ class PostgresExtractor {
         results[tableName] = data;
         totalRecords += data.length;
 
-        await logger.success(`✓ Extracted ${data.length} records from ${tableName}`);
+        await logger.success(`Extracted ${data.length} records from ${tableName}`);
       }
 
       await logger.endPhase('EXTRACT - PostgreSQL Data Source 1', {

@@ -419,7 +419,7 @@ class DataWarehouseLoader {
       }
     }
 
-    await logger.success(`✓ Đã tải ${loadedCount} bản ghi vào ${tableName}`);
+    await logger.success(`Đã tải ${loadedCount} bản ghi vào ${tableName}`);
     return loadedCount;
   }
 

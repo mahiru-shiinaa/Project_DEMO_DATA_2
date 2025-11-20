@@ -83,7 +83,7 @@ class Consumer {
     // Lưu vào Staging database
     await this.stagingService.insertRecords(table, records, source);
 
-    await logger.success(`✓ Processed ${records.length} records from ${table}`);
+    await logger.success(`Processed ${records.length} records from ${table}`);
   }
 
   /**

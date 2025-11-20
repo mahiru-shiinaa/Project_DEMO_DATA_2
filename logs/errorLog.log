@@ -1,8 +1,8 @@
 ================================================================================
-  ETL PIPELINE LOG - 2025-11-21 00:25:29
+  ETL PIPELINE LOG - 2025-11-21 01:00:11
 ================================================================================
 
-[2025-11-21 00:25:42] [ERROR] Unfixable errors in khach_hang
+[2025-11-21 01:00:22] [ERROR] Đã ghi lại records lỗi của table: khach_hang
 {
   "count": 31,
   "allErrors": [
@@ -18,7 +18,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.946Z",
+        "inserted_at": "2025-11-20T11:00:12.340Z",
         "sources": "postgresql,csv"
       },
       "errors": [
@@ -43,7 +43,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.135Z"
+        "inserted_at": "2025-11-20T11:00:12.652Z"
       },
       "errors": [
         {
@@ -67,7 +67,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.136Z"
+        "inserted_at": "2025-11-20T11:00:12.654Z"
       },
       "errors": [
         {
@@ -92,7 +92,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.203Z"
+        "inserted_at": "2025-11-20T11:00:12.757Z"
       },
       "errors": [
         {
@@ -130,7 +130,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.203Z"
+        "inserted_at": "2025-11-20T11:00:12.758Z"
       },
       "errors": [
         {
@@ -162,7 +162,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.204Z"
+        "inserted_at": "2025-11-20T11:00:12.759Z"
       },
       "errors": [
         {
@@ -186,7 +186,7 @@
         "gioi_tinh": "Nữ",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.205Z"
+        "inserted_at": "2025-11-20T11:00:12.761Z"
       },
       "errors": [
         {
@@ -210,7 +210,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.206Z"
+        "inserted_at": "2025-11-20T11:00:12.762Z"
       },
       "errors": [
         {
@@ -234,7 +234,7 @@
         "gioi_tinh": "Nữ",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.207Z"
+        "inserted_at": "2025-11-20T11:00:12.764Z"
       },
       "errors": [
         {
@@ -258,7 +258,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.208Z"
+        "inserted_at": "2025-11-20T11:00:12.765Z"
       },
       "errors": [
         {
@@ -282,7 +282,7 @@
         "gioi_tinh": "Nữ",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.208Z"
+        "inserted_at": "2025-11-20T11:00:12.766Z"
       },
       "errors": [
         {
@@ -306,7 +306,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.216Z"
+        "inserted_at": "2025-11-20T11:00:12.780Z"
       },
       "errors": [
         {
@@ -339,7 +339,7 @@
         "gioi_tinh": "nu",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.217Z"
+        "inserted_at": "2025-11-20T11:00:12.782Z"
       },
       "errors": [
         {
@@ -372,7 +372,7 @@
         "gioi_tinh": "NAM",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.218Z"
+        "inserted_at": "2025-11-20T11:00:12.783Z"
       },
       "errors": [
         {
@@ -405,7 +405,7 @@
         "gioi_tinh": "Nữ",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.220Z"
+        "inserted_at": "2025-11-20T11:00:12.784Z"
       },
       "errors": [
         {
@@ -438,7 +438,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.221Z"
+        "inserted_at": "2025-11-20T11:00:12.785Z"
       },
       "errors": [
         {
@@ -471,7 +471,7 @@
         "gioi_tinh": "Nữ",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.222Z"
+        "inserted_at": "2025-11-20T11:00:12.786Z"
       },
       "errors": [
         {
@@ -504,7 +504,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.222Z"
+        "inserted_at": "2025-11-20T11:00:12.786Z"
       },
       "errors": [
         {
@@ -537,7 +537,7 @@
         "gioi_tinh": "Nữ",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.223Z"
+        "inserted_at": "2025-11-20T11:00:12.787Z"
       },
       "errors": [
         {
@@ -577,7 +577,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.224Z"
+        "inserted_at": "2025-11-20T11:00:12.788Z"
       },
       "errors": [
         {
@@ -617,7 +617,7 @@
         "gioi_tinh": "Nữ",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.231Z"
+        "inserted_at": "2025-11-20T11:00:12.797Z"
       },
       "errors": [
         {
@@ -641,7 +641,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.279Z"
+        "inserted_at": "2025-11-20T11:00:12.846Z"
       },
       "errors": [
         {
@@ -679,7 +679,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.280Z"
+        "inserted_at": "2025-11-20T11:00:12.847Z"
       },
       "errors": [
         {
@@ -711,7 +711,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.280Z"
+        "inserted_at": "2025-11-20T11:00:12.847Z"
       },
       "errors": [
         {
@@ -735,7 +735,7 @@
         "gioi_tinh": "Nữ",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.281Z"
+        "inserted_at": "2025-11-20T11:00:12.848Z"
       },
       "errors": [
         {
@@ -759,7 +759,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.282Z"
+        "inserted_at": "2025-11-20T11:00:12.849Z"
       },
       "errors": [
         {
@@ -783,7 +783,7 @@
         "gioi_tinh": "Nữ",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.283Z"
+        "inserted_at": "2025-11-20T11:00:12.850Z"
       },
       "errors": [
         {
@@ -807,7 +807,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.284Z"
+        "inserted_at": "2025-11-20T11:00:12.851Z"
       },
       "errors": [
         {
@@ -831,7 +831,7 @@
         "gioi_tinh": "Nữ",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.285Z"
+        "inserted_at": "2025-11-20T11:00:12.852Z"
       },
       "errors": [
         {
@@ -855,7 +855,7 @@
         "gioi_tinh": "Nữ",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.294Z"
+        "inserted_at": "2025-11-20T11:00:12.863Z"
       },
       "errors": [
         {
@@ -879,7 +879,7 @@
         "gioi_tinh": null,
         "loai_khach_hang": "VIP",
         "source": "csv",
-        "inserted_at": "2025-11-20T10:25:36.928Z"
+        "inserted_at": "2025-11-20T11:00:17.311Z"
       },
       "errors": [
         {
@@ -894,7 +894,7 @@
   ]
 }
 
-[2025-11-21 00:25:42] [ERROR] Unfixable errors in san_pham
+[2025-11-21 01:00:22] [ERROR] Đã ghi lại records lỗi của table: san_pham
 {
   "count": 3,
   "allErrors": [
@@ -907,7 +907,7 @@
         "don_gia": "-500000.00",
         "ton_kho": -10,
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.031Z"
+        "inserted_at": "2025-11-20T11:00:12.469Z"
       },
       "errors": [
         {
@@ -928,7 +928,7 @@
         "don_gia": "-25000000.00",
         "ton_kho": -15,
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.212Z"
+        "inserted_at": "2025-11-20T11:00:12.764Z"
       },
       "errors": [
         {
@@ -949,7 +949,7 @@
         "don_gia": "-1500000.00",
         "ton_kho": -10,
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.374Z"
+        "inserted_at": "2025-11-20T11:00:12.943Z"
       },
       "errors": [
         {
@@ -964,7 +964,7 @@
   ]
 }
 
-[2025-11-21 00:25:42] [ERROR] Unfixable errors in don_hang
+[2025-11-21 01:00:22] [ERROR] Đã ghi lại records lỗi của table: don_hang
 {
   "count": 7,
   "allErrors": [
@@ -976,7 +976,7 @@
         "tong_tien": "5990000.00",
         "trang_thai": "Đã hủy",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.954Z"
+        "inserted_at": "2025-11-20T11:00:12.328Z"
       },
       "errors": [
         {
@@ -1006,7 +1006,7 @@
         "tong_tien": "2190000.00",
         "trang_thai": "Đã hủy",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.964Z"
+        "inserted_at": "2025-11-20T11:00:12.340Z"
       },
       "errors": [
         {
@@ -1036,7 +1036,7 @@
         "tong_tien": "3290000.00",
         "trang_thai": "Đã hủy",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.975Z"
+        "inserted_at": "2025-11-20T11:00:12.353Z"
       },
       "errors": [
         {
@@ -1066,7 +1066,7 @@
         "tong_tien": "17990000.00",
         "trang_thai": "Đã hủy",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.985Z"
+        "inserted_at": "2025-11-20T11:00:12.374Z"
       },
       "errors": [
         {
@@ -1096,7 +1096,7 @@
         "tong_tien": "8990000.00",
         "trang_thai": "Đã hủy",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.001Z"
+        "inserted_at": "2025-11-20T11:00:12.401Z"
       },
       "errors": [
         {
@@ -1126,7 +1126,7 @@
         "tong_tien": "2190000.00",
         "trang_thai": "Đã hủy",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.016Z"
+        "inserted_at": "2025-11-20T11:00:12.426Z"
       },
       "errors": [
         {
@@ -1156,7 +1156,7 @@
         "tong_tien": "3290000.00",
         "trang_thai": "Đã hủy",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.028Z"
+        "inserted_at": "2025-11-20T11:00:12.447Z"
       },
       "errors": [
         {
@@ -1181,7 +1181,7 @@
   ]
 }
 
-[2025-11-21 00:25:42] [ERROR] Unfixable errors in thanh_toan
+[2025-11-21 01:00:22] [ERROR] Đã ghi lại records lỗi của table: thanh_toan
 {
   "count": 72,
   "allErrors": [
@@ -1194,7 +1194,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.942Z"
+        "inserted_at": "2025-11-20T11:00:12.328Z"
       },
       "errors": [
         {
@@ -1225,7 +1225,7 @@
         "trang_thai": "Thất bại",
         "phuong_thuc": "MoMo",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.945Z"
+        "inserted_at": "2025-11-20T11:00:12.331Z"
       },
       "errors": [
         {
@@ -1256,7 +1256,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.947Z"
+        "inserted_at": "2025-11-20T11:00:12.334Z"
       },
       "errors": [
         {
@@ -1287,7 +1287,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.950Z"
+        "inserted_at": "2025-11-20T11:00:12.336Z"
       },
       "errors": [
         {
@@ -1318,7 +1318,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "ZaloPay",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.953Z"
+        "inserted_at": "2025-11-20T11:00:12.338Z"
       },
       "errors": [
         {
@@ -1349,7 +1349,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.954Z"
+        "inserted_at": "2025-11-20T11:00:12.339Z"
       },
       "errors": [
         {
@@ -1380,7 +1380,7 @@
         "trang_thai": "Thất bại",
         "phuong_thuc": "MoMo",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.955Z"
+        "inserted_at": "2025-11-20T11:00:12.341Z"
       },
       "errors": [
         {
@@ -1411,7 +1411,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Tiền mặt",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.957Z"
+        "inserted_at": "2025-11-20T11:00:12.341Z"
       },
       "errors": [
         {
@@ -1442,7 +1442,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.959Z"
+        "inserted_at": "2025-11-20T11:00:12.344Z"
       },
       "errors": [
         {
@@ -1473,7 +1473,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.960Z"
+        "inserted_at": "2025-11-20T11:00:12.345Z"
       },
       "errors": [
         {
@@ -1504,7 +1504,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "MoMo",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.963Z"
+        "inserted_at": "2025-11-20T11:00:12.348Z"
       },
       "errors": [
         {
@@ -1535,7 +1535,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.964Z"
+        "inserted_at": "2025-11-20T11:00:12.349Z"
       },
       "errors": [
         {
@@ -1566,7 +1566,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "ZaloPay",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.965Z"
+        "inserted_at": "2025-11-20T11:00:12.350Z"
       },
       "errors": [
         {
@@ -1597,7 +1597,7 @@
         "trang_thai": "Thất bại",
         "phuong_thuc": "Thẻ tín dụng",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.966Z"
+        "inserted_at": "2025-11-20T11:00:12.351Z"
       },
       "errors": [
         {
@@ -1628,7 +1628,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Tiền mặt",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.967Z"
+        "inserted_at": "2025-11-20T11:00:12.352Z"
       },
       "errors": [
         {
@@ -1659,7 +1659,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.970Z"
+        "inserted_at": "2025-11-20T11:00:12.356Z"
       },
       "errors": [
         {
@@ -1690,7 +1690,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "ZaloPay",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.971Z"
+        "inserted_at": "2025-11-20T11:00:12.357Z"
       },
       "errors": [
         {
@@ -1721,7 +1721,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.973Z"
+        "inserted_at": "2025-11-20T11:00:12.360Z"
       },
       "errors": [
         {
@@ -1752,7 +1752,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "MoMo",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.975Z"
+        "inserted_at": "2025-11-20T11:00:12.362Z"
       },
       "errors": [
         {
@@ -1783,7 +1783,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.976Z"
+        "inserted_at": "2025-11-20T11:00:12.365Z"
       },
       "errors": [
         {
@@ -1814,7 +1814,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Tiền mặt",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.977Z"
+        "inserted_at": "2025-11-20T11:00:12.369Z"
       },
       "errors": [
         {
@@ -1845,7 +1845,7 @@
         "trang_thai": "Thất bại",
         "phuong_thuc": "Thẻ tín dụng",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.978Z"
+        "inserted_at": "2025-11-20T11:00:12.373Z"
       },
       "errors": [
         {
@@ -1876,7 +1876,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "ZaloPay",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.979Z"
+        "inserted_at": "2025-11-20T11:00:12.376Z"
       },
       "errors": [
         {
@@ -1907,7 +1907,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.982Z"
+        "inserted_at": "2025-11-20T11:00:12.380Z"
       },
       "errors": [
         {
@@ -1938,7 +1938,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.983Z"
+        "inserted_at": "2025-11-20T11:00:12.382Z"
       },
       "errors": [
         {
@@ -1969,7 +1969,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "MoMo",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.984Z"
+        "inserted_at": "2025-11-20T11:00:12.384Z"
       },
       "errors": [
         {
@@ -2000,7 +2000,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.986Z"
+        "inserted_at": "2025-11-20T11:00:12.389Z"
       },
       "errors": [
         {
@@ -2031,7 +2031,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.988Z"
+        "inserted_at": "2025-11-20T11:00:12.390Z"
       },
       "errors": [
         {
@@ -2062,7 +2062,7 @@
         "trang_thai": "Thất bại",
         "phuong_thuc": "Thẻ tín dụng",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.989Z"
+        "inserted_at": "2025-11-20T11:00:12.392Z"
       },
       "errors": [
         {
@@ -2093,7 +2093,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.990Z"
+        "inserted_at": "2025-11-20T11:00:12.394Z"
       },
       "errors": [
         {
@@ -2124,7 +2124,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Tiền mặt",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.992Z"
+        "inserted_at": "2025-11-20T11:00:12.397Z"
       },
       "errors": [
         {
@@ -2155,7 +2155,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "ZaloPay",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.993Z"
+        "inserted_at": "2025-11-20T11:00:12.399Z"
       },
       "errors": [
         {
@@ -2186,7 +2186,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "MoMo",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.994Z"
+        "inserted_at": "2025-11-20T11:00:12.402Z"
       },
       "errors": [
         {
@@ -2217,7 +2217,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.995Z"
+        "inserted_at": "2025-11-20T11:00:12.405Z"
       },
       "errors": [
         {
@@ -2248,7 +2248,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.996Z"
+        "inserted_at": "2025-11-20T11:00:12.407Z"
       },
       "errors": [
         {
@@ -2279,7 +2279,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Tiền mặt",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.997Z"
+        "inserted_at": "2025-11-20T11:00:12.410Z"
       },
       "errors": [
         {
@@ -2310,7 +2310,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.999Z"
+        "inserted_at": "2025-11-20T11:00:12.415Z"
       },
       "errors": [
         {
@@ -2341,7 +2341,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "MoMo",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.001Z"
+        "inserted_at": "2025-11-20T11:00:12.417Z"
       },
       "errors": [
         {
@@ -2372,7 +2372,7 @@
         "trang_thai": "Thất bại",
         "phuong_thuc": "Thẻ tín dụng",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.002Z"
+        "inserted_at": "2025-11-20T11:00:12.419Z"
       },
       "errors": [
         {
@@ -2403,7 +2403,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "ZaloPay",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.004Z"
+        "inserted_at": "2025-11-20T11:00:12.421Z"
       },
       "errors": [
         {
@@ -2434,7 +2434,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "MoMo",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.006Z"
+        "inserted_at": "2025-11-20T11:00:12.423Z"
       },
       "errors": [
         {
@@ -2465,7 +2465,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Tiền mặt",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.007Z"
+        "inserted_at": "2025-11-20T11:00:12.425Z"
       },
       "errors": [
         {
@@ -2496,7 +2496,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.008Z"
+        "inserted_at": "2025-11-20T11:00:12.426Z"
       },
       "errors": [
         {
@@ -2527,7 +2527,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.009Z"
+        "inserted_at": "2025-11-20T11:00:12.428Z"
       },
       "errors": [
         {
@@ -2558,7 +2558,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.012Z"
+        "inserted_at": "2025-11-20T11:00:12.432Z"
       },
       "errors": [
         {
@@ -2589,7 +2589,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "MoMo",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.013Z"
+        "inserted_at": "2025-11-20T11:00:12.434Z"
       },
       "errors": [
         {
@@ -2620,7 +2620,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.014Z"
+        "inserted_at": "2025-11-20T11:00:12.436Z"
       },
       "errors": [
         {
@@ -2651,7 +2651,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "ZaloPay",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.014Z"
+        "inserted_at": "2025-11-20T11:00:12.438Z"
       },
       "errors": [
         {
@@ -2682,7 +2682,7 @@
         "trang_thai": "Thất bại",
         "phuong_thuc": "Thẻ tín dụng",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.015Z"
+        "inserted_at": "2025-11-20T11:00:12.440Z"
       },
       "errors": [
         {
@@ -2713,7 +2713,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Tiền mặt",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.017Z"
+        "inserted_at": "2025-11-20T11:00:12.442Z"
       },
       "errors": [
         {
@@ -2744,7 +2744,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.019Z"
+        "inserted_at": "2025-11-20T11:00:12.445Z"
       },
       "errors": [
         {
@@ -2775,7 +2775,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "ZaloPay",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.020Z"
+        "inserted_at": "2025-11-20T11:00:12.447Z"
       },
       "errors": [
         {
@@ -2806,7 +2806,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.021Z"
+        "inserted_at": "2025-11-20T11:00:12.448Z"
       },
       "errors": [
         {
@@ -2837,7 +2837,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.023Z"
+        "inserted_at": "2025-11-20T11:00:12.451Z"
       },
       "errors": [
         {
@@ -2868,7 +2868,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "MoMo",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.024Z"
+        "inserted_at": "2025-11-20T11:00:12.453Z"
       },
       "errors": [
         {
@@ -2899,7 +2899,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.025Z"
+        "inserted_at": "2025-11-20T11:00:12.455Z"
       },
       "errors": [
         {
@@ -2930,7 +2930,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Tiền mặt",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.026Z"
+        "inserted_at": "2025-11-20T11:00:12.456Z"
       },
       "errors": [
         {
@@ -2961,7 +2961,7 @@
         "trang_thai": "Thất bại",
         "phuong_thuc": "Thẻ tín dụng",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.027Z"
+        "inserted_at": "2025-11-20T11:00:12.458Z"
       },
       "errors": [
         {
@@ -2992,7 +2992,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "ZaloPay",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.028Z"
+        "inserted_at": "2025-11-20T11:00:12.460Z"
       },
       "errors": [
         {
@@ -3023,7 +3023,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.031Z"
+        "inserted_at": "2025-11-20T11:00:12.463Z"
       },
       "errors": [
         {
@@ -3054,7 +3054,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.031Z"
+        "inserted_at": "2025-11-20T11:00:12.466Z"
       },
       "errors": [
         {
@@ -3085,7 +3085,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.034Z"
+        "inserted_at": "2025-11-20T11:00:12.471Z"
       },
       "errors": [
         {
@@ -3116,7 +3116,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.035Z"
+        "inserted_at": "2025-11-20T11:00:12.474Z"
       },
       "errors": [
         {
@@ -3147,7 +3147,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "ZaloPay",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.036Z"
+        "inserted_at": "2025-11-20T11:00:12.477Z"
       },
       "errors": [
         {
@@ -3178,7 +3178,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.038Z"
+        "inserted_at": "2025-11-20T11:00:12.482Z"
       },
       "errors": [
         {
@@ -3209,7 +3209,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "MoMo",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.039Z"
+        "inserted_at": "2025-11-20T11:00:12.484Z"
       },
       "errors": [
         {
@@ -3240,7 +3240,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Tiền mặt",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.040Z"
+        "inserted_at": "2025-11-20T11:00:12.486Z"
       },
       "errors": [
         {
@@ -3271,7 +3271,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "ZaloPay",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.041Z"
+        "inserted_at": "2025-11-20T11:00:12.488Z"
       },
       "errors": [
         {
@@ -3302,7 +3302,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "MoMo",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.043Z"
+        "inserted_at": "2025-11-20T11:00:12.493Z"
       },
       "errors": [
         {
@@ -3333,7 +3333,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.045Z"
+        "inserted_at": "2025-11-20T11:00:12.494Z"
       },
       "errors": [
         {
@@ -3364,7 +3364,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.046Z"
+        "inserted_at": "2025-11-20T11:00:12.496Z"
       },
       "errors": [
         {
@@ -3395,7 +3395,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Tiền mặt",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.047Z"
+        "inserted_at": "2025-11-20T11:00:12.497Z"
       },
       "errors": [
         {
@@ -3420,7 +3420,7 @@
   ]
 }
 
-[2025-11-21 00:25:42] [ERROR] Unfixable errors in phieu_ho_tro
+[2025-11-21 01:00:22] [ERROR] Đã ghi lại records lỗi của table: phieu_ho_tro
 {
   "count": 2,
   "allErrors": [
@@ -3434,7 +3434,7 @@
         "trang_thai": "Hoàn thành",
         "do_uu_tien": "Trung bình",
         "source": "csv",
-        "inserted_at": "2025-11-20T10:25:36.922Z"
+        "inserted_at": "2025-11-20T11:00:17.308Z"
       },
       "errors": [
         {
@@ -3465,7 +3465,7 @@
         "trang_thai": "Mới tạo",
         "do_uu_tien": "Trung bình",
         "source": "csv",
-        "inserted_at": "2025-11-20T10:25:36.929Z"
+        "inserted_at": "2025-11-20T11:00:17.313Z"
       },
       "errors": [
         {

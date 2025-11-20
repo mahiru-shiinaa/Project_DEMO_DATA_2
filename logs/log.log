@@ -1,15 +1,15 @@
 ================================================================================
-  ETL PIPELINE LOG - 2025-11-21 00:25:29
+  ETL PIPELINE LOG - 2025-11-21 01:00:11
 ================================================================================
 
-[2025-11-21 00:25:29] [INFO] Loaded 5 transformers (excluding IdTransformer)
-
-[2025-11-21 00:25:29] [INFO] Loaded 6 validation rules
+[2025-11-21 01:00:11] [INFO] Loaded 5 transformers (excluding IdTransformer)
 
 
 ================================================================================
   ETL PIPELINE STARTED STARTED
 ================================================================================
+[2025-11-21 01:00:11] [INFO] Loaded 6 validation rules
+
 
 ================================================================================
   PHASE 1: EXTRACT STARTED
@@ -18,29 +18,29 @@
 ================================================================================
   EXTRACT - PostgreSQL Data Source 1 STARTED
 ================================================================================
-[2025-11-21 00:25:29] [INFO] Extracting table: khach_hang
+[2025-11-21 01:00:11] [INFO] Extracting table: khach_hang
 
-[2025-11-21 00:25:31] [SUCCESS] ✓ Extracted 418 records from khach_hang
+[2025-11-21 01:00:11] [SUCCESS] Extracted 418 records from khach_hang
 
-[2025-11-21 00:25:31] [INFO] Extracting table: danh_muc
+[2025-11-21 01:00:11] [INFO] Extracting table: danh_muc
 
-[2025-11-21 00:25:31] [SUCCESS] ✓ Extracted 20 records from danh_muc
+[2025-11-21 01:00:11] [SUCCESS] Extracted 20 records from danh_muc
 
-[2025-11-21 00:25:31] [INFO] Extracting table: san_pham
+[2025-11-21 01:00:11] [INFO] Extracting table: san_pham
 
-[2025-11-21 00:25:31] [SUCCESS] ✓ Extracted 497 records from san_pham
+[2025-11-21 01:00:11] [SUCCESS] Extracted 497 records from san_pham
 
-[2025-11-21 00:25:31] [INFO] Extracting table: don_hang
+[2025-11-21 01:00:11] [INFO] Extracting table: don_hang
 
-[2025-11-21 00:25:31] [SUCCESS] ✓ Extracted 93 records from don_hang
+[2025-11-21 01:00:11] [SUCCESS] Extracted 93 records from don_hang
 
-[2025-11-21 00:25:31] [INFO] Extracting table: chi_tiet_don_hang
+[2025-11-21 01:00:11] [INFO] Extracting table: chi_tiet_don_hang
 
-[2025-11-21 00:25:31] [SUCCESS] ✓ Extracted 92 records from chi_tiet_don_hang
+[2025-11-21 01:00:12] [SUCCESS] Extracted 92 records from chi_tiet_don_hang
 
-[2025-11-21 00:25:31] [INFO] Extracting table: thanh_toan
+[2025-11-21 01:00:12] [INFO] Extracting table: thanh_toan
 
-[2025-11-21 00:25:31] [SUCCESS] ✓ Extracted 93 records from thanh_toan
+[2025-11-21 01:00:12] [SUCCESS] Extracted 93 records from thanh_toan
 
 
 ================================================================================
@@ -48,37 +48,37 @@
   Stats: {"totalTables":6,"totalRecords":1213}
 ================================================================================
 
-[2025-11-21 00:25:31] [SUCCESS] ✓ Extracted PostgreSQL data
+[2025-11-21 01:00:12] [SUCCESS] ✓ Extracted PostgreSQL data
 {
   "tables": 6,
   "totalRecords": 1213
 }
 
-[2025-11-21 00:25:31] [SUCCESS] All CSV files validated
+[2025-11-21 01:00:12] [SUCCESS] All CSV files validated
 
 
 ================================================================================
   EXTRACT - CSV Data Source 2 STARTED
 ================================================================================
-[2025-11-21 00:25:31] [INFO] Extracting CSV: khach_hang.csv
+[2025-11-21 01:00:12] [INFO] Extracting CSV: khach_hang.csv
 
-[2025-11-21 00:25:31] [SUCCESS] ✓ Extracted 7 records from khach_hang.csv
+[2025-11-21 01:00:12] [SUCCESS] Extracted 7 records from khach_hang.csv
 
-[2025-11-21 00:25:31] [INFO] Extracting CSV: phieu_ho_tro.csv
+[2025-11-21 01:00:12] [INFO] Extracting CSV: phieu_ho_tro.csv
 
-[2025-11-21 00:25:31] [SUCCESS] ✓ Extracted 5 records from phieu_ho_tro.csv
+[2025-11-21 01:00:12] [SUCCESS] Extracted 5 records from phieu_ho_tro.csv
 
-[2025-11-21 00:25:31] [INFO] Extracting CSV: danh_gia.csv
+[2025-11-21 01:00:12] [INFO] Extracting CSV: danh_gia.csv
 
-[2025-11-21 00:25:31] [SUCCESS] ✓ Extracted 5 records from danh_gia.csv
+[2025-11-21 01:00:12] [SUCCESS] Extracted 5 records from danh_gia.csv
 
-[2025-11-21 00:25:31] [INFO] Extracting CSV: nhanvien_cskh.csv
+[2025-11-21 01:00:12] [INFO] Extracting CSV: nhanvien_cskh.csv
 
-[2025-11-21 00:25:31] [SUCCESS] ✓ Extracted 5 records from nhanvien_cskh.csv
+[2025-11-21 01:00:12] [SUCCESS] Extracted 5 records from nhanvien_cskh.csv
 
-[2025-11-21 00:25:31] [INFO] Extracting CSV: phieu_xu_ly.csv
+[2025-11-21 01:00:12] [INFO] Extracting CSV: phieu_xu_ly.csv
 
-[2025-11-21 00:25:31] [SUCCESS] ✓ Extracted 5 records from phieu_xu_ly.csv
+[2025-11-21 01:00:12] [SUCCESS] Extracted 5 records from phieu_xu_ly.csv
 
 
 ================================================================================
@@ -86,7 +86,7 @@
   Stats: {"totalFiles":5,"totalRecords":27}
 ================================================================================
 
-[2025-11-21 00:25:31] [SUCCESS] ✓ Extracted CSV data
+[2025-11-21 01:00:12] [SUCCESS] ✓ Extracted CSV data
 {
   "files": 5,
   "totalRecords": 27
@@ -101,25 +101,25 @@
 ================================================================================
   PHASE 2: QUEUE & STAGING STARTED
 ================================================================================
-[2025-11-21 00:25:31] [INFO] Producer initialized
+[2025-11-21 01:00:12] [INFO] Producer initialized
 
-[2025-11-21 00:25:31] [INFO] Initializing staging database...
+[2025-11-21 01:00:12] [INFO] Initializing staging database...
 
-[2025-11-21 00:25:31] [INFO] Dropping old staging tables...
+[2025-11-21 01:00:12] [INFO] Dropping old staging tables...
 
-[2025-11-21 00:25:31] [SUCCESS] Old staging tables dropped
+[2025-11-21 01:00:12] [SUCCESS] Old staging tables dropped
 
-[2025-11-21 00:25:31] [SUCCESS] All staging tables created
+[2025-11-21 01:00:12] [SUCCESS] All staging tables created
 
-[2025-11-21 00:25:31] [INFO] Staging tables cleared
+[2025-11-21 01:00:12] [INFO] Staging tables cleared
 
-[2025-11-21 00:25:31] [SUCCESS] Staging database initialized
+[2025-11-21 01:00:12] [SUCCESS] Staging database initialized
 
-[2025-11-21 00:25:31] [INFO] Consumer initialized
+[2025-11-21 01:00:12] [INFO] Consumer initialized
 
-[2025-11-21 00:25:31] [INFO] Sending data to queues...
+[2025-11-21 01:00:12] [INFO] Sending data to queues...
 
-[2025-11-21 00:25:31] [INFO] Sending data to queue: datasource1_queue
+[2025-11-21 01:00:12] [INFO] Sending data to queue: datasource1_queue
 {
   "sourceType": "postgresql",
   "tables": [
@@ -133,21 +133,21 @@
   "totalRecords": 1213
 }
 
-[2025-11-21 00:25:31] [SUCCESS] ✓ Sent 418 records from khach_hang to datasource1_queue
+[2025-11-21 01:00:12] [SUCCESS] Sent 418 records from khach_hang to datasource1_queue
 
-[2025-11-21 00:25:31] [SUCCESS] ✓ Sent 20 records from danh_muc to datasource1_queue
+[2025-11-21 01:00:12] [SUCCESS] Sent 20 records from danh_muc to datasource1_queue
 
-[2025-11-21 00:25:31] [SUCCESS] ✓ Sent 497 records from san_pham to datasource1_queue
+[2025-11-21 01:00:12] [SUCCESS] Sent 497 records from san_pham to datasource1_queue
 
-[2025-11-21 00:25:31] [SUCCESS] ✓ Sent 93 records from don_hang to datasource1_queue
+[2025-11-21 01:00:12] [SUCCESS] Sent 93 records from don_hang to datasource1_queue
 
-[2025-11-21 00:25:31] [SUCCESS] ✓ Sent 92 records from chi_tiet_don_hang to datasource1_queue
+[2025-11-21 01:00:12] [SUCCESS] Sent 92 records from chi_tiet_don_hang to datasource1_queue
 
-[2025-11-21 00:25:31] [SUCCESS] ✓ Sent 93 records from thanh_toan to datasource1_queue
+[2025-11-21 01:00:12] [SUCCESS] Sent 93 records from thanh_toan to datasource1_queue
 
-[2025-11-21 00:25:31] [SUCCESS] All data sent to queue: datasource1_queue
+[2025-11-21 01:00:12] [SUCCESS] All data sent to queue: datasource1_queue
 
-[2025-11-21 00:25:31] [INFO] Sending data to queue: datasource2_queue
+[2025-11-21 01:00:12] [INFO] Sending data to queue: datasource2_queue
 {
   "sourceType": "csv",
   "tables": [
@@ -160,19 +160,19 @@
   "totalRecords": 27
 }
 
-[2025-11-21 00:25:31] [SUCCESS] ✓ Sent 7 records from khach_hang to datasource2_queue
+[2025-11-21 01:00:12] [SUCCESS] Sent 7 records from khach_hang to datasource2_queue
 
-[2025-11-21 00:25:31] [SUCCESS] ✓ Sent 5 records from phieu_ho_tro to datasource2_queue
+[2025-11-21 01:00:12] [SUCCESS] Sent 5 records from phieu_ho_tro to datasource2_queue
 
-[2025-11-21 00:25:31] [SUCCESS] ✓ Sent 5 records from danh_gia to datasource2_queue
+[2025-11-21 01:00:12] [SUCCESS] Sent 5 records from danh_gia to datasource2_queue
 
-[2025-11-21 00:25:31] [SUCCESS] ✓ Sent 5 records from nhanvien_cskh to datasource2_queue
+[2025-11-21 01:00:12] [SUCCESS] Sent 5 records from nhanvien_cskh to datasource2_queue
 
-[2025-11-21 00:25:31] [SUCCESS] ✓ Sent 5 records from phieu_xu_ly to datasource2_queue
+[2025-11-21 01:00:12] [SUCCESS] Sent 5 records from phieu_xu_ly to datasource2_queue
 
-[2025-11-21 00:25:31] [SUCCESS] All data sent to queue: datasource2_queue
+[2025-11-21 01:00:12] [SUCCESS] All data sent to queue: datasource2_queue
 
-[2025-11-21 00:25:31] [INFO] Consuming data from queues...
+[2025-11-21 01:00:12] [INFO] Consuming data from queues...
 
 
 ================================================================================
@@ -182,71 +182,71 @@
 ================================================================================
   CONSUMING QUEUE: datasource1_queue STARTED
 ================================================================================
-[2025-11-21 00:25:31] [INFO] Processing message from postgresql
+[2025-11-21 01:00:12] [INFO] Processing message from postgresql
 {
   "table": "khach_hang",
   "recordCount": 418,
-  "timestamp": "2025-11-20T17:25:31.875Z"
+  "timestamp": "2025-11-20T18:00:12.263Z"
 }
 
-[2025-11-21 00:25:31] [INFO] Processing message from postgresql
+[2025-11-21 01:00:12] [INFO] Processing message from postgresql
 {
   "table": "danh_muc",
   "recordCount": 20,
-  "timestamp": "2025-11-20T17:25:31.878Z"
+  "timestamp": "2025-11-20T18:00:12.266Z"
 }
 
-[2025-11-21 00:25:31] [INFO] Processing message from postgresql
-{
-  "table": "san_pham",
-  "recordCount": 497,
-  "timestamp": "2025-11-20T17:25:31.878Z"
-}
-
-[2025-11-21 00:25:31] [INFO] Processing message from postgresql
-{
-  "table": "chi_tiet_don_hang",
-  "recordCount": 92,
-  "timestamp": "2025-11-20T17:25:31.880Z"
-}
-
-[2025-11-21 00:25:31] [INFO] Processing message from postgresql
-{
-  "table": "thanh_toan",
-  "recordCount": 93,
-  "timestamp": "2025-11-20T17:25:31.881Z"
-}
-
-[2025-11-21 00:25:31] [INFO] Processing message from postgresql
+[2025-11-21 01:00:12] [INFO] Processing message from postgresql
 {
   "table": "don_hang",
   "recordCount": 93,
-  "timestamp": "2025-11-20T17:25:31.880Z"
+  "timestamp": "2025-11-20T18:00:12.267Z"
 }
 
-[2025-11-21 00:25:31] [SUCCESS] Inserted 20 records into stg_danh_muc
+[2025-11-21 01:00:12] [INFO] Processing message from postgresql
+{
+  "table": "san_pham",
+  "recordCount": 497,
+  "timestamp": "2025-11-20T18:00:12.266Z"
+}
 
-[2025-11-21 00:25:31] [SUCCESS] ✓ Processed 20 records from danh_muc
+[2025-11-21 01:00:12] [INFO] Processing message from postgresql
+{
+  "table": "chi_tiet_don_hang",
+  "recordCount": 92,
+  "timestamp": "2025-11-20T18:00:12.268Z"
+}
 
-[2025-11-21 00:25:32] [SUCCESS] Inserted 93 records into stg_don_hang
+[2025-11-21 01:00:12] [INFO] Processing message from postgresql
+{
+  "table": "thanh_toan",
+  "recordCount": 93,
+  "timestamp": "2025-11-20T18:00:12.269Z"
+}
 
-[2025-11-21 00:25:32] [SUCCESS] ✓ Processed 93 records from don_hang
+[2025-11-21 01:00:12] [SUCCESS] Inserted 20 records into stg_danh_muc
 
-[2025-11-21 00:25:32] [SUCCESS] Inserted 93 records into stg_thanh_toan
+[2025-11-21 01:00:12] [SUCCESS] Processed 20 records from danh_muc
 
-[2025-11-21 00:25:32] [SUCCESS] ✓ Processed 93 records from thanh_toan
+[2025-11-21 01:00:12] [SUCCESS] Inserted 93 records into stg_don_hang
 
-[2025-11-21 00:25:32] [SUCCESS] Inserted 92 records into stg_chi_tiet_don_hang
+[2025-11-21 01:00:12] [SUCCESS] Processed 93 records from don_hang
 
-[2025-11-21 00:25:32] [SUCCESS] ✓ Processed 92 records from chi_tiet_don_hang
+[2025-11-21 01:00:12] [SUCCESS] Inserted 93 records into stg_thanh_toan
 
-[2025-11-21 00:25:32] [SUCCESS] Inserted 418 records into stg_khach_hang
+[2025-11-21 01:00:12] [SUCCESS] Processed 93 records from thanh_toan
 
-[2025-11-21 00:25:32] [SUCCESS] ✓ Processed 418 records from khach_hang
+[2025-11-21 01:00:12] [SUCCESS] Inserted 92 records into stg_chi_tiet_don_hang
 
-[2025-11-21 00:25:32] [SUCCESS] Inserted 497 records into stg_san_pham
+[2025-11-21 01:00:12] [SUCCESS] Processed 92 records from chi_tiet_don_hang
 
-[2025-11-21 00:25:32] [SUCCESS] ✓ Processed 497 records from san_pham
+[2025-11-21 01:00:12] [SUCCESS] Inserted 418 records into stg_khach_hang
+
+[2025-11-21 01:00:12] [SUCCESS] Processed 418 records from khach_hang
+
+[2025-11-21 01:00:12] [SUCCESS] Inserted 497 records into stg_san_pham
+
+[2025-11-21 01:00:12] [SUCCESS] Processed 497 records from san_pham
 
 
 ================================================================================
@@ -258,60 +258,60 @@
 ================================================================================
   CONSUMING QUEUE: datasource2_queue STARTED
 ================================================================================
-[2025-11-21 00:25:36] [INFO] Processing message from csv
+[2025-11-21 01:00:17] [INFO] Processing message from csv
 {
   "table": "khach_hang",
   "recordCount": 7,
-  "timestamp": "2025-11-20T17:25:31.883Z"
+  "timestamp": "2025-11-20T18:00:12.270Z"
 }
 
-[2025-11-21 00:25:36] [INFO] Processing message from csv
+[2025-11-21 01:00:17] [INFO] Processing message from csv
 {
   "table": "phieu_ho_tro",
   "recordCount": 5,
-  "timestamp": "2025-11-20T17:25:31.883Z"
+  "timestamp": "2025-11-20T18:00:12.271Z"
 }
 
-[2025-11-21 00:25:36] [INFO] Processing message from csv
-{
-  "table": "phieu_xu_ly",
-  "recordCount": 5,
-  "timestamp": "2025-11-20T17:25:31.885Z"
-}
-
-[2025-11-21 00:25:36] [INFO] Processing message from csv
-{
-  "table": "nhanvien_cskh",
-  "recordCount": 5,
-  "timestamp": "2025-11-20T17:25:31.885Z"
-}
-
-[2025-11-21 00:25:36] [INFO] Processing message from csv
+[2025-11-21 01:00:17] [INFO] Processing message from csv
 {
   "table": "danh_gia",
   "recordCount": 5,
-  "timestamp": "2025-11-20T17:25:31.884Z"
+  "timestamp": "2025-11-20T18:00:12.271Z"
 }
 
-[2025-11-21 00:25:36] [SUCCESS] Inserted 5 records into stg_phieu_xu_ly
+[2025-11-21 01:00:17] [INFO] Processing message from csv
+{
+  "table": "nhanvien_cskh",
+  "recordCount": 5,
+  "timestamp": "2025-11-20T18:00:12.272Z"
+}
 
-[2025-11-21 00:25:36] [SUCCESS] Inserted 5 records into stg_nhanvien_cskh
+[2025-11-21 01:00:17] [INFO] Processing message from csv
+{
+  "table": "phieu_xu_ly",
+  "recordCount": 5,
+  "timestamp": "2025-11-20T18:00:12.272Z"
+}
 
-[2025-11-21 00:25:36] [SUCCESS] Inserted 5 records into stg_danh_gia
+[2025-11-21 01:00:17] [SUCCESS] Inserted 5 records into stg_nhanvien_cskh
 
-[2025-11-21 00:25:36] [SUCCESS] Inserted 5 records into stg_phieu_ho_tro
+[2025-11-21 01:00:17] [SUCCESS] Processed 5 records from nhanvien_cskh
 
-[2025-11-21 00:25:36] [SUCCESS] ✓ Processed 5 records from nhanvien_cskh
+[2025-11-21 01:00:17] [SUCCESS] Inserted 5 records into stg_phieu_ho_tro
 
-[2025-11-21 00:25:36] [SUCCESS] ✓ Processed 5 records from danh_gia
+[2025-11-21 01:00:17] [SUCCESS] Processed 5 records from phieu_ho_tro
 
-[2025-11-21 00:25:36] [SUCCESS] ✓ Processed 5 records from phieu_xu_ly
+[2025-11-21 01:00:17] [SUCCESS] Inserted 5 records into stg_phieu_xu_ly
 
-[2025-11-21 00:25:36] [SUCCESS] ✓ Processed 5 records from phieu_ho_tro
+[2025-11-21 01:00:17] [SUCCESS] Processed 5 records from phieu_xu_ly
 
-[2025-11-21 00:25:36] [SUCCESS] Inserted 7 records into stg_khach_hang
+[2025-11-21 01:00:17] [SUCCESS] Inserted 5 records into stg_danh_gia
 
-[2025-11-21 00:25:36] [SUCCESS] ✓ Processed 7 records from khach_hang
+[2025-11-21 01:00:17] [SUCCESS] Processed 5 records from danh_gia
+
+[2025-11-21 01:00:17] [SUCCESS] Inserted 7 records into stg_khach_hang
+
+[2025-11-21 01:00:17] [SUCCESS] Processed 7 records from khach_hang
 
 
 ================================================================================
@@ -334,27 +334,27 @@
 ================================================================================
   PHASE 3: DATA QUALITY STARTED
 ================================================================================
-[2025-11-21 00:25:41] [INFO] Applying ID prefixes to prevent key collisions...
+[2025-11-21 01:00:22] [INFO] Applying ID prefixes to prevent key collisions...
 
-[2025-11-21 00:25:41] [SUCCESS] ✅ ID prefixes applied
+[2025-11-21 01:00:22] [SUCCESS] ID prefixes applied
 {
   "tables": 10,
   "totalRecords": 1240
 }
 
-[2025-11-21 00:25:41] [INFO] Starting deduplication...
+[2025-11-21 01:00:22] [INFO] Starting deduplication...
 
 
 ================================================================================
   DEDUPLICATION STARTED
 ================================================================================
-[2025-11-21 00:25:41] [DEBUG] Merged duplicate record in khach_hang
+[2025-11-21 01:00:22] [DEBUG] Merged duplicate record in khach_hang
 {
   "key": "null",
   "existing": "PG_KH0013"
 }
 
-[2025-11-21 00:25:41] [WARN] Removed 1 duplicates from khach_hang
+[2025-11-21 01:00:22] [WARN] Removed 1 duplicates from khach_hang
 {
   "original": 425,
   "after": 424,
@@ -363,23 +363,23 @@
   ]
 }
 
-[2025-11-21 00:25:41] [SUCCESS] No duplicates in danh_muc
+[2025-11-21 01:00:22] [SUCCESS] No duplicates in danh_muc
 
-[2025-11-21 00:25:41] [SUCCESS] No duplicates in san_pham
+[2025-11-21 01:00:22] [SUCCESS] No duplicates in san_pham
 
-[2025-11-21 00:25:41] [SUCCESS] No duplicates in don_hang
+[2025-11-21 01:00:22] [SUCCESS] No duplicates in don_hang
 
-[2025-11-21 00:25:41] [SUCCESS] No duplicates in chi_tiet_don_hang
+[2025-11-21 01:00:22] [SUCCESS] No duplicates in chi_tiet_don_hang
 
-[2025-11-21 00:25:41] [SUCCESS] No duplicates in thanh_toan
+[2025-11-21 01:00:22] [SUCCESS] No duplicates in thanh_toan
 
-[2025-11-21 00:25:41] [SUCCESS] No duplicates in phieu_ho_tro
+[2025-11-21 01:00:22] [SUCCESS] No duplicates in phieu_ho_tro
 
-[2025-11-21 00:25:41] [SUCCESS] No duplicates in danh_gia
+[2025-11-21 01:00:22] [SUCCESS] No duplicates in danh_gia
 
-[2025-11-21 00:25:41] [SUCCESS] No duplicates in nhanvien_cskh
+[2025-11-21 01:00:22] [SUCCESS] No duplicates in nhanvien_cskh
 
-[2025-11-21 00:25:41] [SUCCESS] No duplicates in phieu_xu_ly
+[2025-11-21 01:00:22] [SUCCESS] No duplicates in phieu_xu_ly
 
 
 ================================================================================
@@ -387,16 +387,16 @@
   Stats: {"totalOriginal":1240,"totalAfter":1239,"totalRemoved":1,"byTable":{"khach_hang":{"original":425,"after":424,"removed":1},"danh_muc":{"original":20,"after":20,"removed":0},"san_pham":{"original":497,"after":497,"removed":0},"don_hang":{"original":93,"after":93,"removed":0},"chi_tiet_don_hang":{"original":92,"after":92,"removed":0},"thanh_toan":{"original":93,"after":93,"removed":0},"phieu_ho_tro":{"original":5,"after":5,"removed":0},"danh_gia":{"original":5,"after":5,"removed":0},"nhanvien_cskh":{"original":5,"after":5,"removed":0},"phieu_xu_ly":{"original":5,"after":5,"removed":0}}}
 ================================================================================
 
-[2025-11-21 00:25:41] [SUCCESS] ✅ Deduplication completed
+[2025-11-21 01:00:22] [SUCCESS] Deduplication completed
 {
   "originalRecords": 1240,
   "afterDedup": 1239,
   "removed": 1
 }
 
-[2025-11-21 00:25:41] [INFO] Starting validation...
+[2025-11-21 01:00:22] [INFO] Starting validation...
 
-[2025-11-21 00:25:41] [INFO] Validated khach_hang
+[2025-11-21 01:00:22] [INFO] Validated khach_hang
 {
   "total": 424,
   "valid": 0,
@@ -404,7 +404,7 @@
   "unfixable": 30
 }
 
-[2025-11-21 00:25:41] [INFO] Validated danh_muc
+[2025-11-21 01:00:22] [INFO] Validated danh_muc
 {
   "total": 20,
   "valid": 20,
@@ -412,7 +412,7 @@
   "unfixable": 0
 }
 
-[2025-11-21 00:25:41] [INFO] Validated san_pham
+[2025-11-21 01:00:22] [INFO] Validated san_pham
 {
   "total": 497,
   "valid": 494,
@@ -420,7 +420,7 @@
   "unfixable": 3
 }
 
-[2025-11-21 00:25:41] [INFO] Validated don_hang
+[2025-11-21 01:00:22] [INFO] Validated don_hang
 {
   "total": 93,
   "valid": 86,
@@ -428,7 +428,7 @@
   "unfixable": 7
 }
 
-[2025-11-21 00:25:41] [INFO] Validated chi_tiet_don_hang
+[2025-11-21 01:00:22] [INFO] Validated chi_tiet_don_hang
 {
   "total": 92,
   "valid": 92,
@@ -436,7 +436,7 @@
   "unfixable": 0
 }
 
-[2025-11-21 00:25:41] [INFO] Validated thanh_toan
+[2025-11-21 01:00:22] [INFO] Validated thanh_toan
 {
   "total": 93,
   "valid": 21,
@@ -444,7 +444,7 @@
   "unfixable": 72
 }
 
-[2025-11-21 00:25:41] [INFO] Validated phieu_ho_tro
+[2025-11-21 01:00:22] [INFO] Validated phieu_ho_tro
 {
   "total": 5,
   "valid": 3,
@@ -452,7 +452,7 @@
   "unfixable": 2
 }
 
-[2025-11-21 00:25:41] [INFO] Validated danh_gia
+[2025-11-21 01:00:22] [INFO] Validated danh_gia
 {
   "total": 5,
   "valid": 5,
@@ -460,7 +460,7 @@
   "unfixable": 0
 }
 
-[2025-11-21 00:25:41] [INFO] Validated nhanvien_cskh
+[2025-11-21 01:00:22] [INFO] Validated nhanvien_cskh
 {
   "total": 5,
   "valid": 5,
@@ -468,7 +468,7 @@
   "unfixable": 0
 }
 
-[2025-11-21 00:25:41] [INFO] Validated phieu_xu_ly
+[2025-11-21 01:00:22] [INFO] Validated phieu_xu_ly
 {
   "total": 5,
   "valid": 5,
@@ -476,7 +476,7 @@
   "unfixable": 0
 }
 
-[2025-11-21 00:25:41] [INFO] Starting transformation...
+[2025-11-21 01:00:22] [INFO] Starting transformation...
 
 
 ================================================================================
@@ -488,7 +488,7 @@
   Stats: {"totalRecords":424,"transformedRecords":424,"skippedRecords":0}
 ================================================================================
 
-[2025-11-21 00:25:41] [INFO] Transform details
+[2025-11-21 01:00:22] [INFO] Transform details
 {
   "sampleTransforms": [
     {
@@ -504,7 +504,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": null,
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.930Z"
+        "inserted_at": "2025-11-20T11:00:12.325Z"
       },
       "transformedRecord": {
         "ma_khach_hang": "PG_KH0001",
@@ -517,7 +517,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.930Z"
+        "inserted_at": "2025-11-20T11:00:12.325Z"
       },
       "transformLog": [
         {
@@ -547,7 +547,7 @@
         "gioi_tinh": "Nữ",
         "loai_khach_hang": null,
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.932Z"
+        "inserted_at": "2025-11-20T11:00:12.326Z"
       },
       "transformedRecord": {
         "ma_khach_hang": "PG_KH0002",
@@ -560,7 +560,7 @@
         "gioi_tinh": "Nữ",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.932Z"
+        "inserted_at": "2025-11-20T11:00:12.326Z"
       },
       "transformLog": [
         {
@@ -590,7 +590,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": null,
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.933Z"
+        "inserted_at": "2025-11-20T11:00:12.327Z"
       },
       "transformedRecord": {
         "ma_khach_hang": "PG_KH0003",
@@ -603,7 +603,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.933Z"
+        "inserted_at": "2025-11-20T11:00:12.327Z"
       },
       "transformLog": [
         {
@@ -633,7 +633,7 @@
         "gioi_tinh": "Nữ",
         "loai_khach_hang": null,
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.934Z"
+        "inserted_at": "2025-11-20T11:00:12.328Z"
       },
       "transformedRecord": {
         "ma_khach_hang": "PG_KH0004",
@@ -646,7 +646,7 @@
         "gioi_tinh": "Nữ",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.934Z"
+        "inserted_at": "2025-11-20T11:00:12.328Z"
       },
       "transformLog": [
         {
@@ -676,7 +676,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": null,
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.936Z"
+        "inserted_at": "2025-11-20T11:00:12.329Z"
       },
       "transformedRecord": {
         "ma_khach_hang": "PG_KH0005",
@@ -689,7 +689,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.936Z"
+        "inserted_at": "2025-11-20T11:00:12.329Z"
       },
       "transformLog": [
         {
@@ -709,7 +709,7 @@
   ]
 }
 
-[2025-11-21 00:25:41] [SUCCESS] ✅ Transformed khach_hang
+[2025-11-21 01:00:22] [SUCCESS] Transformed khach_hang
 {
   "transformed": 424,
   "skipped": 0
@@ -725,7 +725,7 @@
   Stats: {"totalRecords":20,"transformedRecords":0,"skippedRecords":20}
 ================================================================================
 
-[2025-11-21 00:25:41] [SUCCESS] ✅ Transformed danh_muc
+[2025-11-21 01:00:22] [SUCCESS] Transformed danh_muc
 {
   "transformed": 0,
   "skipped": 20
@@ -741,7 +741,7 @@
   Stats: {"totalRecords":497,"transformedRecords":0,"skippedRecords":497}
 ================================================================================
 
-[2025-11-21 00:25:41] [SUCCESS] ✅ Transformed san_pham
+[2025-11-21 01:00:22] [SUCCESS] Transformed san_pham
 {
   "transformed": 0,
   "skipped": 497
@@ -757,7 +757,7 @@
   Stats: {"totalRecords":93,"transformedRecords":0,"skippedRecords":93}
 ================================================================================
 
-[2025-11-21 00:25:41] [SUCCESS] ✅ Transformed don_hang
+[2025-11-21 01:00:22] [SUCCESS] Transformed don_hang
 {
   "transformed": 0,
   "skipped": 93
@@ -773,7 +773,7 @@
   Stats: {"totalRecords":92,"transformedRecords":0,"skippedRecords":92}
 ================================================================================
 
-[2025-11-21 00:25:41] [SUCCESS] ✅ Transformed chi_tiet_don_hang
+[2025-11-21 01:00:22] [SUCCESS] Transformed chi_tiet_don_hang
 {
   "transformed": 0,
   "skipped": 92
@@ -789,7 +789,7 @@
   Stats: {"totalRecords":93,"transformedRecords":0,"skippedRecords":93}
 ================================================================================
 
-[2025-11-21 00:25:41] [SUCCESS] ✅ Transformed thanh_toan
+[2025-11-21 01:00:22] [SUCCESS] Transformed thanh_toan
 {
   "transformed": 0,
   "skipped": 93
@@ -805,7 +805,7 @@
   Stats: {"totalRecords":5,"transformedRecords":0,"skippedRecords":5}
 ================================================================================
 
-[2025-11-21 00:25:41] [SUCCESS] ✅ Transformed phieu_ho_tro
+[2025-11-21 01:00:22] [SUCCESS] Transformed phieu_ho_tro
 {
   "transformed": 0,
   "skipped": 5
@@ -821,7 +821,7 @@
   Stats: {"totalRecords":5,"transformedRecords":0,"skippedRecords":5}
 ================================================================================
 
-[2025-11-21 00:25:41] [SUCCESS] ✅ Transformed danh_gia
+[2025-11-21 01:00:22] [SUCCESS] Transformed danh_gia
 {
   "transformed": 0,
   "skipped": 5
@@ -837,7 +837,7 @@
   Stats: {"totalRecords":5,"transformedRecords":0,"skippedRecords":5}
 ================================================================================
 
-[2025-11-21 00:25:41] [SUCCESS] ✅ Transformed nhanvien_cskh
+[2025-11-21 01:00:22] [SUCCESS] Transformed nhanvien_cskh
 {
   "transformed": 0,
   "skipped": 5
@@ -853,75 +853,75 @@
   Stats: {"totalRecords":5,"transformedRecords":0,"skippedRecords":5}
 ================================================================================
 
-[2025-11-21 00:25:41] [SUCCESS] ✅ Transformed phieu_xu_ly
+[2025-11-21 01:00:22] [SUCCESS] Transformed phieu_xu_ly
 {
   "transformed": 0,
   "skipped": 5
 }
 
-[2025-11-21 00:25:41] [INFO] Re-validating after transformation...
+[2025-11-21 01:00:22] [INFO] Re-validating after transformation...
 
-[2025-11-21 00:25:42] [INFO] Final validation for khach_hang
+[2025-11-21 01:00:22] [INFO] Final validation for khach_hang
 {
   "clean": 393,
   "stillInvalid": 31
 }
 
-[2025-11-21 00:25:42] [INFO] Final validation for danh_muc
+[2025-11-21 01:00:22] [INFO] Final validation for danh_muc
 {
   "clean": 20,
   "stillInvalid": 0
 }
 
-[2025-11-21 00:25:42] [INFO] Final validation for san_pham
+[2025-11-21 01:00:22] [INFO] Final validation for san_pham
 {
   "clean": 494,
   "stillInvalid": 3
 }
 
-[2025-11-21 00:25:42] [INFO] Final validation for don_hang
+[2025-11-21 01:00:22] [INFO] Final validation for don_hang
 {
   "clean": 86,
   "stillInvalid": 7
 }
 
-[2025-11-21 00:25:42] [INFO] Final validation for chi_tiet_don_hang
+[2025-11-21 01:00:22] [INFO] Final validation for chi_tiet_don_hang
 {
   "clean": 92,
   "stillInvalid": 0
 }
 
-[2025-11-21 00:25:42] [INFO] Final validation for thanh_toan
+[2025-11-21 01:00:22] [INFO] Final validation for thanh_toan
 {
   "clean": 21,
   "stillInvalid": 72
 }
 
-[2025-11-21 00:25:42] [INFO] Final validation for phieu_ho_tro
+[2025-11-21 01:00:22] [INFO] Final validation for phieu_ho_tro
 {
   "clean": 3,
   "stillInvalid": 2
 }
 
-[2025-11-21 00:25:42] [INFO] Final validation for danh_gia
+[2025-11-21 01:00:22] [INFO] Final validation for danh_gia
 {
   "clean": 5,
   "stillInvalid": 0
 }
 
-[2025-11-21 00:25:42] [INFO] Final validation for nhanvien_cskh
+[2025-11-21 01:00:22] [INFO] Final validation for nhanvien_cskh
 {
   "clean": 5,
   "stillInvalid": 0
 }
 
-[2025-11-21 00:25:42] [INFO] Final validation for phieu_xu_ly
+[2025-11-21 01:00:22] [INFO] Final validation for phieu_xu_ly
 {
   "clean": 5,
   "stillInvalid": 0
 }
 
-[2025-11-21 00:25:42] [ERROR] Unfixable errors in khach_hang
+[2025-11-21 01:00:22] [ERROR] Đã ghi lại records lỗi của table: khach_hang
 {
   "count": 31,
   "allErrors": [
@@ -937,7 +937,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.946Z",
+        "inserted_at": "2025-11-20T11:00:12.340Z",
         "sources": "postgresql,csv"
       },
       "errors": [
@@ -962,7 +962,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.135Z"
+        "inserted_at": "2025-11-20T11:00:12.652Z"
       },
       "errors": [
         {
@@ -986,7 +986,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.136Z"
+        "inserted_at": "2025-11-20T11:00:12.654Z"
       },
       "errors": [
         {
@@ -1011,7 +1011,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.203Z"
+        "inserted_at": "2025-11-20T11:00:12.757Z"
       },
       "errors": [
         {
@@ -1049,7 +1049,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.203Z"
+        "inserted_at": "2025-11-20T11:00:12.758Z"
       },
       "errors": [
         {
@@ -1081,7 +1081,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.204Z"
+        "inserted_at": "2025-11-20T11:00:12.759Z"
       },
       "errors": [
         {
@@ -1105,7 +1105,7 @@
         "gioi_tinh": "Nữ",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.205Z"
+        "inserted_at": "2025-11-20T11:00:12.761Z"
       },
       "errors": [
         {
@@ -1129,7 +1129,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.206Z"
+        "inserted_at": "2025-11-20T11:00:12.762Z"
       },
       "errors": [
         {
@@ -1153,7 +1153,7 @@
         "gioi_tinh": "Nữ",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.207Z"
+        "inserted_at": "2025-11-20T11:00:12.764Z"
       },
       "errors": [
         {
@@ -1177,7 +1177,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.208Z"
+        "inserted_at": "2025-11-20T11:00:12.765Z"
       },
       "errors": [
         {
@@ -1201,7 +1201,7 @@
         "gioi_tinh": "Nữ",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.208Z"
+        "inserted_at": "2025-11-20T11:00:12.766Z"
       },
       "errors": [
         {
@@ -1225,7 +1225,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.216Z"
+        "inserted_at": "2025-11-20T11:00:12.780Z"
       },
       "errors": [
         {
@@ -1258,7 +1258,7 @@
         "gioi_tinh": "nu",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.217Z"
+        "inserted_at": "2025-11-20T11:00:12.782Z"
       },
       "errors": [
         {
@@ -1291,7 +1291,7 @@
         "gioi_tinh": "NAM",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.218Z"
+        "inserted_at": "2025-11-20T11:00:12.783Z"
       },
       "errors": [
         {
@@ -1324,7 +1324,7 @@
         "gioi_tinh": "Nữ",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.220Z"
+        "inserted_at": "2025-11-20T11:00:12.784Z"
       },
       "errors": [
         {
@@ -1357,7 +1357,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.221Z"
+        "inserted_at": "2025-11-20T11:00:12.785Z"
       },
       "errors": [
         {
@@ -1390,7 +1390,7 @@
         "gioi_tinh": "Nữ",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.222Z"
+        "inserted_at": "2025-11-20T11:00:12.786Z"
       },
       "errors": [
         {
@@ -1423,7 +1423,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.222Z"
+        "inserted_at": "2025-11-20T11:00:12.786Z"
       },
       "errors": [
         {
@@ -1456,7 +1456,7 @@
         "gioi_tinh": "Nữ",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.223Z"
+        "inserted_at": "2025-11-20T11:00:12.787Z"
       },
       "errors": [
         {
@@ -1496,7 +1496,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.224Z"
+        "inserted_at": "2025-11-20T11:00:12.788Z"
       },
       "errors": [
         {
@@ -1536,7 +1536,7 @@
         "gioi_tinh": "Nữ",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.231Z"
+        "inserted_at": "2025-11-20T11:00:12.797Z"
       },
       "errors": [
         {
@@ -1560,7 +1560,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.279Z"
+        "inserted_at": "2025-11-20T11:00:12.846Z"
       },
       "errors": [
         {
@@ -1598,7 +1598,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.280Z"
+        "inserted_at": "2025-11-20T11:00:12.847Z"
       },
       "errors": [
         {
@@ -1630,7 +1630,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.280Z"
+        "inserted_at": "2025-11-20T11:00:12.847Z"
       },
       "errors": [
         {
@@ -1654,7 +1654,7 @@
         "gioi_tinh": "Nữ",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.281Z"
+        "inserted_at": "2025-11-20T11:00:12.848Z"
       },
       "errors": [
         {
@@ -1678,7 +1678,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.282Z"
+        "inserted_at": "2025-11-20T11:00:12.849Z"
       },
       "errors": [
         {
@@ -1702,7 +1702,7 @@
         "gioi_tinh": "Nữ",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.283Z"
+        "inserted_at": "2025-11-20T11:00:12.850Z"
       },
       "errors": [
         {
@@ -1726,7 +1726,7 @@
         "gioi_tinh": "Nam",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.284Z"
+        "inserted_at": "2025-11-20T11:00:12.851Z"
       },
       "errors": [
         {
@@ -1750,7 +1750,7 @@
         "gioi_tinh": "Nữ",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.285Z"
+        "inserted_at": "2025-11-20T11:00:12.852Z"
       },
       "errors": [
         {
@@ -1774,7 +1774,7 @@
         "gioi_tinh": "Nữ",
         "loai_khach_hang": "Thường",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.294Z"
+        "inserted_at": "2025-11-20T11:00:12.863Z"
       },
       "errors": [
         {
@@ -1798,7 +1798,7 @@
         "gioi_tinh": null,
         "loai_khach_hang": "VIP",
         "source": "csv",
-        "inserted_at": "2025-11-20T10:25:36.928Z"
+        "inserted_at": "2025-11-20T11:00:17.311Z"
       },
       "errors": [
         {
@@ -1813,7 +1813,7 @@
   ]
 }
 
-[2025-11-21 00:25:42] [ERROR] Unfixable errors in san_pham
+[2025-11-21 01:00:22] [ERROR] Đã ghi lại records lỗi của table: san_pham
 {
   "count": 3,
   "allErrors": [
@@ -1826,7 +1826,7 @@
         "don_gia": "-500000.00",
         "ton_kho": -10,
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.031Z"
+        "inserted_at": "2025-11-20T11:00:12.469Z"
       },
       "errors": [
         {
@@ -1847,7 +1847,7 @@
         "don_gia": "-25000000.00",
         "ton_kho": -15,
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.212Z"
+        "inserted_at": "2025-11-20T11:00:12.764Z"
       },
       "errors": [
         {
@@ -1868,7 +1868,7 @@
         "don_gia": "-1500000.00",
         "ton_kho": -10,
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.374Z"
+        "inserted_at": "2025-11-20T11:00:12.943Z"
       },
       "errors": [
         {
@@ -1883,7 +1883,7 @@
   ]
 }
 
-[2025-11-21 00:25:42] [ERROR] Unfixable errors in don_hang
+[2025-11-21 01:00:22] [ERROR] Đã ghi lại records lỗi của table: don_hang
 {
   "count": 7,
   "allErrors": [
@@ -1895,7 +1895,7 @@
         "tong_tien": "5990000.00",
         "trang_thai": "Đã hủy",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.954Z"
+        "inserted_at": "2025-11-20T11:00:12.328Z"
       },
       "errors": [
         {
@@ -1925,7 +1925,7 @@
         "tong_tien": "2190000.00",
         "trang_thai": "Đã hủy",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.964Z"
+        "inserted_at": "2025-11-20T11:00:12.340Z"
       },
       "errors": [
         {
@@ -1955,7 +1955,7 @@
         "tong_tien": "3290000.00",
         "trang_thai": "Đã hủy",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.975Z"
+        "inserted_at": "2025-11-20T11:00:12.353Z"
       },
       "errors": [
         {
@@ -1985,7 +1985,7 @@
         "tong_tien": "17990000.00",
         "trang_thai": "Đã hủy",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.985Z"
+        "inserted_at": "2025-11-20T11:00:12.374Z"
       },
       "errors": [
         {
@@ -2015,7 +2015,7 @@
         "tong_tien": "8990000.00",
         "trang_thai": "Đã hủy",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.001Z"
+        "inserted_at": "2025-11-20T11:00:12.401Z"
       },
       "errors": [
         {
@@ -2045,7 +2045,7 @@
         "tong_tien": "2190000.00",
         "trang_thai": "Đã hủy",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.016Z"
+        "inserted_at": "2025-11-20T11:00:12.426Z"
       },
       "errors": [
         {
@@ -2075,7 +2075,7 @@
         "tong_tien": "3290000.00",
         "trang_thai": "Đã hủy",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.028Z"
+        "inserted_at": "2025-11-20T11:00:12.447Z"
       },
       "errors": [
         {
@@ -2100,7 +2100,7 @@
   ]
 }
 
-[2025-11-21 00:25:42] [ERROR] Unfixable errors in thanh_toan
+[2025-11-21 01:00:22] [ERROR] Đã ghi lại records lỗi của table: thanh_toan
 {
   "count": 72,
   "allErrors": [
@@ -2113,7 +2113,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.942Z"
+        "inserted_at": "2025-11-20T11:00:12.328Z"
       },
       "errors": [
         {
@@ -2144,7 +2144,7 @@
         "trang_thai": "Thất bại",
         "phuong_thuc": "MoMo",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.945Z"
+        "inserted_at": "2025-11-20T11:00:12.331Z"
       },
       "errors": [
         {
@@ -2175,7 +2175,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.947Z"
+        "inserted_at": "2025-11-20T11:00:12.334Z"
       },
       "errors": [
         {
@@ -2206,7 +2206,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.950Z"
+        "inserted_at": "2025-11-20T11:00:12.336Z"
       },
       "errors": [
         {
@@ -2237,7 +2237,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "ZaloPay",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.953Z"
+        "inserted_at": "2025-11-20T11:00:12.338Z"
       },
       "errors": [
         {
@@ -2268,7 +2268,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.954Z"
+        "inserted_at": "2025-11-20T11:00:12.339Z"
       },
       "errors": [
         {
@@ -2299,7 +2299,7 @@
         "trang_thai": "Thất bại",
         "phuong_thuc": "MoMo",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.955Z"
+        "inserted_at": "2025-11-20T11:00:12.341Z"
       },
       "errors": [
         {
@@ -2330,7 +2330,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Tiền mặt",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.957Z"
+        "inserted_at": "2025-11-20T11:00:12.341Z"
       },
       "errors": [
         {
@@ -2361,7 +2361,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.959Z"
+        "inserted_at": "2025-11-20T11:00:12.344Z"
       },
       "errors": [
         {
@@ -2392,7 +2392,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.960Z"
+        "inserted_at": "2025-11-20T11:00:12.345Z"
       },
       "errors": [
         {
@@ -2423,7 +2423,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "MoMo",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.963Z"
+        "inserted_at": "2025-11-20T11:00:12.348Z"
       },
       "errors": [
         {
@@ -2454,7 +2454,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.964Z"
+        "inserted_at": "2025-11-20T11:00:12.349Z"
       },
       "errors": [
         {
@@ -2485,7 +2485,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "ZaloPay",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.965Z"
+        "inserted_at": "2025-11-20T11:00:12.350Z"
       },
       "errors": [
         {
@@ -2516,7 +2516,7 @@
         "trang_thai": "Thất bại",
         "phuong_thuc": "Thẻ tín dụng",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.966Z"
+        "inserted_at": "2025-11-20T11:00:12.351Z"
       },
       "errors": [
         {
@@ -2547,7 +2547,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Tiền mặt",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.967Z"
+        "inserted_at": "2025-11-20T11:00:12.352Z"
       },
       "errors": [
         {
@@ -2578,7 +2578,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.970Z"
+        "inserted_at": "2025-11-20T11:00:12.356Z"
       },
       "errors": [
         {
@@ -2609,7 +2609,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "ZaloPay",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.971Z"
+        "inserted_at": "2025-11-20T11:00:12.357Z"
       },
       "errors": [
         {
@@ -2640,7 +2640,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.973Z"
+        "inserted_at": "2025-11-20T11:00:12.360Z"
       },
       "errors": [
         {
@@ -2671,7 +2671,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "MoMo",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.975Z"
+        "inserted_at": "2025-11-20T11:00:12.362Z"
       },
       "errors": [
         {
@@ -2702,7 +2702,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.976Z"
+        "inserted_at": "2025-11-20T11:00:12.365Z"
       },
       "errors": [
         {
@@ -2733,7 +2733,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Tiền mặt",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.977Z"
+        "inserted_at": "2025-11-20T11:00:12.369Z"
       },
       "errors": [
         {
@@ -2764,7 +2764,7 @@
         "trang_thai": "Thất bại",
         "phuong_thuc": "Thẻ tín dụng",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.978Z"
+        "inserted_at": "2025-11-20T11:00:12.373Z"
       },
       "errors": [
         {
@@ -2795,7 +2795,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "ZaloPay",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.979Z"
+        "inserted_at": "2025-11-20T11:00:12.376Z"
       },
       "errors": [
         {
@@ -2826,7 +2826,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.982Z"
+        "inserted_at": "2025-11-20T11:00:12.380Z"
       },
       "errors": [
         {
@@ -2857,7 +2857,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.983Z"
+        "inserted_at": "2025-11-20T11:00:12.382Z"
       },
       "errors": [
         {
@@ -2888,7 +2888,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "MoMo",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.984Z"
+        "inserted_at": "2025-11-20T11:00:12.384Z"
       },
       "errors": [
         {
@@ -2919,7 +2919,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.986Z"
+        "inserted_at": "2025-11-20T11:00:12.389Z"
       },
       "errors": [
         {
@@ -2950,7 +2950,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.988Z"
+        "inserted_at": "2025-11-20T11:00:12.390Z"
       },
       "errors": [
         {
@@ -2981,7 +2981,7 @@
         "trang_thai": "Thất bại",
         "phuong_thuc": "Thẻ tín dụng",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.989Z"
+        "inserted_at": "2025-11-20T11:00:12.392Z"
       },
       "errors": [
         {
@@ -3012,7 +3012,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.990Z"
+        "inserted_at": "2025-11-20T11:00:12.394Z"
       },
       "errors": [
         {
@@ -3043,7 +3043,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Tiền mặt",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.992Z"
+        "inserted_at": "2025-11-20T11:00:12.397Z"
       },
       "errors": [
         {
@@ -3074,7 +3074,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "ZaloPay",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.993Z"
+        "inserted_at": "2025-11-20T11:00:12.399Z"
       },
       "errors": [
         {
@@ -3105,7 +3105,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "MoMo",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.994Z"
+        "inserted_at": "2025-11-20T11:00:12.402Z"
       },
       "errors": [
         {
@@ -3136,7 +3136,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.995Z"
+        "inserted_at": "2025-11-20T11:00:12.405Z"
       },
       "errors": [
         {
@@ -3167,7 +3167,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.996Z"
+        "inserted_at": "2025-11-20T11:00:12.407Z"
       },
       "errors": [
         {
@@ -3198,7 +3198,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Tiền mặt",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.997Z"
+        "inserted_at": "2025-11-20T11:00:12.410Z"
       },
       "errors": [
         {
@@ -3229,7 +3229,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:31.999Z"
+        "inserted_at": "2025-11-20T11:00:12.415Z"
       },
       "errors": [
         {
@@ -3260,7 +3260,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "MoMo",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.001Z"
+        "inserted_at": "2025-11-20T11:00:12.417Z"
       },
       "errors": [
         {
@@ -3291,7 +3291,7 @@
         "trang_thai": "Thất bại",
         "phuong_thuc": "Thẻ tín dụng",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.002Z"
+        "inserted_at": "2025-11-20T11:00:12.419Z"
       },
       "errors": [
         {
@@ -3322,7 +3322,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "ZaloPay",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.004Z"
+        "inserted_at": "2025-11-20T11:00:12.421Z"
       },
       "errors": [
         {
@@ -3353,7 +3353,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "MoMo",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.006Z"
+        "inserted_at": "2025-11-20T11:00:12.423Z"
       },
       "errors": [
         {
@@ -3384,7 +3384,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Tiền mặt",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.007Z"
+        "inserted_at": "2025-11-20T11:00:12.425Z"
       },
       "errors": [
         {
@@ -3415,7 +3415,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.008Z"
+        "inserted_at": "2025-11-20T11:00:12.426Z"
       },
       "errors": [
         {
@@ -3446,7 +3446,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.009Z"
+        "inserted_at": "2025-11-20T11:00:12.428Z"
       },
       "errors": [
         {
@@ -3477,7 +3477,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.012Z"
+        "inserted_at": "2025-11-20T11:00:12.432Z"
       },
       "errors": [
         {
@@ -3508,7 +3508,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "MoMo",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.013Z"
+        "inserted_at": "2025-11-20T11:00:12.434Z"
       },
       "errors": [
         {
@@ -3539,7 +3539,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.014Z"
+        "inserted_at": "2025-11-20T11:00:12.436Z"
       },
       "errors": [
         {
@@ -3570,7 +3570,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "ZaloPay",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.014Z"
+        "inserted_at": "2025-11-20T11:00:12.438Z"
       },
       "errors": [
         {
@@ -3601,7 +3601,7 @@
         "trang_thai": "Thất bại",
         "phuong_thuc": "Thẻ tín dụng",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.015Z"
+        "inserted_at": "2025-11-20T11:00:12.440Z"
       },
       "errors": [
         {
@@ -3632,7 +3632,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Tiền mặt",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.017Z"
+        "inserted_at": "2025-11-20T11:00:12.442Z"
       },
       "errors": [
         {
@@ -3663,7 +3663,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.019Z"
+        "inserted_at": "2025-11-20T11:00:12.445Z"
       },
       "errors": [
         {
@@ -3694,7 +3694,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "ZaloPay",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.020Z"
+        "inserted_at": "2025-11-20T11:00:12.447Z"
       },
       "errors": [
         {
@@ -3725,7 +3725,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.021Z"
+        "inserted_at": "2025-11-20T11:00:12.448Z"
       },
       "errors": [
         {
@@ -3756,7 +3756,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.023Z"
+        "inserted_at": "2025-11-20T11:00:12.451Z"
       },
       "errors": [
         {
@@ -3787,7 +3787,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "MoMo",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.024Z"
+        "inserted_at": "2025-11-20T11:00:12.453Z"
       },
       "errors": [
         {
@@ -3818,7 +3818,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.025Z"
+        "inserted_at": "2025-11-20T11:00:12.455Z"
       },
       "errors": [
         {
@@ -3849,7 +3849,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Tiền mặt",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.026Z"
+        "inserted_at": "2025-11-20T11:00:12.456Z"
       },
       "errors": [
         {
@@ -3880,7 +3880,7 @@
         "trang_thai": "Thất bại",
         "phuong_thuc": "Thẻ tín dụng",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.027Z"
+        "inserted_at": "2025-11-20T11:00:12.458Z"
       },
       "errors": [
         {
@@ -3911,7 +3911,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "ZaloPay",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.028Z"
+        "inserted_at": "2025-11-20T11:00:12.460Z"
       },
       "errors": [
         {
@@ -3942,7 +3942,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.031Z"
+        "inserted_at": "2025-11-20T11:00:12.463Z"
       },
       "errors": [
         {
@@ -3973,7 +3973,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.031Z"
+        "inserted_at": "2025-11-20T11:00:12.466Z"
       },
       "errors": [
         {
@@ -4004,7 +4004,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.034Z"
+        "inserted_at": "2025-11-20T11:00:12.471Z"
       },
       "errors": [
         {
@@ -4035,7 +4035,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.035Z"
+        "inserted_at": "2025-11-20T11:00:12.474Z"
       },
       "errors": [
         {
@@ -4066,7 +4066,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "ZaloPay",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.036Z"
+        "inserted_at": "2025-11-20T11:00:12.477Z"
       },
       "errors": [
         {
@@ -4097,7 +4097,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.038Z"
+        "inserted_at": "2025-11-20T11:00:12.482Z"
       },
       "errors": [
         {
@@ -4128,7 +4128,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "MoMo",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.039Z"
+        "inserted_at": "2025-11-20T11:00:12.484Z"
       },
       "errors": [
         {
@@ -4159,7 +4159,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Tiền mặt",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.040Z"
+        "inserted_at": "2025-11-20T11:00:12.486Z"
       },
       "errors": [
         {
@@ -4190,7 +4190,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "ZaloPay",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.041Z"
+        "inserted_at": "2025-11-20T11:00:12.488Z"
       },
       "errors": [
         {
@@ -4221,7 +4221,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "MoMo",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.043Z"
+        "inserted_at": "2025-11-20T11:00:12.493Z"
       },
       "errors": [
         {
@@ -4252,7 +4252,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.045Z"
+        "inserted_at": "2025-11-20T11:00:12.494Z"
       },
       "errors": [
         {
@@ -4283,7 +4283,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Chuyển khoản",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.046Z"
+        "inserted_at": "2025-11-20T11:00:12.496Z"
       },
       "errors": [
         {
@@ -4314,7 +4314,7 @@
         "trang_thai": "Thành công",
         "phuong_thuc": "Tiền mặt",
         "source": "postgresql",
-        "inserted_at": "2025-11-20T10:25:32.047Z"
+        "inserted_at": "2025-11-20T11:00:12.497Z"
       },
       "errors": [
         {
@@ -4339,7 +4339,7 @@
   ]
 }
 
-[2025-11-21 00:25:42] [ERROR] Unfixable errors in phieu_ho_tro
+[2025-11-21 01:00:22] [ERROR] Đã ghi lại records lỗi của table: phieu_ho_tro
 {
   "count": 2,
   "allErrors": [
@@ -4353,7 +4353,7 @@
         "trang_thai": "Hoàn thành",
         "do_uu_tien": "Trung bình",
         "source": "csv",
-        "inserted_at": "2025-11-20T10:25:36.922Z"
+        "inserted_at": "2025-11-20T11:00:17.308Z"
       },
       "errors": [
         {
@@ -4384,7 +4384,7 @@
         "trang_thai": "Mới tạo",
         "do_uu_tien": "Trung bình",
         "source": "csv",
-        "inserted_at": "2025-11-20T10:25:36.929Z"
+        "inserted_at": "2025-11-20T11:00:17.313Z"
       },
       "errors": [
         {
@@ -4417,45 +4417,45 @@
 ================================================================================
   PHASE 4: LOAD TO DATA WAREHOUSE STARTED
 ================================================================================
-[2025-11-21 00:25:42] [INFO] Đang khởi tạo Data Warehouse...
+[2025-11-21 01:00:22] [INFO] Đang khởi tạo Data Warehouse...
 
-[2025-11-21 00:25:42] [SUCCESS] Tạo bảng Data Warehouse thành công
+[2025-11-21 01:00:22] [SUCCESS] Tạo bảng Data Warehouse thành công
 
-[2025-11-21 00:25:42] [SUCCESS] Khởi tạo Data Warehouse thành công
+[2025-11-21 01:00:22] [SUCCESS] Khởi tạo Data Warehouse thành công
 
 
 ================================================================================
   ĐANG TẢI DỮ LIỆU VÀO DATA WAREHOUSE STARTED
 ================================================================================
-[2025-11-21 00:25:42] [INFO] Đang tải các bảng dimension...
+[2025-11-21 01:00:22] [INFO] Đang tải các bảng dimension...
 
-[2025-11-21 00:25:42] [SUCCESS] ✓ Đã tải 393 bản ghi vào dim_khach_hang
+[2025-11-21 01:00:22] [SUCCESS] Đã tải 393 bản ghi vào dim_khach_hang
 
-[2025-11-21 00:25:42] [SUCCESS] ✓ Đã tải 20 bản ghi vào dim_danh_muc
+[2025-11-21 01:00:22] [SUCCESS] Đã tải 20 bản ghi vào dim_danh_muc
 
-[2025-11-21 00:25:42] [SUCCESS] ✓ Đã tải 494 bản ghi vào dim_san_pham
+[2025-11-21 01:00:23] [SUCCESS] ✓ Đã tải 494 bản ghi vào dim_san_pham
 
-[2025-11-21 00:25:42] [SUCCESS] ✓ Đã tải 5 bản ghi vào dim_nhanvien_cskh
+[2025-11-21 01:00:23] [SUCCESS] Đã tải 5 bản ghi vào dim_nhanvien_cskh
 
-[2025-11-21 00:25:42] [INFO] Đang tải các bảng fact...
+[2025-11-21 01:00:23] [INFO] Đang tải các bảng fact...
 
-[2025-11-21 00:25:42] [WARN] ⚠️ Bỏ qua 6/86 bản ghi từ fact_don_hang do vi phạm foreign key
+[2025-11-21 01:00:23] [WARN] ⚠️ Bỏ qua 6/86 bản ghi từ fact_don_hang do vi phạm foreign key
 
-[2025-11-21 00:25:42] [SUCCESS] ✓ Đã tải 80 bản ghi vào fact_don_hang
+[2025-11-21 01:00:23] [SUCCESS] ✓ Đã tải 80 bản ghi vào fact_don_hang
 
-[2025-11-21 00:25:43] [WARN] ⚠️ Bỏ qua 14/92 bản ghi từ fact_chi_tiet_don_hang do vi phạm foreign key
+[2025-11-21 01:00:23] [WARN] ⚠️ Bỏ qua 14/92 bản ghi từ fact_chi_tiet_don_hang do vi phạm foreign key
 
-[2025-11-21 00:25:43] [WARN] ⚠️ Bỏ qua 2/21 bản ghi từ fact_thanh_toan do vi phạm foreign key
+[2025-11-21 01:00:23] [WARN] ⚠️ Bỏ qua 2/21 bản ghi từ fact_thanh_toan do vi phạm foreign key
 
-[2025-11-21 00:25:43] [SUCCESS] ✓ Đã tải 19 bản ghi vào fact_thanh_toan
+[2025-11-21 01:00:23] [SUCCESS] ✓ Đã tải 19 bản ghi vào fact_thanh_toan
 
-[2025-11-21 00:25:43] [SUCCESS] ✓ Đã tải 3 bản ghi vào fact_phieu_ho_tro
+[2025-11-21 01:00:23] [SUCCESS] ✓ Đã tải 3 bản ghi vào fact_phieu_ho_tro
 
-[2025-11-21 00:25:43] [WARN] ⚠️ Bỏ qua 1/5 bản ghi từ fact_danh_gia do vi phạm foreign key
+[2025-11-21 01:00:23] [WARN] ⚠️ Bỏ qua 1/5 bản ghi từ fact_danh_gia do vi phạm foreign key
 
-[2025-11-21 00:25:43] [SUCCESS] ✓ Đã tải 4 bản ghi vào fact_danh_gia
+[2025-11-21 01:00:23] [SUCCESS] ✓ Đã tải 4 bản ghi vào fact_danh_gia
 
-[2025-11-21 00:25:43] [WARN] ⚠️ Bỏ qua 2/5 bản ghi từ fact_phieu_xu_ly do vi phạm foreign key
+[2025-11-21 01:00:23] [WARN] ⚠️ Bỏ qua 2/5 bản ghi từ fact_phieu_xu_ly do vi phạm foreign key
 
 
 ================================================================================
@@ -4463,7 +4463,7 @@
   Stats: {"dimension_tables":{"dim_khach_hang":393,"dim_danh_muc":20,"dim_san_pham":494,"dim_nhanvien_cskh":5},"fact_tables":{"fact_don_hang":80,"fact_chi_tiet_don_hang":78,"fact_thanh_toan":19,"fact_phieu_ho_tro":3,"fact_danh_gia":4,"fact_phieu_xu_ly":3},"total_loaded":1099,"skipped_due_to_fk":{"fact_don_hang":6,"fact_chi_tiet_don_hang":14,"fact_thanh_toan":2,"fact_danh_gia":1,"fact_phieu_xu_ly":2}}
 ================================================================================
 
-[2025-11-21 00:25:43] [SUCCESS] ✓ Data loaded to warehouse
+[2025-11-21 01:00:23] [SUCCESS] ✓ Data loaded to warehouse
 {
   "dimension_tables": {
     "dim_khach_hang": 393,
@@ -4497,10 +4497,10 @@
 
 ================================================================================
   ETL PIPELINE COMPLETED COMPLETED
-  Stats: {"duration":"13.447s","status":"SUCCESS"}
+  Stats: {"duration":"12.49s","status":"SUCCESS"}
 ================================================================================
 
-[2025-11-21 00:25:43] [INFO] Cleaning up resources...
+[2025-11-21 01:00:23] [INFO] Cleaning up resources...
 
-[2025-11-21 00:25:43] [SUCCESS] ✓ Cleanup completed
+[2025-11-21 01:00:23] [SUCCESS] ✓ Cleanup completed
 

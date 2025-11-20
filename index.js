@@ -218,7 +218,7 @@ class ETLPipeline {
     // ✅ LOG ERRORS - GHI TẤT CẢ RECORDS LỖI (không còn samples nữa)
     for (const [tableName, errors] of Object.entries(errorData)) {
       if (errors.length > 0) {
-        await logger.error(`Unfixable errors in ${tableName}`, null, {
+        await logger.error(`Đã ghi lại records lỗi của table: ${tableName}`, null, {
           count: errors.length,
           allErrors: errors, // ✅ GHI TẤT CẢ thay vì errors.slice(0, 3)
         });

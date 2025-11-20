@@ -322,11 +322,11 @@ class DataWarehouseLoader {
 
     if (skippedCount > 0) {
       await logger.warn(
-        `⚠️ Bỏ qua ${skippedCount}/${records.length} bản ghi từ ${tableName} do vi phạm foreign key`
+        `Bỏ qua ${skippedCount}/${records.length} bản ghi từ ${tableName} do vi phạm foreign key`
       );
     }
 
-    await logger.success(`✓ Đã tải ${loadedCount} bản ghi vào ${tableName}`);
+    await logger.success(`Đã tải ${loadedCount} bản ghi vào ${tableName}`);
     return { loaded: loadedCount, skipped: skippedCount };
   }
 

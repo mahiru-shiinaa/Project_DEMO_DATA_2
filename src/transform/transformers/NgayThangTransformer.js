@@ -1,26 +1,68 @@
-// src/transform/transformers/NgayThangTransformer.js
-const moment = require('moment');
+// src/transform/transformers/NgayThangTransformer.js - ENHANCED VERSION
+const moment = require("moment");
 
 class NgayThangTransformer {
   constructor() {
-    // Sẽ áp dụng cho tất cả các trường có tên là 'ngay_sinh', 'ngay_dat', etc.
-    // Nhưng để đơn giản, ta chỉ định một field chính. TransformEngine sẽ tìm đúng transformer.
-    this.fieldName = 'ngay_sinh'; 
+    this.fieldName = "ngay_sinh";
+    this.defaultDate = "2004-05-29"; // ngày mặc định
   }
 
+  /**
+   * Transform ngày sinh:
+   * 1. Nếu null/undefined/empty -> gán default date
+   * 2. Nếu có giá trị -> parse và format về YYYY-MM-DD
+   */
   transform(value, record, validationErrors = []) {
-    if (!value) return null;
-
-    // Thử parse date với các định dạng phổ biến
-    const date = moment(value);
-    
-    if (date.isValid()) {
-      // Trả về định dạng chuẩn YYYY-MM-DD
-      return date.format('YYYY-MM-DD');
+    // ✅ Case 1: Null/undefined/empty -> trả về ngày mặc định
+    if (!value || value === '' || value === null || value === undefined) {
+      return this.defaultDate;
     }
 
-    // Nếu không parse được, trả về giá trị gốc để không làm mất dữ liệu
-    return value;
+    // ✅ Case 2: Parse date với nhiều format
+    const date = moment(value, [
+      'YYYY-MM-DD',
+      'DD/MM/YYYY',
+      'MM/DD/YYYY',
+      'DD-MM-YYYY',
+      'YYYY/MM/DD',
+      moment.ISO_8601
+    ], true);
+
+    if (date.isValid()) {
+      return date.format("YYYY-MM-DD");
+    }
+
+    // ✅ Case 3: Không parse được -> trả về default
+    console.warn(`⚠️ Không parse được ngày sinh: ${value}, sử dụng default: ${this.defaultDate}`);
+    return this.defaultDate;
+  }
+
+  /**
+   * Transform batch records
+   */
+  transformBatch(records) {
+    return records.map(record => {
+      const transformed = { ...record };
+      
+      if (record.hasOwnProperty(this.fieldName)) {
+        const originalValue = record[this.fieldName];
+        const transformedValue = this.transform(originalValue, record);
+        
+        if (transformedValue !== originalValue) {
+          transformed[this.fieldName] = transformedValue;
+          console.log(`🔄 Transformed ${this.fieldName}: ${originalValue || 'null'} -> ${transformedValue}`);
+        }
+      }
+      
+      return transformed;
+    });
+  }
+
+  /**
+   * Kiểm tra xem có cần transform không
+   */
+  shouldTransform(record) {
+    return record.hasOwnProperty(this.fieldName);
   }
 
   getFieldName() {
@@ -29,10 +71,10 @@ class NgayThangTransformer {
 
   logTransform(originalValue, transformedValue) {
     return {
-      field: this.fieldName, // Field thực tế có thể khác, nhưng log này là đủ
-      original: originalValue,
+      field: this.fieldName,
+      original: originalValue || 'null',
       transformed: transformedValue,
-      action: 'format_date_to_yyyy_mm_dd'
+      action: originalValue ? "format_date_to_yyyy_mm_dd" : "set_default_date",
     };
   }
 }

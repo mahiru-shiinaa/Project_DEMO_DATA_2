@@ -8,19 +8,27 @@ class Logger {
     this.logDir = path.join(__dirname, '../../logs');
     this.logFile = path.join(this.logDir, 'log.log');
     this.errorLogFile = path.join(this.logDir, 'errorLog.log');
-    this.initLogFiles();
+    this.initialized = false;
   }
 
   async initLogFiles() {
+    if (this.initialized) return;
+    
     await fs.ensureDir(this.logDir);
     
-    // Create log files if they don't exist
-    if (!await fs.pathExists(this.logFile)) {
-      await fs.writeFile(this.logFile, '');
-    }
-    if (!await fs.pathExists(this.errorLogFile)) {
-      await fs.writeFile(this.errorLogFile, '');
-    }
+    // ✅ XÓA NỘI DUNG CŨ - Tạo file mới hoàn toàn
+    await fs.writeFile(this.logFile, '');
+    await fs.writeFile(this.errorLogFile, '');
+    
+    // Ghi header với timestamp
+    const header = `${'='.repeat(80)}\n` +
+                  `  ETL PIPELINE LOG - ${moment().format('YYYY-MM-DD HH:mm:ss')}\n` +
+                  `${'='.repeat(80)}\n\n`;
+    
+    await fs.writeFile(this.logFile, header);
+    await fs.writeFile(this.errorLogFile, header);
+    
+    this.initialized = true;
   }
 
   getTimestamp() {
@@ -37,6 +45,7 @@ class Logger {
 
   // Log thông tin chung (console + log.txt)
   async info(message, data = null) {
+    await this.initLogFiles();
     const logMessage = this.formatMessage('INFO', message, data);
     console.log(`ℹ️  ${message}`);
     if (data) console.log(data);
@@ -46,6 +55,7 @@ class Logger {
 
   // Log cảnh báo
   async warn(message, data = null) {
+    await this.initLogFiles();
     const logMessage = this.formatMessage('WARN', message, data);
     console.warn(`⚠️  ${message}`);
     if (data) console.warn(data);
@@ -53,8 +63,10 @@ class Logger {
     await fs.appendFile(this.logFile, logMessage + '\n\n');
   }
 
-  // Log lỗi (console + errorLog.txt + log.txt)
+  // ✅ Log lỗi (console + errorLog.txt + log.txt) - GHI TẤT CẢ RECORDS
   async error(message, error = null, data = null) {
+    await this.initLogFiles();
+    
     const errorDetails = error ? {
       message: error.message,
       stack: error.stack,
@@ -72,6 +84,7 @@ class Logger {
 
   // Log thành công
   async success(message, data = null) {
+    await this.initLogFiles();
     const logMessage = this.formatMessage('SUCCESS', message, data);
     console.log(`✅ ${message}`);
     if (data) console.log(data);
@@ -81,8 +94,9 @@ class Logger {
 
   // Log debug
   async debug(message, data = null) {
+    await this.initLogFiles();
     const logMessage = this.formatMessage('DEBUG', message, data);
-    console.log(`🐛 ${message}`);
+    console.log(`🛠 ${message}`);
     if (data) console.log(data);
     
     await fs.appendFile(this.logFile, logMessage + '\n\n');
@@ -90,6 +104,7 @@ class Logger {
 
   // Log bắt đầu một phase
   async startPhase(phaseName) {
+    await this.initLogFiles();
     const separator = '='.repeat(80);
     const message = `\n${separator}\n  ${phaseName} STARTED\n${separator}\n`;
     console.log(message);
@@ -98,6 +113,7 @@ class Logger {
 
   // Log kết thúc một phase
   async endPhase(phaseName, stats = null) {
+    await this.initLogFiles();
     const separator = '='.repeat(80);
     let message = `\n${separator}\n  ${phaseName} COMPLETED`;
     if (stats) {
@@ -111,17 +127,19 @@ class Logger {
 
   // Log thống kê
   async stats(title, statistics) {
+    await this.initLogFiles();
     const message = this.formatMessage('STATS', title, statistics);
     console.log(`📊 ${title}:`, statistics);
     await fs.appendFile(this.logFile, message + '\n\n');
   }
 
-  // Clear logs (cho testing)
-  async clearLogs() {
-    await fs.writeFile(this.logFile, '');
-    await fs.writeFile(this.errorLogFile, '');
-    console.log('🗑️  Logs cleared');
-  }
+  // ✅ KHÔNG CẦN clearLogs() nữa vì đã tự động xóa khi khởi tạo
+    // Clear logs (cho testing)
+  // async clearLogs() {
+  //   await fs.writeFile(this.logFile, '');
+  //   await fs.writeFile(this.errorLogFile, '');
+  //   console.log('🗑️  Logs cleared');
+  // }
 }
 
 module.exports = new Logger();

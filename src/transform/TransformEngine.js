@@ -1,25 +1,18 @@
-// src/transform/TransformEngine.js - Design Pattern: Strategy Pattern
+// src/transform/TransformEngine.js - FIXED VERSION
 const logger = require('../utils/Logger');
 const fs = require('fs');
 const path = require('path');
 
-/**
- * TransformEngine áp dụng Strategy Pattern
- * Mỗi transformer là một strategy để transform data
- */
 class TransformEngine {
   constructor() {
     this.transformers = new Map();
     this.loadAllTransformers();
   }
 
-  /**
-   * Load tất cả transformers từ thư mục transformers/
-   */
   loadAllTransformers() {
     const transformersDir = path.join(__dirname, 'transformers');
     const transformerFiles = fs.readdirSync(transformersDir)
-      .filter(f => f.endsWith('Transformer.js'));
+      .filter(f => f.endsWith('Transformer.js') && f !== 'IdTransformer.js'); // ✅ Skip IdTransformer
 
     for (const file of transformerFiles) {
       try {
@@ -34,54 +27,45 @@ class TransformEngine {
       }
     }
 
-    logger.info(`Loaded ${this.transformers.size} transformers`);
+    logger.info(`Loaded ${this.transformers.size} transformers (excluding IdTransformer)`);
   }
 
   /**
-   * Transform một record dựa trên validation errors
-   * @param {object} record - Record cần transform
-   * @param {object} validationResult - Kết quả validation từ RuleEngine
-   * @returns {object} Transformed record và metadata
+   * ✅ Transform record KHÔNG BAO GỒM ID transform (đã chạy rồi)
    */
   transformRecord(record, validationResult) {
-    const transformed = { ...record };
+    let transformed = { ...record };
     const transformLog = [];
 
-    if (!validationResult || validationResult.isValid) {
-      return {
-        record: transformed,
-        transformed: false,
-        log: []
-      };
+    // Bước 1: Áp dụng transform chủ động cho loai_khach_hang
+    if (this.transformers.has('loai_khach_hang') && transformed.hasOwnProperty('ngay_dang_ky')) {
+      const transformer = this.transformers.get('loai_khach_hang');
+      const originalValue = transformed.loai_khach_hang;
+      const transformedValue = transformer.transform(originalValue, transformed);
+
+      if (transformedValue !== originalValue) {
+        transformed.loai_khach_hang = transformedValue;
+        transformLog.push(transformer.logTransform(originalValue, transformedValue));
+      }
     }
 
-    // Chỉ transform các fields có lỗi có thể fix
-    const fixableFields = new Set();
-    validationResult.fixableErrors.forEach(error => {
-      fixableFields.add(error.field);
-    });
+    // Bước 2: Áp dụng transform dựa trên lỗi validation
+    if (validationResult && validationResult.fixableErrors.length > 0) {
+      const fixableFields = new Set(validationResult.fixableErrors.map(e => e.field));
 
-    // Apply transformers cho từng field
-    for (const fieldName of fixableFields) {
-      if (this.transformers.has(fieldName)) {
-        const transformer = this.transformers.get(fieldName);
-        const originalValue = record[fieldName];
-        
-        // Lấy errors của field này
-        const fieldErrors = validationResult.errors.filter(e => e.field === fieldName);
-        
-        // Transform
-        const transformedValue = transformer.transform(
-          originalValue,
-          record,
-          fieldErrors
-        );
+      for (const fieldName of fixableFields) {
+        if (this.transformers.has(fieldName)) {
+          const transformer = this.transformers.get(fieldName);
+          const originalValue = transformed[fieldName];
+          const fieldErrors = validationResult.errors.filter(e => e.field === fieldName);
+          const transformedValue = transformer.transform(originalValue, transformed, fieldErrors);
 
-        if (transformedValue !== originalValue) {
-          transformed[fieldName] = transformedValue;
-          
-          const log = transformer.logTransform(originalValue, transformedValue);
-          transformLog.push(log);
+          if (transformedValue !== originalValue) {
+            transformed[fieldName] = transformedValue;
+            if (!transformLog.some(log => log.field === fieldName)) {
+              transformLog.push(transformer.logTransform(originalValue, transformedValue));
+            }
+          }
         }
       }
     }
@@ -90,15 +74,14 @@ class TransformEngine {
       record: transformed,
       transformed: transformLog.length > 0,
       log: transformLog,
-      fieldsTransformed: Array.from(fixableFields)
     };
   }
 
   /**
-   * Transform một batch records
+   * ✅ Transform batch KHÔNG CÓ ID transform
    */
-  async transformBatch(records, validationResults) {
-    await logger.startPhase('TRANSFORM - Applying Transformations');
+  async transformBatchWithoutId(records, validationResults) {
+    await logger.startPhase('TRANSFORM - Applying Field Transformations (No ID)');
 
     const results = {
       totalRecords: records.length,
@@ -109,33 +92,34 @@ class TransformEngine {
     };
 
     for (let i = 0; i < records.length; i++) {
-      const record = records[i];
+      const originalRecord = records[i];
       const validationResult = validationResults.results[i];
 
-      const transformResult = this.transformRecord(record, validationResult);
+      // Chỉ transform các field không phải ID
+      const fieldTransformResult = this.transformRecord(originalRecord, validationResult);
       
-      results.records.push(transformResult.record);
+      const finalRecord = fieldTransformResult.record;
+      results.records.push(finalRecord);
       
-      if (transformResult.transformed) {
+      if (JSON.stringify(originalRecord) !== JSON.stringify(finalRecord)) {
         results.transformedRecords++;
         results.logs.push({
           recordIndex: i,
-          originalRecord: record,
-          transformedRecord: transformResult.record,
-          transformLog: transformResult.log
+          originalRecord: originalRecord,
+          transformedRecord: finalRecord,
+          transformLog: fieldTransformResult.log
         });
       } else {
         results.skippedRecords++;
       }
     }
 
-    await logger.endPhase('TRANSFORM - Applying Transformations', {
+    await logger.endPhase('TRANSFORM - Applying Field Transformations (No ID)', {
       totalRecords: results.totalRecords,
       transformedRecords: results.transformedRecords,
       skippedRecords: results.skippedRecords
     });
 
-    // Log chi tiết
     if (results.logs.length > 0) {
       await logger.info('Transform details', {
         sampleTransforms: results.logs.slice(0, 5)
@@ -146,55 +130,43 @@ class TransformEngine {
   }
 
   /**
-   * Transform với custom strategy
+   * ✅ Transform batch GỐC (bao gồm ID transform) - giữ lại cho backward compatibility
    */
+  async transformBatch(records, validationResults) {
+    // Deprecated - nên dùng transformBatchWithoutId
+    return this.transformBatchWithoutId(records, validationResults);
+  }
+
+  // Các helper methods giữ nguyên
   transformWithStrategy(record, fieldName, strategyFn) {
     const transformed = { ...record };
     const originalValue = record[fieldName];
-    
     transformed[fieldName] = strategyFn(originalValue, record);
-    
     return {
       record: transformed,
       changed: transformed[fieldName] !== originalValue
     };
   }
 
-  /**
-   * Thêm transformer mới dynamically
-   */
   addTransformer(fieldName, transformerInstance) {
     this.transformers.set(fieldName, transformerInstance);
     logger.info(`Added transformer for field: ${fieldName}`);
   }
 
-  /**
-   * Lấy transformer cho field
-   */
   getTransformer(fieldName) {
     return this.transformers.get(fieldName);
   }
 
-  /**
-   * Kiểm tra có transformer không
-   */
   hasTransformer(fieldName) {
     return this.transformers.has(fieldName);
   }
 
-  /**
-   * Lấy danh sách fields có transformer
-   */
   getAvailableTransformers() {
     return Array.from(this.transformers.keys());
   }
 
-  /**
-   * Apply multiple transforms theo thứ tự
-   */
   applyTransformPipeline(record, pipeline) {
     let transformed = { ...record };
-
     for (const fieldName of pipeline) {
       if (this.transformers.has(fieldName)) {
         const transformer = this.transformers.get(fieldName);
@@ -202,16 +174,11 @@ class TransformEngine {
         transformed[fieldName] = transformer.transform(value, transformed);
       }
     }
-
     return transformed;
   }
 
-  /**
-   * Transform với conditions
-   */
   transformConditional(record, conditions) {
     const transformed = { ...record };
-
     for (const [fieldName, condition] of Object.entries(conditions)) {
       if (condition(record) && this.transformers.has(fieldName)) {
         const transformer = this.transformers.get(fieldName);
@@ -221,7 +188,6 @@ class TransformEngine {
         );
       }
     }
-
     return transformed;
   }
 }

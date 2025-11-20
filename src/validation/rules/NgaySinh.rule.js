@@ -1,4 +1,5 @@
-// src/validation/rules/NgaySinh.rule.js - Validation cho Ngày Sinh
+// src/validation/rules/NgaySinh.rule.js - FIXED VERSION
+// ✅ Cho phép transform null values thành default date
 const { LIMITS, ERROR_CODES } = require('../../../config/constants');
 const moment = require('moment');
 
@@ -12,20 +13,22 @@ class NgaySinhRule {
     this.errors = [];
     let canFix = true;
 
-    // Rule 1: Không được null
+    // ✅ Rule 1: Nếu null -> CÓ THỂ FIX bằng cách set default date
     if (!value) {
       this.errors.push({
         code: ERROR_CODES.NULL_VALUE,
         field: this.fieldName,
-        message: 'Ngày sinh không được để trống',
+        message: 'Ngày sinh bị null, sẽ được gán giá trị mặc định',
         value: value,
-        canFix: false
+        canFix: true, // ✅ CHO PHÉP FIX
+        suggestion: 'Gán ngày sinh mặc định: 2004-05-29'
       });
       return {
         isValid: false,
-        canFix: false,
+        canFix: true, // ✅ QUAN TRỌNG: cho phép transform
         errors: this.errors,
-        value: value
+        value: value,
+        needsTransform: true // ✅ Đánh dấu cần transform
       };
     }
 
@@ -45,7 +48,6 @@ class NgaySinhRule {
         canFix: true,
         suggestion: 'Thử parse với các format khác nhau'
       });
-      // Có thể fix bằng cách thử nhiều format
       return {
         isValid: false,
         canFix: true,

@@ -15,6 +15,7 @@ const Consumer = require('./src/queue/Consumer');
 // Validation & Transform
 const RuleEngine = require('./src/validation/RuleEngine');
 const TransformEngine = require('./src/transform/TransformEngine');
+const IdTransformer = require('./src/transform/transformers/IdTransformer'); // ✅ Import riêng
 
 // Deduplication & Load
 const DeduplicationService = require('./src/deduplication/DeduplicationService');
@@ -28,10 +29,10 @@ class ETLPipeline {
     this.consumer = new Consumer();
     this.ruleEngine = new RuleEngine();
     this.transformEngine = new TransformEngine();
+    this.idTransformer = new IdTransformer(); // ✅ Instance riêng
     this.deduplicationService = new DeduplicationService();
     this.dataWarehouseLoader = new DataWarehouseLoader();
   }
-
   /**
    * Chạy toàn bộ ETL Pipeline
    */
@@ -39,12 +40,11 @@ class ETLPipeline {
     try {
       await logger.startPhase('ETL PIPELINE STARTED');
       const startTime = Date.now();
-
       // ============================================
       // PHASE 1: EXTRACT
       // ============================================
       await this.extractPhase();
-
+      
       // ============================================
       // PHASE 2: QUEUE & STAGING
       // ============================================
@@ -74,7 +74,7 @@ class ETLPipeline {
     }
   }
 
-  /**
+    /**
    * PHASE 1: Extract dữ liệu từ 2 data sources
    */
   async extractPhase() {
@@ -111,114 +111,121 @@ class ETLPipeline {
   async queuePhase() {
     await logger.startPhase('PHASE 2: QUEUE & STAGING');
 
-    // Kết nối RabbitMQ
     await rabbitMQ.connect();
     await this.producer.initialize();
     await this.consumer.initialize();
 
-    // Producer: Đẩy dữ liệu vào queues
     await logger.info('Sending data to queues...');
     await this.producer.sendPostgresData(this.extractedData.postgres);
     await this.producer.sendCsvData(this.extractedData.csv);
 
-    // Consumer: Nhận dữ liệu và lưu vào Staging
     await logger.info('Consuming data from queues...');
     await this.consumer.consumeAll();
 
     await logger.endPhase('PHASE 2: QUEUE & STAGING');
   }
 
-  /**
+    /**
    * PHASE 3: Data Quality - Validation, Deduplication, Transform
    */
-  async dataQualityPhase() {
-    await logger.startPhase('PHASE 3: DATA QUALITY');
+async dataQualityPhase() {
+  await logger.startPhase('PHASE 3: DATA QUALITY');
 
-    // Lấy dữ liệu từ Staging
-    const stagingData = await this.consumer.stagingService.getAllData();
+  // Lấy dữ liệu từ Staging
+  const stagingData = await this.consumer.stagingService.getAllData();
+  
+  // ✅ BƯỚC MỚI: Apply ID Transform NGAY SAU KHI LẤY TỪ STAGING
+  await logger.info('Applying ID prefixes to prevent key collisions...');
+  const idTransformedData = {};
+  for (const [tableName, records] of Object.entries(stagingData)) {
+    idTransformedData[tableName] = this.idTransformer.transformBatch(records);
+  }
+  await logger.success('✅ ID prefixes applied', {
+    tables: Object.keys(idTransformedData).length,
+    totalRecords: this.countRecords(idTransformedData)
+  });
 
-    // Sub-phase 3.1: Deduplication
-    await logger.info('Starting deduplication...');
-    const deduplicatedData = await this.deduplicationService.removeDuplicates(stagingData);
-    await logger.success('✓ Deduplication completed', {
-      originalRecords: this.countRecords(stagingData),
-      afterDedup: this.countRecords(deduplicatedData),
-      removed: this.countRecords(stagingData) - this.countRecords(deduplicatedData)
+  // Sub-phase 3.1: Deduplication (SAU KHI ĐÃ CÓ PREFIX)
+  await logger.info('Starting deduplication...');
+  const deduplicatedData = await this.deduplicationService.removeDuplicates(idTransformedData);
+  await logger.success('✅ Deduplication completed', {
+    originalRecords: this.countRecords(idTransformedData),
+    afterDedup: this.countRecords(deduplicatedData),
+    removed: this.countRecords(idTransformedData) - this.countRecords(deduplicatedData)
+  });
+
+  // Sub-phase 3.2: Validation
+  await logger.info('Starting validation...');
+  const validationResults = {};
+  for (const [tableName, records] of Object.entries(deduplicatedData)) {
+    const result = this.ruleEngine.validateBatch(records);
+    validationResults[tableName] = result;
+    
+    await logger.info(`Validated ${tableName}`, {
+      total: result.totalRecords,
+      valid: result.validRecords,
+      fixable: result.fixableRecords,
+      unfixable: result.unfixableRecords
     });
-
-    // Sub-phase 3.2: Validation
-    await logger.info('Starting validation...');
-    const validationResults = {};
-    for (const [tableName, records] of Object.entries(deduplicatedData)) {
-      const result = this.ruleEngine.validateBatch(records);
-      validationResults[tableName] = result;
-      
-      await logger.info(`Validated ${tableName}`, {
-        total: result.totalRecords,
-        valid: result.validRecords,
-        fixable: result.fixableRecords,
-        unfixable: result.unfixableRecords
-      });
-    }
-
-    // Sub-phase 3.3: Transform (fix fixable errors)
-    await logger.info('Starting transformation...');
-    const transformedData = {};
-    for (const [tableName, records] of Object.entries(deduplicatedData)) {
-      const validationResult = validationResults[tableName];
-      const transformResult = await this.transformEngine.transformBatch(
-        records,
-        validationResult
-      );
-      transformedData[tableName] = transformResult.records;
-      
-      await logger.success(`✓ Transformed ${tableName}`, {
-        transformed: transformResult.transformedRecords,
-        skipped: transformResult.skippedRecords
-      });
-    }
-
-    // Sub-phase 3.4: Re-validate sau transform
-    await logger.info('Re-validating after transformation...');
-    const finalValidationResults = {};
-    const cleanData = {};
-    const errorData = {};
-
-    for (const [tableName, records] of Object.entries(transformedData)) {
-      const result = this.ruleEngine.validateBatch(records);
-      finalValidationResults[tableName] = result;
-
-      // Tách clean data và error data
-      cleanData[tableName] = result.results
-        .filter(r => r.isValid)
-        .map(r => r.record);
-      
-      errorData[tableName] = result.results
-        .filter(r => !r.isValid)
-        .map(r => ({ record: r.record, errors: r.errors }));
-
-      await logger.info(`Final validation for ${tableName}`, {
-        clean: cleanData[tableName].length,
-        stillInvalid: errorData[tableName].length
-      });
-    }
-
-    // Log errors
-    for (const [tableName, errors] of Object.entries(errorData)) {
-      if (errors.length > 0) {
-        await logger.error(`Unfixable errors in ${tableName}`, null, {
-          count: errors.length,
-          samples: errors.slice(0, 3)
-        });
-      }
-    }
-
-    this.cleanData = cleanData;
-    this.errorData = errorData;
-
-    await logger.endPhase('PHASE 3: DATA QUALITY');
   }
 
+  // Sub-phase 3.3: Transform (KHÔNG CẦN transform ID nữa vì đã làm rồi)
+  await logger.info('Starting transformation...');
+  const transformedData = {};
+  for (const [tableName, records] of Object.entries(deduplicatedData)) {
+    const validationResult = validationResults[tableName];
+    // ✅ Transform nhưng SKIP IdTransformer vì đã chạy rồi
+    const transformResult = await this.transformEngine.transformBatchWithoutId(
+      records,
+      validationResult
+    );
+    transformedData[tableName] = transformResult.records;
+    
+    await logger.success(`✅ Transformed ${tableName}`, {
+      transformed: transformResult.transformedRecords,
+      skipped: transformResult.skippedRecords
+    });
+  }
+
+  // Sub-phase 3.4: Re-validate sau transform
+  await logger.info('Re-validating after transformation...');
+  const finalValidationResults = {};
+  const cleanData = {};
+  const errorData = {};
+
+  for (const [tableName, records] of Object.entries(transformedData)) {
+    const result = this.ruleEngine.validateBatch(records);
+    finalValidationResults[tableName] = result;
+
+    cleanData[tableName] = result.results
+      .filter(r => r.isValid)
+      .map(r => r.record);
+    
+    errorData[tableName] = result.results
+      .filter(r => !r.isValid)
+      .map(r => ({ record: r.record, errors: r.errors }));
+
+    await logger.info(`Final validation for ${tableName}`, {
+      clean: cleanData[tableName].length,
+      stillInvalid: errorData[tableName].length
+    });
+  }
+
+  // ✅ LOG ERRORS - GHI TẤT CẢ RECORDS LỖI (không còn samples nữa)
+  for (const [tableName, errors] of Object.entries(errorData)) {
+    if (errors.length > 0) {
+      await logger.error(`Unfixable errors in ${tableName}`, null, {
+        count: errors.length,
+        allErrors: errors  // ✅ GHI TẤT CẢ thay vì errors.slice(0, 3)
+      });
+    }
+  }
+
+  this.cleanData = cleanData;
+  this.errorData = errorData;
+
+  await logger.endPhase('PHASE 3: DATA QUALITY');
+}
   /**
    * PHASE 4: Load clean data vào Data Warehouse
    */
@@ -227,14 +234,12 @@ class ETLPipeline {
 
     await this.dataWarehouseLoader.initialize();
     
-    // Load clean data
     const loadResult = await this.dataWarehouseLoader.loadAll(this.cleanData);
     
     await logger.success('✓ Data loaded to warehouse', loadResult);
 
     await logger.endPhase('PHASE 4: LOAD TO DATA WAREHOUSE');
   }
-
   /**
    * Cleanup resources
    */
@@ -245,9 +250,6 @@ class ETLPipeline {
     await logger.success('✓ Cleanup completed');
   }
 
-  /**
-   * Helper: Đếm tổng records
-   */
   countRecords(data) {
     return Object.values(data).reduce((sum, records) => sum + records.length, 0);
   }
@@ -278,7 +280,6 @@ async function main() {
   }
 }
 
-// Run if this is the main module
 if (require.main === module) {
   main();
 }

@@ -35,6 +35,29 @@ class StagingService {
    * Tạo staging tables
    */
   async createStagingTables() {
+    // NEW: Drop old tables trước khi tạo mới (dev mode)
+  await logger.info("Dropping old staging tables...");
+
+  const dropTables = [
+    "stg_phieu_xu_ly",
+    "stg_nhanvien_cskh",
+    "stg_danh_gia",
+    "stg_phieu_ho_tro",
+    "stg_thanh_toan",
+    "stg_chi_tiet_don_hang",
+    "stg_don_hang",
+    "stg_san_pham",
+    "stg_danh_muc",
+    "stg_khach_hang"
+  ];
+
+  for (const table of dropTables) {
+    await this.pool.query(`DROP TABLE IF EXISTS ${table} CASCADE`);
+  }
+
+  await logger.success("Old staging tables dropped");
+
+    // Tạo staging tables
     const tables = [
       // Tables từ Data Source 1
       `CREATE TABLE IF NOT EXISTS stg_khach_hang (

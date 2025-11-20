@@ -1,11 +1,12 @@
-// src/deduplication/DeduplicationService.js - Loại bỏ dữ liệu trùng lặp
+// src/deduplication/DeduplicationService.js - FIXED VERSION
 const logger = require('../utils/Logger');
 
 class DeduplicationService {
   constructor() {
-    // Định nghĩa primary keys cho từng bảng
+    // ✅ Định nghĩa primary keys MỚI (sau khi đã có prefix)
     this.primaryKeys = {
-      khach_hang: ['ma_khach_hang'],
+      // Đối với khách hàng: dùng EMAIL thay vì mã (vì 2 nguồn có thể trùng mã)
+      khach_hang: ['email'], // ✅ ĐÃ SỬA: dùng email làm unique key
       danh_muc: ['ma_danh_muc'],
       san_pham: ['ma_san_pham'],
       don_hang: ['ma_don_hang'],
@@ -56,7 +57,8 @@ class DeduplicationService {
       if (removed > 0) {
         await logger.warn(`Removed ${removed} duplicates from ${tableName}`, {
           original,
-          after: deduplicated.length
+          after: deduplicated.length,
+          duplicateKeys: this.primaryKeys[tableName]
         });
       } else {
         await logger.success(`No duplicates in ${tableName}`);
@@ -69,7 +71,7 @@ class DeduplicationService {
   }
 
   /**
-   * Loại bỏ trùng lặp cho một table
+   * ✅ Loại bỏ trùng lặp cho một table
    */
   deduplicateTable(tableName, records) {
     const primaryKeys = this.primaryKeys[tableName];
@@ -79,7 +81,6 @@ class DeduplicationService {
       return records;
     }
 
-    // Sử dụng Map để track unique records
     const uniqueMap = new Map();
 
     for (const record of records) {
@@ -89,10 +90,17 @@ class DeduplicationService {
       if (!uniqueMap.has(key)) {
         uniqueMap.set(key, record);
       } else {
-        // Nếu trùng, giữ record mới hơn (có source từ data source nào)
+        // ✅ Nếu trùng, merge thông tin (ưu tiên data đầy đủ hơn)
         const existing = uniqueMap.get(key);
         const updated = this.mergeRecords(existing, record);
         uniqueMap.set(key, updated);
+        
+        // Log để debug
+        logger.debug(`Merged duplicate record in ${tableName}`, {
+          key,
+          existing: existing.ma_khach_hang || existing.ma_don_hang,
+          new: record.ma_khach_hang || record.ma_don_hang
+        });
       }
     }
 
@@ -100,30 +108,42 @@ class DeduplicationService {
   }
 
   /**
-   * Tạo composite key từ nhiều fields
+   * ✅ Tạo composite key từ nhiều fields
    */
   createCompositeKey(record, keys) {
     return keys
       .map(key => {
         const value = record[key];
-        return value !== null && value !== undefined ? String(value).toLowerCase() : 'null';
+        // Lowercase và trim để chuẩn hóa
+        return value !== null && value !== undefined 
+          ? String(value).toLowerCase().trim() 
+          : 'null';
       })
       .join('|');
   }
 
   /**
-   * Merge 2 records trùng nhau (giữ thông tin đầy đủ hơn)
+   * ✅ Merge 2 records trùng nhau (ưu tiên source, giữ thông tin đầy đủ)
    */
   mergeRecords(existing, newRecord) {
     const merged = { ...existing };
 
-    // Ưu tiên giá trị không null/undefined
+    // Ưu tiên giá trị không null/undefined/empty
     for (const [key, value] of Object.entries(newRecord)) {
       if (value !== null && value !== undefined && value !== '') {
         if (!merged[key] || merged[key] === null || merged[key] === undefined || merged[key] === '') {
           merged[key] = value;
         }
       }
+    }
+
+    // ✅ Merge sources array nếu có
+    if (existing.source && newRecord.source) {
+      const sources = new Set([
+        ...(existing.sources || [existing.source]),
+        ...(newRecord.sources || [newRecord.source])
+      ]);
+      merged.sources = Array.from(sources).join(',');
     }
 
     return merged;
@@ -189,6 +209,7 @@ class DeduplicationService {
         totalRecords: records.length,
         duplicateCount: duplicates.length,
         duplicatePercentage: ((duplicates.length / records.length) * 100).toFixed(2) + '%',
+        deduplicationKey: this.primaryKeys[tableName],
         samples: duplicates.slice(0, 3)
       };
     }
@@ -212,21 +233,21 @@ class DeduplicationService {
   }
 
   /**
-   * Merge khách hàng từ 2 data sources
-   * (Khách hàng có thể xuất hiện ở cả 2 nguồn)
+   * ✅ Merge khách hàng từ 2 data sources (DEPRECATED - không cần nữa)
+   * Vì giờ dùng email để deduplicate rồi
    */
   mergeKhachHang(ds1Records, ds2Records) {
     const merged = new Map();
 
     // Add tất cả từ ds1
     for (const record of ds1Records) {
-      const key = this.createCompositeKey(record, ['ma_khach_hang']);
+      const key = record.email.toLowerCase().trim();
       merged.set(key, { ...record, sources: ['ds1'] });
     }
 
     // Merge với ds2
     for (const record of ds2Records) {
-      const key = this.createCompositeKey(record, ['ma_khach_hang']);
+      const key = record.email.toLowerCase().trim();
       
       if (merged.has(key)) {
         // Merge thông tin

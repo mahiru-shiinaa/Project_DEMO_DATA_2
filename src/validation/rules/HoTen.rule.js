@@ -92,17 +92,17 @@ class HoTenRule {
 
     // Rule 6: Không được viết tắt không đúng quy tắc (có thể fix)
     // VD: "le t nga" -> có thể fix thành "Lê Thị Nga"
-    const hasInvalidAbbreviation = /\b[a-z]\s/.test(value.toLowerCase());
-    if (hasInvalidAbbreviation) {
-      this.errors.push({
-        code: ERROR_CODES.INVALID_FORMAT,
-        field: this.fieldName,
-        message: 'Họ tên có viết tắt không đúng quy tắc',
-        value: value,
-        canFix: true,
-        suggestion: 'Chuẩn hóa chữ cái đầu tiên của mỗi từ viết hoa'
-      });
-    }
+    // const hasInvalidAbbreviation = /\b[a-z]\s/.test(value.toLowerCase());
+    // if (hasInvalidAbbreviation) {
+    //   this.errors.push({
+    //     code: ERROR_CODES.INVALID_FORMAT,
+    //     field: this.fieldName,
+    //     message: 'Họ tên có viết tắt không đúng quy tắc',
+    //     value: value,
+    //     canFix: true,
+    //     suggestion: 'Chuẩn hóa chữ cái đầu tiên của mỗi từ viết hoa'
+    //   });
+    // }
 
     // Rule 7: Không được viết tắt quá 20 ký tự
     if (value.length > 20) {

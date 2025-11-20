@@ -33,7 +33,6 @@ services:
       POSTGRES_PASSWORD: postgres
     volumes:
       - staging_data:/var/lib/postgresql/data
-      - ./src/staging/schema.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
@@ -54,7 +53,6 @@ services:
       POSTGRES_PASSWORD: postgres
     volumes:
       - warehouse_data:/var/lib/postgresql/data
-      - ./src/load/schema.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s

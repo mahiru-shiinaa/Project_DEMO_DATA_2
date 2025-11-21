@@ -36,49 +36,49 @@ class StagingService {
    */
   async createStagingTables() {
     // NEW: Drop old tables trước khi tạo mới (dev mode)
-  await logger.info("Dropping old staging tables...");
+    await logger.info("Dropping old staging tables...");
 
-  const dropTables = [
-    "stg_phieu_xu_ly",
-    "stg_nhanvien_cskh",
-    "stg_danh_gia",
-    "stg_phieu_ho_tro",
-    "stg_thanh_toan",
-    "stg_chi_tiet_don_hang",
-    "stg_don_hang",
-    "stg_san_pham",
-    "stg_danh_muc",
-    "stg_khach_hang"
-  ];
+    const dropTables = [
+      "stg_phieu_xu_ly",
+      "stg_nhanvien_cskh",
+      "stg_danh_gia",
+      "stg_phieu_ho_tro",
+      "stg_thanh_toan",
+      "stg_chi_tiet_don_hang",
+      "stg_don_hang",
+      "stg_san_pham",
+      "stg_danh_muc",
+      "stg_khach_hang",
+    ];
 
-  for (const table of dropTables) {
-    await this.pool.query(`DROP TABLE IF EXISTS ${table} CASCADE`);
-  }
+    for (const table of dropTables) {
+      await this.pool.query(`DROP TABLE IF EXISTS ${table} CASCADE`);
+    }
 
-  await logger.success("Old staging tables dropped");
+    await logger.success("Old staging tables dropped");
 
     // Tạo staging tables
     const tables = [
       // Tables từ Data Source 1
       `CREATE TABLE IF NOT EXISTS stg_khach_hang (
-  ma_khach_hang VARCHAR(10),
-  ho_ten VARCHAR(100),
-  email VARCHAR(100),
-  so_dien_thoai VARCHAR(20),
-  dia_chi VARCHAR(255),
-  ngay_sinh DATE,
-  ngay_dang_ky DATE,
-  gioi_tinh VARCHAR(10),
-  loai_khach_hang VARCHAR(50), -- <<--- THÊM DÒNG NÀY
-  source VARCHAR(20),
-  inserted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)`,
+        ma_khach_hang VARCHAR(10),
+        ho_ten VARCHAR(100),
+        email VARCHAR(100),
+        so_dien_thoai VARCHAR(20),
+        dia_chi VARCHAR(255),
+        ngay_sinh DATE,
+        ngay_dang_ky DATE,
+        gioi_tinh VARCHAR(10),
+        loai_khach_hang VARCHAR(50), 
+        source VARCHAR(20),
+        inserted_at VARCHAR(19) DEFAULT TO_CHAR(CURRENT_TIMESTAMP, 'YYYY-MM-DD HH24:MI:SS')
+      )`,
 
       `CREATE TABLE IF NOT EXISTS stg_danh_muc (
         ma_danh_muc VARCHAR(10),
         ten_danh_muc VARCHAR(100),
         source VARCHAR(20),
-        inserted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        inserted_at VARCHAR(19) DEFAULT TO_CHAR(CURRENT_TIMESTAMP, 'YYYY-MM-DD HH24:MI:SS')
       )`,
 
       `CREATE TABLE IF NOT EXISTS stg_san_pham (
@@ -89,7 +89,7 @@ class StagingService {
         don_gia DECIMAL(12,2),
         ton_kho INT,
         source VARCHAR(20),
-        inserted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        inserted_at VARCHAR(19) DEFAULT TO_CHAR(CURRENT_TIMESTAMP, 'YYYY-MM-DD HH24:MI:SS')
       )`,
 
       `CREATE TABLE IF NOT EXISTS stg_don_hang (
@@ -99,7 +99,7 @@ class StagingService {
         tong_tien DECIMAL(12,2),
         trang_thai VARCHAR(50),
         source VARCHAR(20),
-        inserted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        inserted_at VARCHAR(19) DEFAULT TO_CHAR(CURRENT_TIMESTAMP, 'YYYY-MM-DD HH24:MI:SS')
       )`,
 
       `CREATE TABLE IF NOT EXISTS stg_chi_tiet_don_hang (
@@ -108,7 +108,7 @@ class StagingService {
         so_luong INT,
         don_gia DECIMAL(12,2),
         source VARCHAR(20),
-        inserted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        inserted_at VARCHAR(19) DEFAULT TO_CHAR(CURRENT_TIMESTAMP, 'YYYY-MM-DD HH24:MI:SS')
       )`,
 
       `CREATE TABLE IF NOT EXISTS stg_thanh_toan (
@@ -119,7 +119,7 @@ class StagingService {
         trang_thai VARCHAR(50),
         phuong_thuc VARCHAR(50),
         source VARCHAR(20),
-        inserted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        inserted_at VARCHAR(19) DEFAULT TO_CHAR(CURRENT_TIMESTAMP, 'YYYY-MM-DD HH24:MI:SS')
       )`,
 
       // Tables từ Data Source 2
@@ -132,7 +132,7 @@ class StagingService {
         trang_thai VARCHAR(50),
         do_uu_tien VARCHAR(20),
         source VARCHAR(20),
-        inserted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        inserted_at VARCHAR(19) DEFAULT TO_CHAR(CURRENT_TIMESTAMP, 'YYYY-MM-DD HH24:MI:SS')
       )`,
 
       `CREATE TABLE IF NOT EXISTS stg_danh_gia (
@@ -142,7 +142,7 @@ class StagingService {
         nhan_xet TEXT,
         ngay_danh_gia DATE,
         source VARCHAR(20),
-        inserted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        inserted_at VARCHAR(19) DEFAULT TO_CHAR(CURRENT_TIMESTAMP, 'YYYY-MM-DD HH24:MI:SS')
       )`,
 
       `CREATE TABLE IF NOT EXISTS stg_nhanvien_cskh (
@@ -155,7 +155,7 @@ class StagingService {
         ngay_tuyen_dung DATE,
         trang_thai VARCHAR(20),
         source VARCHAR(20),
-        inserted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        inserted_at VARCHAR(19) DEFAULT TO_CHAR(CURRENT_TIMESTAMP, 'YYYY-MM-DD HH24:MI:SS')
       )`,
 
       `CREATE TABLE IF NOT EXISTS stg_phieu_xu_ly (
@@ -167,7 +167,7 @@ class StagingService {
         ket_qua VARCHAR(50),
         ghi_chu TEXT,
         source VARCHAR(20),
-        inserted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        inserted_at VARCHAR(19) DEFAULT TO_CHAR(CURRENT_TIMESTAMP, 'YYYY-MM-DD HH24:MI:SS')
       )`,
     ];
 

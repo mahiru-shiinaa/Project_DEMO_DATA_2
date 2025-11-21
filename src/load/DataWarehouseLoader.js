@@ -270,7 +270,7 @@ class DataWarehouseLoader {
         Object.values(stats.dimension_tables).reduce((a, b) => a + b, 0) +
         Object.values(stats.fact_tables).reduce((a, b) => a + b, 0);
 
-      await logger.endPhase('TẢI DỮ LIỆU VÀO DATA WAREHOUSE HOÀN THÀNH', stats);
+      await logger.endPhase('TẢI DỮ LIỆU VÀO DATA WAREHOUSE HOÀN THÀNH');
       return stats;
 
     } catch (error) {

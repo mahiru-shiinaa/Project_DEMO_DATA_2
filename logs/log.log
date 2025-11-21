@@ -1,15 +1,15 @@
 ================================================================================
-  ETL PIPELINE LOG - 2025-11-21 01:00:11
+  ETL PIPELINE LOG - 2025-11-21 11:13:29
 ================================================================================
 
-[2025-11-21 01:00:11] [INFO] Loaded 5 transformers (excluding IdTransformer)
+[2025-11-21 11:13:29] [INFO] Loaded 6 validation rules
+
+[2025-11-21 11:13:29] [INFO] Loaded 5 transformers (excluding IdTransformer)
 
 
 ================================================================================
   ETL PIPELINE STARTED STARTED
 ================================================================================
-[2025-11-21 01:00:11] [INFO] Loaded 6 validation rules
-
 
 ================================================================================
   PHASE 1: EXTRACT STARTED
@@ -18,29 +18,29 @@
 ================================================================================
   EXTRACT - PostgreSQL Data Source 1 STARTED
 ================================================================================
-[2025-11-21 01:00:11] [INFO] Extracting table: khach_hang
+[2025-11-21 11:13:29] [INFO] Extracting table: khach_hang
 
-[2025-11-21 01:00:11] [SUCCESS] Extracted 418 records from khach_hang
+[2025-11-21 11:13:30] [SUCCESS] Extracted 418 records from khach_hang
 
-[2025-11-21 01:00:11] [INFO] Extracting table: danh_muc
+[2025-11-21 11:13:30] [INFO] Extracting table: danh_muc
 
-[2025-11-21 01:00:11] [SUCCESS] Extracted 20 records from danh_muc
+[2025-11-21 11:13:30] [SUCCESS] Extracted 20 records from danh_muc
 
-[2025-11-21 01:00:11] [INFO] Extracting table: san_pham
+[2025-11-21 11:13:30] [INFO] Extracting table: san_pham
 
-[2025-11-21 01:00:11] [SUCCESS] Extracted 497 records from san_pham
+[2025-11-21 11:13:30] [SUCCESS] Extracted 497 records from san_pham
 
-[2025-11-21 01:00:11] [INFO] Extracting table: don_hang
+[2025-11-21 11:13:30] [INFO] Extracting table: don_hang
 
-[2025-11-21 01:00:11] [SUCCESS] Extracted 93 records from don_hang
+[2025-11-21 11:13:30] [SUCCESS] Extracted 93 records from don_hang
 
-[2025-11-21 01:00:11] [INFO] Extracting table: chi_tiet_don_hang
+[2025-11-21 11:13:30] [INFO] Extracting table: chi_tiet_don_hang
 
-[2025-11-21 01:00:12] [SUCCESS] Extracted 92 records from chi_tiet_don_hang
+[2025-11-21 11:13:30] [SUCCESS] Extracted 92 records from chi_tiet_don_hang
 
-[2025-11-21 01:00:12] [INFO] Extracting table: thanh_toan
+[2025-11-21 11:13:30] [INFO] Extracting table: thanh_toan
 
-[2025-11-21 01:00:12] [SUCCESS] Extracted 93 records from thanh_toan
+[2025-11-21 11:13:30] [SUCCESS] Extracted 93 records from thanh_toan
 
 
 ================================================================================
@@ -48,37 +48,37 @@
   Stats: {"totalTables":6,"totalRecords":1213}
 ================================================================================
 
-[2025-11-21 01:00:12] [SUCCESS] ✓ Extracted PostgreSQL data
+[2025-11-21 11:13:30] [SUCCESS] ✓ Extracted PostgreSQL data
 {
   "tables": 6,
   "totalRecords": 1213
 }
 
-[2025-11-21 01:00:12] [SUCCESS] All CSV files validated
+[2025-11-21 11:13:30] [SUCCESS] All CSV files validated
 
 
 ================================================================================
   EXTRACT - CSV Data Source 2 STARTED
 ================================================================================
-[2025-11-21 01:00:12] [INFO] Extracting CSV: khach_hang.csv
+[2025-11-21 11:13:30] [INFO] Extracting CSV: khach_hang.csv
 
-[2025-11-21 01:00:12] [SUCCESS] Extracted 7 records from khach_hang.csv
+[2025-11-21 11:13:30] [SUCCESS] Extracted 7 records from khach_hang.csv
 
-[2025-11-21 01:00:12] [INFO] Extracting CSV: phieu_ho_tro.csv
+[2025-11-21 11:13:30] [INFO] Extracting CSV: phieu_ho_tro.csv
 
-[2025-11-21 01:00:12] [SUCCESS] Extracted 5 records from phieu_ho_tro.csv
+[2025-11-21 11:13:30] [SUCCESS] Extracted 5 records from phieu_ho_tro.csv
 
-[2025-11-21 01:00:12] [INFO] Extracting CSV: danh_gia.csv
+[2025-11-21 11:13:30] [INFO] Extracting CSV: danh_gia.csv
 
-[2025-11-21 01:00:12] [SUCCESS] Extracted 5 records from danh_gia.csv
+[2025-11-21 11:13:30] [SUCCESS] Extracted 5 records from danh_gia.csv
 
-[2025-11-21 01:00:12] [INFO] Extracting CSV: nhanvien_cskh.csv
+[2025-11-21 11:13:30] [INFO] Extracting CSV: nhanvien_cskh.csv
 
-[2025-11-21 01:00:12] [SUCCESS] Extracted 5 records from nhanvien_cskh.csv
+[2025-11-21 11:13:30] [SUCCESS] Extracted 5 records from nhanvien_cskh.csv
 
-[2025-11-21 01:00:12] [INFO] Extracting CSV: phieu_xu_ly.csv
+[2025-11-21 11:13:30] [INFO] Extracting CSV: phieu_xu_ly.csv
 
-[2025-11-21 01:00:12] [SUCCESS] Extracted 5 records from phieu_xu_ly.csv
+[2025-11-21 11:13:30] [SUCCESS] Extracted 5 records from phieu_xu_ly.csv
 
 
 ================================================================================
@@ -86,7 +86,7 @@
   Stats: {"totalFiles":5,"totalRecords":27}
 ================================================================================
 
-[2025-11-21 01:00:12] [SUCCESS] ✓ Extracted CSV data
+[2025-11-21 11:13:30] [SUCCESS] ✓ Extracted CSV data
 {
   "files": 5,
   "totalRecords": 27
@@ -101,25 +101,25 @@
 ================================================================================
   PHASE 2: QUEUE & STAGING STARTED
 ================================================================================
-[2025-11-21 01:00:12] [INFO] Producer initialized
+[2025-11-21 11:13:30] [INFO] Producer initialized
 
-[2025-11-21 01:00:12] [INFO] Initializing staging database...
+[2025-11-21 11:13:30] [INFO] Initializing staging database...
 
-[2025-11-21 01:00:12] [INFO] Dropping old staging tables...
+[2025-11-21 11:13:30] [INFO] Dropping old staging tables...
 
-[2025-11-21 01:00:12] [SUCCESS] Old staging tables dropped
+[2025-11-21 11:13:30] [SUCCESS] Old staging tables dropped
 
-[2025-11-21 01:00:12] [SUCCESS] All staging tables created
+[2025-11-21 11:13:30] [SUCCESS] All staging tables created
 
-[2025-11-21 01:00:12] [INFO] Staging tables cleared
+[2025-11-21 11:13:30] [INFO] Staging tables cleared
 
-[2025-11-21 01:00:12] [SUCCESS] Staging database initialized
+[2025-11-21 11:13:30] [SUCCESS] Staging database initialized
 
-[2025-11-21 01:00:12] [INFO] Consumer initialized
+[2025-11-21 11:13:30] [INFO] Consumer initialized
 
-[2025-11-21 01:00:12] [INFO] Sending data to queues...
+[2025-11-21 11:13:30] [INFO] Sending data to queues...
 
-[2025-11-21 01:00:12] [INFO] Sending data to queue: datasource1_queue
+[2025-11-21 11:13:30] [INFO] Sending data to queue: datasource1_queue
 {
   "sourceType": "postgresql",
   "tables": [
@@ -133,21 +133,21 @@
   "totalRecords": 1213
 }
 
-[2025-11-21 01:00:12] [SUCCESS] Sent 418 records from khach_hang to datasource1_queue
+[2025-11-21 11:13:30] [SUCCESS] Sent 418 records from khach_hang to datasource1_queue
 
-[2025-11-21 01:00:12] [SUCCESS] Sent 20 records from danh_muc to datasource1_queue
+[2025-11-21 11:13:30] [SUCCESS] Sent 20 records from danh_muc to datasource1_queue
 
-[2025-11-21 01:00:12] [SUCCESS] Sent 497 records from san_pham to datasource1_queue
+[2025-11-21 11:13:30] [SUCCESS] Sent 497 records from san_pham to datasource1_queue
 
-[2025-11-21 01:00:12] [SUCCESS] Sent 93 records from don_hang to datasource1_queue
+[2025-11-21 11:13:30] [SUCCESS] Sent 93 records from don_hang to datasource1_queue
 
-[2025-11-21 01:00:12] [SUCCESS] Sent 92 records from chi_tiet_don_hang to datasource1_queue
+[2025-11-21 11:13:30] [SUCCESS] Sent 92 records from chi_tiet_don_hang to datasource1_queue
 
-[2025-11-21 01:00:12] [SUCCESS] Sent 93 records from thanh_toan to datasource1_queue
+[2025-11-21 11:13:30] [SUCCESS] Sent 93 records from thanh_toan to datasource1_queue
 
-[2025-11-21 01:00:12] [SUCCESS] All data sent to queue: datasource1_queue
+[2025-11-21 11:13:30] [SUCCESS] All data sent to queue: datasource1_queue
 
-[2025-11-21 01:00:12] [INFO] Sending data to queue: datasource2_queue
+[2025-11-21 11:13:30] [INFO] Sending data to queue: datasource2_queue
 {
   "sourceType": "csv",
   "tables": [
@@ -160,19 +160,19 @@
   "totalRecords": 27
 }
 
-[2025-11-21 01:00:12] [SUCCESS] Sent 7 records from khach_hang to datasource2_queue
+[2025-11-21 11:13:30] [SUCCESS] Sent 7 records from khach_hang to datasource2_queue
 
-[2025-11-21 01:00:12] [SUCCESS] Sent 5 records from phieu_ho_tro to datasource2_queue
+[2025-11-21 11:13:30] [SUCCESS] Sent 5 records from phieu_ho_tro to datasource2_queue
 
-[2025-11-21 01:00:12] [SUCCESS] Sent 5 records from danh_gia to datasource2_queue
+[2025-11-21 11:13:30] [SUCCESS] Sent 5 records from danh_gia to datasource2_queue
 
-[2025-11-21 01:00:12] [SUCCESS] Sent 5 records from nhanvien_cskh to datasource2_queue
+[2025-11-21 11:13:30] [SUCCESS] Sent 5 records from nhanvien_cskh to datasource2_queue
 
-[2025-11-21 01:00:12] [SUCCESS] Sent 5 records from phieu_xu_ly to datasource2_queue
+[2025-11-21 11:13:30] [SUCCESS] Sent 5 records from phieu_xu_ly to datasource2_queue
 
-[2025-11-21 01:00:12] [SUCCESS] All data sent to queue: datasource2_queue
+[2025-11-21 11:13:30] [SUCCESS] All data sent to queue: datasource2_queue
 
-[2025-11-21 01:00:12] [INFO] Consuming data from queues...
+[2025-11-21 11:13:30] [INFO] Consuming data from queues...
 
 
 ================================================================================
@@ -182,71 +182,71 @@
 ================================================================================
   CONSUMING QUEUE: datasource1_queue STARTED
 ================================================================================
-[2025-11-21 01:00:12] [INFO] Processing message from postgresql
+[2025-11-21 11:13:30] [INFO] Processing message from postgresql
 {
   "table": "khach_hang",
   "recordCount": 418,
-  "timestamp": "2025-11-20T18:00:12.263Z"
+  "timestamp": "2025-11-21 11:13:30"
 }
 
-[2025-11-21 01:00:12] [INFO] Processing message from postgresql
+[2025-11-21 11:13:30] [INFO] Processing message from postgresql
 {
   "table": "danh_muc",
   "recordCount": 20,
-  "timestamp": "2025-11-20T18:00:12.266Z"
+  "timestamp": "2025-11-21 11:13:30"
 }
 
-[2025-11-21 01:00:12] [INFO] Processing message from postgresql
-{
-  "table": "don_hang",
-  "recordCount": 93,
-  "timestamp": "2025-11-20T18:00:12.267Z"
-}
-
-[2025-11-21 01:00:12] [INFO] Processing message from postgresql
+[2025-11-21 11:13:30] [INFO] Processing message from postgresql
 {
   "table": "san_pham",
   "recordCount": 497,
-  "timestamp": "2025-11-20T18:00:12.266Z"
+  "timestamp": "2025-11-21 11:13:30"
 }
 
-[2025-11-21 01:00:12] [INFO] Processing message from postgresql
-{
-  "table": "chi_tiet_don_hang",
-  "recordCount": 92,
-  "timestamp": "2025-11-20T18:00:12.268Z"
-}
-
-[2025-11-21 01:00:12] [INFO] Processing message from postgresql
+[2025-11-21 11:13:30] [INFO] Processing message from postgresql
 {
   "table": "thanh_toan",
   "recordCount": 93,
-  "timestamp": "2025-11-20T18:00:12.269Z"
+  "timestamp": "2025-11-21 11:13:30"
 }
 
-[2025-11-21 01:00:12] [SUCCESS] Inserted 20 records into stg_danh_muc
+[2025-11-21 11:13:30] [INFO] Processing message from postgresql
+{
+  "table": "chi_tiet_don_hang",
+  "recordCount": 92,
+  "timestamp": "2025-11-21 11:13:30"
+}
 
-[2025-11-21 01:00:12] [SUCCESS] Processed 20 records from danh_muc
+[2025-11-21 11:13:30] [INFO] Processing message from postgresql
+{
+  "table": "don_hang",
+  "recordCount": 93,
+  "timestamp": "2025-11-21 11:13:30"
+}
 
-[2025-11-21 01:00:12] [SUCCESS] Inserted 93 records into stg_don_hang
+[2025-11-21 11:13:30] [SUCCESS] Inserted 20 records into stg_danh_muc
 
-[2025-11-21 01:00:12] [SUCCESS] Processed 93 records from don_hang
+[2025-11-21 11:13:30] [SUCCESS] Processed 20 records from danh_muc
 
-[2025-11-21 01:00:12] [SUCCESS] Inserted 93 records into stg_thanh_toan
+[2025-11-21 11:13:31] [SUCCESS] Inserted 93 records into stg_don_hang
 
-[2025-11-21 01:00:12] [SUCCESS] Processed 93 records from thanh_toan
+[2025-11-21 11:13:31] [SUCCESS] Processed 93 records from don_hang
 
-[2025-11-21 01:00:12] [SUCCESS] Inserted 92 records into stg_chi_tiet_don_hang
+[2025-11-21 11:13:31] [SUCCESS] Inserted 93 records into stg_thanh_toan
 
-[2025-11-21 01:00:12] [SUCCESS] Processed 92 records from chi_tiet_don_hang
+[2025-11-21 11:13:31] [SUCCESS] Processed 93 records from thanh_toan
 
-[2025-11-21 01:00:12] [SUCCESS] Inserted 418 records into stg_khach_hang
+[2025-11-21 11:13:31] [SUCCESS] Inserted 92 records into stg_chi_tiet_don_hang
 
-[2025-11-21 01:00:12] [SUCCESS] Processed 418 records from khach_hang
+[2025-11-21 11:13:31] [SUCCESS] Processed 92 records from chi_tiet_don_hang
 
-[2025-11-21 01:00:12] [SUCCESS] Inserted 497 records into stg_san_pham
+[2025-11-21 11:13:31] [SUCCESS] Inserted 418 records into stg_khach_hang
 
-[2025-11-21 01:00:12] [SUCCESS] Processed 497 records from san_pham
+[2025-11-21 11:13:31] [SUCCESS] Processed 418 records from khach_hang
+
+[2025-11-21 11:13:31] [SUCCESS] Inserted 497 records into stg_san_pham
+
+[2025-11-21 11:13:31] [SUCCESS] Processed 497 records from san_pham
 
 
 ================================================================================
@@ -258,60 +258,60 @@
 ================================================================================
   CONSUMING QUEUE: datasource2_queue STARTED
 ================================================================================
-[2025-11-21 01:00:17] [INFO] Processing message from csv
+[2025-11-21 11:13:35] [INFO] Processing message from csv
 {
   "table": "khach_hang",
   "recordCount": 7,
-  "timestamp": "2025-11-20T18:00:12.270Z"
+  "timestamp": "2025-11-21 11:13:30"
 }
 
-[2025-11-21 01:00:17] [INFO] Processing message from csv
+[2025-11-21 11:13:35] [INFO] Processing message from csv
 {
   "table": "phieu_ho_tro",
   "recordCount": 5,
-  "timestamp": "2025-11-20T18:00:12.271Z"
+  "timestamp": "2025-11-21 11:13:30"
 }
 
-[2025-11-21 01:00:17] [INFO] Processing message from csv
-{
-  "table": "danh_gia",
-  "recordCount": 5,
-  "timestamp": "2025-11-20T18:00:12.271Z"
-}
-
-[2025-11-21 01:00:17] [INFO] Processing message from csv
+[2025-11-21 11:13:35] [INFO] Processing message from csv
 {
   "table": "nhanvien_cskh",
   "recordCount": 5,
-  "timestamp": "2025-11-20T18:00:12.272Z"
+  "timestamp": "2025-11-21 11:13:30"
 }
 
-[2025-11-21 01:00:17] [INFO] Processing message from csv
+[2025-11-21 11:13:35] [INFO] Processing message from csv
 {
   "table": "phieu_xu_ly",
   "recordCount": 5,
-  "timestamp": "2025-11-20T18:00:12.272Z"
+  "timestamp": "2025-11-21 11:13:30"
 }
 
-[2025-11-21 01:00:17] [SUCCESS] Inserted 5 records into stg_nhanvien_cskh
+[2025-11-21 11:13:35] [INFO] Processing message from csv
+{
+  "table": "danh_gia",
+  "recordCount": 5,
+  "timestamp": "2025-11-21 11:13:30"
+}
 
-[2025-11-21 01:00:17] [SUCCESS] Processed 5 records from nhanvien_cskh
+[2025-11-21 11:13:35] [SUCCESS] Inserted 5 records into stg_phieu_ho_tro
 
-[2025-11-21 01:00:17] [SUCCESS] Inserted 5 records into stg_phieu_ho_tro
+[2025-11-21 11:13:35] [SUCCESS] Inserted 5 records into stg_nhanvien_cskh
 
-[2025-11-21 01:00:17] [SUCCESS] Processed 5 records from phieu_ho_tro
+[2025-11-21 11:13:35] [SUCCESS] Inserted 5 records into stg_phieu_xu_ly
 
-[2025-11-21 01:00:17] [SUCCESS] Inserted 5 records into stg_phieu_xu_ly
+[2025-11-21 11:13:35] [SUCCESS] Inserted 5 records into stg_danh_gia
 
-[2025-11-21 01:00:17] [SUCCESS] Processed 5 records from phieu_xu_ly
+[2025-11-21 11:13:35] [SUCCESS] Processed 5 records from nhanvien_cskh
 
-[2025-11-21 01:00:17] [SUCCESS] Inserted 5 records into stg_danh_gia
+[2025-11-21 11:13:35] [SUCCESS] Processed 5 records from phieu_ho_tro
 
-[2025-11-21 01:00:17] [SUCCESS] Processed 5 records from danh_gia
+[2025-11-21 11:13:35] [SUCCESS] Processed 5 records from danh_gia
 
-[2025-11-21 01:00:17] [SUCCESS] Inserted 7 records into stg_khach_hang
+[2025-11-21 11:13:35] [SUCCESS] Processed 5 records from phieu_xu_ly
 
-[2025-11-21 01:00:17] [SUCCESS] Processed 7 records from khach_hang
+[2025-11-21 11:13:35] [SUCCESS] Inserted 7 records into stg_khach_hang
+
+[2025-11-21 11:13:35] [SUCCESS] Processed 7 records from khach_hang
 
 
 ================================================================================
@@ -334,27 +334,27 @@
 ================================================================================
   PHASE 3: DATA QUALITY STARTED
 ================================================================================
-[2025-11-21 01:00:22] [INFO] Applying ID prefixes to prevent key collisions...
+[2025-11-21 11:13:40] [INFO] Applying ID prefixes to prevent key collisions...
 
-[2025-11-21 01:00:22] [SUCCESS] ID prefixes applied
+[2025-11-21 11:13:40] [SUCCESS] ID prefixes applied
 {
   "tables": 10,
   "totalRecords": 1240
 }
 
-[2025-11-21 01:00:22] [INFO] Starting deduplication...
+[2025-11-21 11:13:40] [INFO] Starting deduplication...
 
 
 ================================================================================
   DEDUPLICATION STARTED
 ================================================================================
-[2025-11-21 01:00:22] [DEBUG] Merged duplicate record in khach_hang
+[2025-11-21 11:13:40] [DEBUG] Merged duplicate record in khach_hang
 {
   "key": "null",
   "existing": "PG_KH0013"
 }
 
-[2025-11-21 01:00:22] [WARN] Removed 1 duplicates from khach_hang
+[2025-11-21 11:13:40] [WARN] Removed 1 duplicates from khach_hang
 {
   "original": 425,
   "after": 424,
@@ -363,23 +363,23 @@
   ]
 }
 
-[2025-11-21 01:00:22] [SUCCESS] No duplicates in danh_muc
+[2025-11-21 11:13:40] [SUCCESS] No duplicates in danh_muc
 
-[2025-11-21 01:00:22] [SUCCESS] No duplicates in san_pham
+[2025-11-21 11:13:40] [SUCCESS] No duplicates in san_pham
 
-[2025-11-21 01:00:22] [SUCCESS] No duplicates in don_hang
+[2025-11-21 11:13:40] [SUCCESS] No duplicates in don_hang
 
-[2025-11-21 01:00:22] [SUCCESS] No duplicates in chi_tiet_don_hang
+[2025-11-21 11:13:40] [SUCCESS] No duplicates in chi_tiet_don_hang
 
-[2025-11-21 01:00:22] [SUCCESS] No duplicates in thanh_toan
+[2025-11-21 11:13:40] [SUCCESS] No duplicates in thanh_toan
 
-[2025-11-21 01:00:22] [SUCCESS] No duplicates in phieu_ho_tro
+[2025-11-21 11:13:40] [SUCCESS] No duplicates in phieu_ho_tro
 
-[2025-11-21 01:00:22] [SUCCESS] No duplicates in danh_gia
+[2025-11-21 11:13:40] [SUCCESS] No duplicates in danh_gia
 
-[2025-11-21 01:00:22] [SUCCESS] No duplicates in nhanvien_cskh
+[2025-11-21 11:13:40] [SUCCESS] No duplicates in nhanvien_cskh
 
-[2025-11-21 01:00:22] [SUCCESS] No duplicates in phieu_xu_ly
+[2025-11-21 11:13:40] [SUCCESS] No duplicates in phieu_xu_ly
 
 
 ================================================================================
@@ -387,16 +387,16 @@
   Stats: {"totalOriginal":1240,"totalAfter":1239,"totalRemoved":1,"byTable":{"khach_hang":{"original":425,"after":424,"removed":1},"danh_muc":{"original":20,"after":20,"removed":0},"san_pham":{"original":497,"after":497,"removed":0},"don_hang":{"original":93,"after":93,"removed":0},"chi_tiet_don_hang":{"original":92,"after":92,"removed":0},"thanh_toan":{"original":93,"after":93,"removed":0},"phieu_ho_tro":{"original":5,"after":5,"removed":0},"danh_gia":{"original":5,"after":5,"removed":0},"nhanvien_cskh":{"original":5,"after":5,"removed":0},"phieu_xu_ly":{"original":5,"after":5,"removed":0}}}
 ================================================================================
 
-[2025-11-21 01:00:22] [SUCCESS] Deduplication completed
+[2025-11-21 11:13:40] [SUCCESS] Deduplication completed
 {
   "originalRecords": 1240,
   "afterDedup": 1239,
   "removed": 1
 }
 
-[2025-11-21 01:00:22] [INFO] Starting validation...
+[2025-11-21 11:13:40] [INFO] Starting validation...
 
-[2025-11-21 01:00:22] [INFO] Validated khach_hang
+[2025-11-21 11:13:40] [INFO] Validated khach_hang
 {
   "total": 424,
   "valid": 0,
@@ -404,7 +404,7 @@
   "unfixable": 30
 }
 
-[2025-11-21 01:00:22] [INFO] Validated danh_muc
+[2025-11-21 11:13:40] [INFO] Validated danh_muc
 {
   "total": 20,
   "valid": 20,
@@ -412,7 +412,7 @@
   "unfixable": 0
 }
 
-[2025-11-21 01:00:22] [INFO] Validated san_pham
+[2025-11-21 11:13:40] [INFO] Validated san_pham
 {
   "total": 497,
   "valid": 494,
@@ -420,7 +420,7 @@
   "unfixable": 3
 }
 
-[2025-11-21 01:00:22] [INFO] Validated don_hang
+[2025-11-21 11:13:40] [INFO] Validated don_hang
 {
   "total": 93,
   "valid": 86,
@@ -428,7 +428,7 @@
   "unfixable": 7
 }
 
-[2025-11-21 01:00:22] [INFO] Validated chi_tiet_don_hang
+[2025-11-21 11:13:40] [INFO] Validated chi_tiet_don_hang
 {
   "total": 92,
   "valid": 92,
@@ -436,7 +436,7 @@
   "unfixable": 0
 }
 
-[2025-11-21 01:00:22] [INFO] Validated thanh_toan
+[2025-11-21 11:13:41] [INFO] Validated thanh_toan
 {
   "total": 93,
   "valid": 21,
@@ -444,7 +444,7 @@
   "unfixable": 72
 }
 
-[2025-11-21 01:00:22] [INFO] Validated phieu_ho_tro
+[2025-11-21 11:13:41] [INFO] Validated phieu_ho_tro
 {
   "total": 5,
   "valid": 3,
@@ -452,7 +452,7 @@
   "unfixable": 2
 }
 
-[2025-11-21 01:00:22] [INFO] Validated danh_gia
+[2025-11-21 11:13:41] [INFO] Validated danh_gia
 {
   "total": 5,
   "valid": 5,
@@ -460,7 +460,7 @@
   "unfixable": 0
 }
 
-[2025-11-21 01:00:22] [INFO] Validated nhanvien_cskh
+[2025-11-21 11:13:41] [INFO] Validated nhanvien_cskh
 {
   "total": 5,
   "valid": 5,
@@ -468,7 +468,7 @@
   "unfixable": 0
 }
 
-[2025-11-21 01:00:22] [INFO] Validated phieu_xu_ly
+[2025-11-21 11:13:41] [INFO] Validated phieu_xu_ly
 {
   "total": 5,
   "valid": 5,
@@ -476,7 +476,7 @@
   "unfixable": 0
 }
 
-[2025-11-21 01:00:22] [INFO] Starting transformation...
+[2025-11-21 11:13:41] [INFO] Starting transformation...
 
 
 ================================================================================
@@ -488,232 +488,13 @@
   Stats: {"totalRecords":424,"transformedRecords":424,"skippedRecords":0}
 ================================================================================
 
-[2025-11-21 01:00:22] [INFO] Transform details
-{
-  "sampleTransforms": [
-    {
-      "recordIndex": 0,
-      "originalRecord": {
-        "ma_khach_hang": "PG_KH0001",
-        "ho_ten": "Nguyễn Văn Hiếu",
-        "email": "hieunguyen@gmail.com",
-        "so_dien_thoai": "0905123456",
-        "dia_chi": "123 Nguyễn Trãi - Hà Nội",
-        "ngay_sinh": "1999-04-13T17:00:00.000Z",
-        "ngay_dang_ky": "2023-08-10T17:00:00.000Z",
-        "gioi_tinh": "Nam",
-        "loai_khach_hang": null,
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.325Z"
-      },
-      "transformedRecord": {
-        "ma_khach_hang": "PG_KH0001",
-        "ho_ten": "Nguyễn Văn Hiếu",
-        "email": "hieunguyen@gmail.com",
-        "so_dien_thoai": "0905123456",
-        "dia_chi": "123 Nguyễn Trãi - Hà Nội",
-        "ngay_sinh": "1999-04-14",
-        "ngay_dang_ky": "2023-08-10T17:00:00.000Z",
-        "gioi_tinh": "Nam",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.325Z"
-      },
-      "transformLog": [
-        {
-          "field": "loai_khach_hang",
-          "original": "null",
-          "transformed": "Thường",
-          "action": "set_default_value"
-        },
-        {
-          "field": "ngay_sinh",
-          "original": "1999-04-13T17:00:00.000Z",
-          "transformed": "1999-04-14",
-          "action": "format_date_to_yyyy_mm_dd"
-        }
-      ]
-    },
-    {
-      "recordIndex": 1,
-      "originalRecord": {
-        "ma_khach_hang": "PG_KH0002",
-        "ho_ten": "Trần Thị Mai",
-        "email": "maitran@gmail.com",
-        "so_dien_thoai": "0912345678",
-        "dia_chi": "45 Lê Lợi - Đà Nẵng",
-        "ngay_sinh": "1996-09-19T17:00:00.000Z",
-        "ngay_dang_ky": "2023-09-01T17:00:00.000Z",
-        "gioi_tinh": "Nữ",
-        "loai_khach_hang": null,
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.326Z"
-      },
-      "transformedRecord": {
-        "ma_khach_hang": "PG_KH0002",
-        "ho_ten": "Trần Thị Mai",
-        "email": "maitran@gmail.com",
-        "so_dien_thoai": "0912345678",
-        "dia_chi": "45 Lê Lợi - Đà Nẵng",
-        "ngay_sinh": "1996-09-20",
-        "ngay_dang_ky": "2023-09-01T17:00:00.000Z",
-        "gioi_tinh": "Nữ",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.326Z"
-      },
-      "transformLog": [
-        {
-          "field": "loai_khach_hang",
-          "original": "null",
-          "transformed": "Thường",
-          "action": "set_default_value"
-        },
-        {
-          "field": "ngay_sinh",
-          "original": "1996-09-19T17:00:00.000Z",
-          "transformed": "1996-09-20",
-          "action": "format_date_to_yyyy_mm_dd"
-        }
-      ]
-    },
-    {
-      "recordIndex": 2,
-      "originalRecord": {
-        "ma_khach_hang": "PG_KH0003",
-        "ho_ten": "Lê Quang Minh",
-        "email": "minhleq@gmail.com",
-        "so_dien_thoai": "0987654321",
-        "dia_chi": "78 Hai Bà Trưng - Huế",
-        "ngay_sinh": "1998-02-06T17:00:00.000Z",
-        "ngay_dang_ky": "2022-11-13T17:00:00.000Z",
-        "gioi_tinh": "Nam",
-        "loai_khach_hang": null,
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.327Z"
-      },
-      "transformedRecord": {
-        "ma_khach_hang": "PG_KH0003",
-        "ho_ten": "Lê Quang Minh",
-        "email": "minhleq@gmail.com",
-        "so_dien_thoai": "0987654321",
-        "dia_chi": "78 Hai Bà Trưng - Huế",
-        "ngay_sinh": "1998-02-07",
-        "ngay_dang_ky": "2022-11-13T17:00:00.000Z",
-        "gioi_tinh": "Nam",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.327Z"
-      },
-      "transformLog": [
-        {
-          "field": "loai_khach_hang",
-          "original": "null",
-          "transformed": "Thường",
-          "action": "set_default_value"
-        },
-        {
-          "field": "ngay_sinh",
-          "original": "1998-02-06T17:00:00.000Z",
-          "transformed": "1998-02-07",
-          "action": "format_date_to_yyyy_mm_dd"
-        }
-      ]
-    },
-    {
-      "recordIndex": 3,
-      "originalRecord": {
-        "ma_khach_hang": "PG_KH0004",
-        "ho_ten": "Phạm Thị Hoa",
-        "email": "hoapham@gmail.com",
-        "so_dien_thoai": "0933123456",
-        "dia_chi": "12 Phan Chu Trinh - TP. HCM",
-        "ngay_sinh": "1995-06-09T17:00:00.000Z",
-        "ngay_dang_ky": "2023-05-22T17:00:00.000Z",
-        "gioi_tinh": "Nữ",
-        "loai_khach_hang": null,
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.328Z"
-      },
-      "transformedRecord": {
-        "ma_khach_hang": "PG_KH0004",
-        "ho_ten": "Phạm Thị Hoa",
-        "email": "hoapham@gmail.com",
-        "so_dien_thoai": "0933123456",
-        "dia_chi": "12 Phan Chu Trinh - TP. HCM",
-        "ngay_sinh": "1995-06-10",
-        "ngay_dang_ky": "2023-05-22T17:00:00.000Z",
-        "gioi_tinh": "Nữ",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.328Z"
-      },
-      "transformLog": [
-        {
-          "field": "loai_khach_hang",
-          "original": "null",
-          "transformed": "Thường",
-          "action": "set_default_value"
-        },
-        {
-          "field": "ngay_sinh",
-          "original": "1995-06-09T17:00:00.000Z",
-          "transformed": "1995-06-10",
-          "action": "format_date_to_yyyy_mm_dd"
-        }
-      ]
-    },
-    {
-      "recordIndex": 4,
-      "originalRecord": {
-        "ma_khach_hang": "PG_KH0005",
-        "ho_ten": "Đỗ Văn An",
-        "email": "an.do@gmail.com",
-        "so_dien_thoai": "0977888999",
-        "dia_chi": "56 Trần Phú - Đà Lạt",
-        "ngay_sinh": "1993-12-01T17:00:00.000Z",
-        "ngay_dang_ky": "2024-02-16T17:00:00.000Z",
-        "gioi_tinh": "Nam",
-        "loai_khach_hang": null,
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.329Z"
-      },
-      "transformedRecord": {
-        "ma_khach_hang": "PG_KH0005",
-        "ho_ten": "Đỗ Văn An",
-        "email": "an.do@gmail.com",
-        "so_dien_thoai": "0977888999",
-        "dia_chi": "56 Trần Phú - Đà Lạt",
-        "ngay_sinh": "1993-12-02",
-        "ngay_dang_ky": "2024-02-16T17:00:00.000Z",
-        "gioi_tinh": "Nam",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.329Z"
-      },
-      "transformLog": [
-        {
-          "field": "loai_khach_hang",
-          "original": "null",
-          "transformed": "Thường",
-          "action": "set_default_value"
-        },
-        {
-          "field": "ngay_sinh",
-          "original": "1993-12-01T17:00:00.000Z",
-          "transformed": "1993-12-02",
-          "action": "format_date_to_yyyy_mm_dd"
-        }
-      ]
-    }
-  ]
-}
-
-[2025-11-21 01:00:22] [SUCCESS] Transformed khach_hang
+[2025-11-21 11:13:41] [SUCCESS] Transformed khach_hang
 {
   "transformed": 424,
   "skipped": 0
 }
+
+[2025-11-21 11:13:41] [INFO] Đã transform 424 records của table: khach_hang - Chi tiết xem tại transformLog.log
 
 
 ================================================================================
@@ -725,7 +506,7 @@
   Stats: {"totalRecords":20,"transformedRecords":0,"skippedRecords":20}
 ================================================================================
 
-[2025-11-21 01:00:22] [SUCCESS] Transformed danh_muc
+[2025-11-21 11:13:41] [SUCCESS] Transformed danh_muc
 {
   "transformed": 0,
   "skipped": 20
@@ -741,7 +522,7 @@
   Stats: {"totalRecords":497,"transformedRecords":0,"skippedRecords":497}
 ================================================================================
 
-[2025-11-21 01:00:22] [SUCCESS] Transformed san_pham
+[2025-11-21 11:13:41] [SUCCESS] Transformed san_pham
 {
   "transformed": 0,
   "skipped": 497
@@ -757,7 +538,7 @@
   Stats: {"totalRecords":93,"transformedRecords":0,"skippedRecords":93}
 ================================================================================
 
-[2025-11-21 01:00:22] [SUCCESS] Transformed don_hang
+[2025-11-21 11:13:41] [SUCCESS] Transformed don_hang
 {
   "transformed": 0,
   "skipped": 93
@@ -773,7 +554,7 @@
   Stats: {"totalRecords":92,"transformedRecords":0,"skippedRecords":92}
 ================================================================================
 
-[2025-11-21 01:00:22] [SUCCESS] Transformed chi_tiet_don_hang
+[2025-11-21 11:13:41] [SUCCESS] Transformed chi_tiet_don_hang
 {
   "transformed": 0,
   "skipped": 92
@@ -789,7 +570,7 @@
   Stats: {"totalRecords":93,"transformedRecords":0,"skippedRecords":93}
 ================================================================================
 
-[2025-11-21 01:00:22] [SUCCESS] Transformed thanh_toan
+[2025-11-21 11:13:41] [SUCCESS] Transformed thanh_toan
 {
   "transformed": 0,
   "skipped": 93
@@ -805,7 +586,7 @@
   Stats: {"totalRecords":5,"transformedRecords":0,"skippedRecords":5}
 ================================================================================
 
-[2025-11-21 01:00:22] [SUCCESS] Transformed phieu_ho_tro
+[2025-11-21 11:13:41] [SUCCESS] Transformed phieu_ho_tro
 {
   "transformed": 0,
   "skipped": 5
@@ -821,7 +602,7 @@
   Stats: {"totalRecords":5,"transformedRecords":0,"skippedRecords":5}
 ================================================================================
 
-[2025-11-21 01:00:22] [SUCCESS] Transformed danh_gia
+[2025-11-21 11:13:41] [SUCCESS] Transformed danh_gia
 {
   "transformed": 0,
   "skipped": 5
@@ -837,7 +618,7 @@
   Stats: {"totalRecords":5,"transformedRecords":0,"skippedRecords":5}
 ================================================================================
 
-[2025-11-21 01:00:22] [SUCCESS] Transformed nhanvien_cskh
+[2025-11-21 11:13:41] [SUCCESS] Transformed nhanvien_cskh
 {
   "transformed": 0,
   "skipped": 5
@@ -853,3560 +634,83 @@
   Stats: {"totalRecords":5,"transformedRecords":0,"skippedRecords":5}
 ================================================================================
 
-[2025-11-21 01:00:22] [SUCCESS] Transformed phieu_xu_ly
+[2025-11-21 11:13:41] [SUCCESS] Transformed phieu_xu_ly
 {
   "transformed": 0,
   "skipped": 5
 }
 
-[2025-11-21 01:00:22] [INFO] Re-validating after transformation...
+[2025-11-21 11:13:41] [INFO] Re-validating after transformation...
 
-[2025-11-21 01:00:22] [INFO] Final validation for khach_hang
+[2025-11-21 11:13:41] [INFO] Final validation for khach_hang
 {
   "clean": 393,
   "stillInvalid": 31
 }
 
-[2025-11-21 01:00:22] [INFO] Final validation for danh_muc
+[2025-11-21 11:13:41] [INFO] Final validation for danh_muc
 {
   "clean": 20,
   "stillInvalid": 0
 }
 
-[2025-11-21 01:00:22] [INFO] Final validation for san_pham
+[2025-11-21 11:13:41] [INFO] Final validation for san_pham
 {
   "clean": 494,
   "stillInvalid": 3
 }
 
-[2025-11-21 01:00:22] [INFO] Final validation for don_hang
+[2025-11-21 11:13:41] [INFO] Final validation for don_hang
 {
   "clean": 86,
   "stillInvalid": 7
 }
 
-[2025-11-21 01:00:22] [INFO] Final validation for chi_tiet_don_hang
+[2025-11-21 11:13:41] [INFO] Final validation for chi_tiet_don_hang
 {
   "clean": 92,
   "stillInvalid": 0
 }
 
-[2025-11-21 01:00:22] [INFO] Final validation for thanh_toan
+[2025-11-21 11:13:41] [INFO] Final validation for thanh_toan
 {
   "clean": 21,
   "stillInvalid": 72
 }
 
-[2025-11-21 01:00:22] [INFO] Final validation for phieu_ho_tro
+[2025-11-21 11:13:41] [INFO] Final validation for phieu_ho_tro
 {
   "clean": 3,
   "stillInvalid": 2
 }
 
-[2025-11-21 01:00:22] [INFO] Final validation for danh_gia
+[2025-11-21 11:13:41] [INFO] Final validation for danh_gia
 {
   "clean": 5,
   "stillInvalid": 0
 }
 
-[2025-11-21 01:00:22] [INFO] Final validation for nhanvien_cskh
+[2025-11-21 11:13:41] [INFO] Final validation for nhanvien_cskh
 {
   "clean": 5,
   "stillInvalid": 0
 }
 
-[2025-11-21 01:00:22] [INFO] Final validation for phieu_xu_ly
+[2025-11-21 11:13:41] [INFO] Final validation for phieu_xu_ly
 {
   "clean": 5,
   "stillInvalid": 0
 }
 
-[2025-11-21 01:00:22] [ERROR] Đã ghi lại records lỗi của table: khach_hang
-{
-  "count": 31,
-  "allErrors": [
-    {
-      "record": {
-        "ma_khach_hang": "PG_KH0013",
-        "ho_ten": "Lê Văn Tú",
-        "email": "NULL",
-        "so_dien_thoai": "0905123456",
-        "dia_chi": "12 Nguyễn Huệ - Huế",
-        "ngay_sinh": "1995-11-29",
-        "ngay_dang_ky": "2022-12-03T17:00:00.000Z",
-        "gioi_tinh": "Nam",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.340Z",
-        "sources": "postgresql,csv"
-      },
-      "errors": [
-        {
-          "code": "E001",
-          "field": "email",
-          "message": "Email không đúng định dạng",
-          "value": "null",
-          "canFix": false
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_khach_hang": "PG_KH0191",
-        "ho_ten": "Nguyễn Văn A",
-        "email": "invalid_email",
-        "so_dien_thoai": "0123456789",
-        "dia_chi": "123 Test Street",
-        "ngay_sinh": "1989-12-31",
-        "ngay_dang_ky": "2022-12-30T17:00:00.000Z",
-        "gioi_tinh": "Nam",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.652Z"
-      },
-      "errors": [
-        {
-          "code": "E001",
-          "field": "email",
-          "message": "Email không đúng định dạng",
-          "value": "invalid_email",
-          "canFix": false
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_khach_hang": "PG_KH0193",
-        "ho_ten": "Lê Văn C",
-        "email": "le.van.c@email.com",
-        "so_dien_thoai": "0909abc123",
-        "dia_chi": "456 Test Road",
-        "ngay_sinh": "1995-06-14",
-        "ngay_dang_ky": "2023-06-13T17:00:00.000Z",
-        "gioi_tinh": "Nam",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.654Z"
-      },
-      "errors": [
-        {
-          "code": "E001",
-          "field": "so_dien_thoai",
-          "message": "Số điện thoại không hợp lệ. Phải bắt đầu bằng 0 hoặc +84 và có 9-10 số theo sau.",
-          "value": "0909abc123",
-          "canFix": true,
-          "suggestion": "Chuẩn hóa về định dạng 0xxxxxxxxx"
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_khach_hang": "PG_KH0271",
-        "ho_ten": "Nguyễn Văn Test1",
-        "email": "test1@",
-        "so_dien_thoai": "0123456789",
-        "dia_chi": null,
-        "ngay_sinh": "1989-12-31",
-        "ngay_dang_ky": "2022-12-30T17:00:00.000Z",
-        "gioi_tinh": "Nam",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.757Z"
-      },
-      "errors": [
-        {
-          "code": "E001",
-          "field": "ho_ten",
-          "message": "Họ tên không được chứa số",
-          "value": "Nguyễn Văn Test1",
-          "canFix": false
-        },
-        {
-          "code": "E001",
-          "field": "email",
-          "message": "Email không đúng định dạng",
-          "value": "test1@",
-          "canFix": false
-        },
-        {
-          "code": "E001",
-          "field": "email",
-          "message": "Email thiếu phần trước hoặc sau @",
-          "value": "test1@",
-          "canFix": false
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_khach_hang": "PG_KH0273",
-        "ho_ten": "Lê Văn Test3",
-        "email": "test3@email.com",
-        "so_dien_thoai": "0909abc123",
-        "dia_chi": "456 Test Road",
-        "ngay_sinh": "1995-06-14",
-        "ngay_dang_ky": "2023-06-13T17:00:00.000Z",
-        "gioi_tinh": "Nam",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.758Z"
-      },
-      "errors": [
-        {
-          "code": "E001",
-          "field": "ho_ten",
-          "message": "Họ tên không được chứa số",
-          "value": "Lê Văn Test3",
-          "canFix": false
-        },
-        {
-          "code": "E001",
-          "field": "so_dien_thoai",
-          "message": "Số điện thoại không hợp lệ. Phải bắt đầu bằng 0 hoặc +84 và có 9-10 số theo sau.",
-          "value": "0909abc123",
-          "canFix": true,
-          "suggestion": "Chuẩn hóa về định dạng 0xxxxxxxxx"
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_khach_hang": "PG_KH0275",
-        "ho_ten": "Hoàng Văn Test5",
-        "email": "test5@email.com",
-        "so_dien_thoai": "0123456789",
-        "dia_chi": "321 Test Avenue",
-        "ngay_sinh": "1988-07-19",
-        "ngay_dang_ky": "2023-07-18T17:00:00.000Z",
-        "gioi_tinh": "Nam",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.759Z"
-      },
-      "errors": [
-        {
-          "code": "E001",
-          "field": "ho_ten",
-          "message": "Họ tên không được chứa số",
-          "value": "Hoàng Văn Test5",
-          "canFix": false
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_khach_hang": "PG_KH0276",
-        "ho_ten": "Nguyễn Thị Test6",
-        "email": "test6@email.com",
-        "so_dien_thoai": "0987654321",
-        "dia_chi": "654 Test Boulevard",
-        "ngay_sinh": "1993-03-09",
-        "ngay_dang_ky": "2023-03-08T17:00:00.000Z",
-        "gioi_tinh": "Nữ",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.761Z"
-      },
-      "errors": [
-        {
-          "code": "E001",
-          "field": "ho_ten",
-          "message": "Họ tên không được chứa số",
-          "value": "Nguyễn Thị Test6",
-          "canFix": false
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_khach_hang": "PG_KH0277",
-        "ho_ten": "Đỗ Văn Test7",
-        "email": "test7@email.com",
-        "so_dien_thoai": "0911222333",
-        "dia_chi": "987 Test Drive",
-        "ngay_sinh": "1997-11-24",
-        "ngay_dang_ky": "2023-11-23T17:00:00.000Z",
-        "gioi_tinh": "Nam",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.762Z"
-      },
-      "errors": [
-        {
-          "code": "E001",
-          "field": "ho_ten",
-          "message": "Họ tên không được chứa số",
-          "value": "Đỗ Văn Test7",
-          "canFix": false
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_khach_hang": "PG_KH0278",
-        "ho_ten": "Trần Thị Test8",
-        "email": "test8@email.com",
-        "so_dien_thoai": "0944555666",
-        "dia_chi": "147 Test Way",
-        "ngay_sinh": "1994-09-07",
-        "ngay_dang_ky": "2023-09-06T17:00:00.000Z",
-        "gioi_tinh": "Nữ",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.764Z"
-      },
-      "errors": [
-        {
-          "code": "E001",
-          "field": "ho_ten",
-          "message": "Họ tên không được chứa số",
-          "value": "Trần Thị Test8",
-          "canFix": false
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_khach_hang": "PG_KH0279",
-        "ho_ten": "Lê Văn Test9",
-        "email": "test9@email.com",
-        "so_dien_thoai": "0977888999",
-        "dia_chi": "258 Test Circle",
-        "ngay_sinh": "1991-04-16",
-        "ngay_dang_ky": "2023-04-15T17:00:00.000Z",
-        "gioi_tinh": "Nam",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.765Z"
-      },
-      "errors": [
-        {
-          "code": "E001",
-          "field": "ho_ten",
-          "message": "Họ tên không được chứa số",
-          "value": "Lê Văn Test9",
-          "canFix": false
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_khach_hang": "PG_KH0280",
-        "ho_ten": "Phạm Thị Test10",
-        "email": "test10@email.com",
-        "so_dien_thoai": "0922333444",
-        "dia_chi": "369 Test Court",
-        "ngay_sinh": "1996-08-28",
-        "ngay_dang_ky": "2023-08-27T17:00:00.000Z",
-        "gioi_tinh": "Nữ",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.766Z"
-      },
-      "errors": [
-        {
-          "code": "E001",
-          "field": "ho_ten",
-          "message": "Họ tên không được chứa số",
-          "value": "Phạm Thị Test10",
-          "canFix": false
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_khach_hang": "PG_KH0292",
-        "ho_ten": "Nguyen Van M",
-        "email": "nvm@email.com",
-        "so_dien_thoai": "0923232323",
-        "dia_chi": "333 Elm Rd",
-        "ngay_sinh": "2012-12-10T17:00:00.000Z",
-        "ngay_dang_ky": "2023-12-10T17:00:00.000Z",
-        "gioi_tinh": "Nam",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.780Z"
-      },
-      "errors": [
-        {
-          "code": "E003",
-          "field": "ngay_sinh",
-          "message": "Tuổi phải từ 13 trở lên",
-          "value": "2012-12-10T17:00:00.000Z",
-          "currentAge": 12,
-          "canFix": false
-        },
-        {
-          "code": "E001",
-          "field": "ngay_sinh",
-          "message": "Định dạng ngày sinh nên là YYYY-MM-DD",
-          "value": "2012-12-10T17:00:00.000Z",
-          "canFix": true,
-          "suggestion": "Chuyển thành 2012-12-11"
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_khach_hang": "PG_KH0293",
-        "ho_ten": "Do Thi N",
-        "email": "dtn@email.com",
-        "so_dien_thoai": "0934343434",
-        "dia_chi": "444 Maple St",
-        "ngay_sinh": "2014-01-11T17:00:00.000Z",
-        "ngay_dang_ky": "2024-01-11T17:00:00.000Z",
-        "gioi_tinh": "nu",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.782Z"
-      },
-      "errors": [
-        {
-          "code": "E003",
-          "field": "ngay_sinh",
-          "message": "Tuổi phải từ 13 trở lên",
-          "value": "2014-01-11T17:00:00.000Z",
-          "currentAge": 11,
-          "canFix": false
-        },
-        {
-          "code": "E001",
-          "field": "ngay_sinh",
-          "message": "Định dạng ngày sinh nên là YYYY-MM-DD",
-          "value": "2014-01-11T17:00:00.000Z",
-          "canFix": true,
-          "suggestion": "Chuyển thành 2014-01-12"
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_khach_hang": "PG_KH0294",
-        "ho_ten": "Tran Van O",
-        "email": "tvo@email.com",
-        "so_dien_thoai": "0945454545",
-        "dia_chi": "555 Cedar Ave",
-        "ngay_sinh": "2016-02-12T17:00:00.000Z",
-        "ngay_dang_ky": "2024-02-12T17:00:00.000Z",
-        "gioi_tinh": "NAM",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.783Z"
-      },
-      "errors": [
-        {
-          "code": "E003",
-          "field": "ngay_sinh",
-          "message": "Tuổi phải từ 13 trở lên",
-          "value": "2016-02-12T17:00:00.000Z",
-          "currentAge": 9,
-          "canFix": false
-        },
-        {
-          "code": "E001",
-          "field": "ngay_sinh",
-          "message": "Định dạng ngày sinh nên là YYYY-MM-DD",
-          "value": "2016-02-12T17:00:00.000Z",
-          "canFix": true,
-          "suggestion": "Chuyển thành 2016-02-13"
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_khach_hang": "PG_KH0295",
-        "ho_ten": "Le Thi P",
-        "email": "ltp@email.com",
-        "so_dien_thoai": "0956565656",
-        "dia_chi": "666 Birch Rd",
-        "ngay_sinh": "2018-03-13T17:00:00.000Z",
-        "ngay_dang_ky": "2024-03-13T17:00:00.000Z",
-        "gioi_tinh": "Nữ",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.784Z"
-      },
-      "errors": [
-        {
-          "code": "E003",
-          "field": "ngay_sinh",
-          "message": "Tuổi phải từ 13 trở lên",
-          "value": "2018-03-13T17:00:00.000Z",
-          "currentAge": 7,
-          "canFix": false
-        },
-        {
-          "code": "E001",
-          "field": "ngay_sinh",
-          "message": "Định dạng ngày sinh nên là YYYY-MM-DD",
-          "value": "2018-03-13T17:00:00.000Z",
-          "canFix": true,
-          "suggestion": "Chuyển thành 2018-03-14"
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_khach_hang": "PG_KH0296",
-        "ho_ten": "Pham Van Q",
-        "email": "pvq@email.com",
-        "so_dien_thoai": "0967676767",
-        "dia_chi": "777 Spruce St",
-        "ngay_sinh": "2020-04-14T17:00:00.000Z",
-        "ngay_dang_ky": "2024-04-14T17:00:00.000Z",
-        "gioi_tinh": "Nam",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.785Z"
-      },
-      "errors": [
-        {
-          "code": "E003",
-          "field": "ngay_sinh",
-          "message": "Tuổi phải từ 13 trở lên",
-          "value": "2020-04-14T17:00:00.000Z",
-          "currentAge": 5,
-          "canFix": false
-        },
-        {
-          "code": "E001",
-          "field": "ngay_sinh",
-          "message": "Định dạng ngày sinh nên là YYYY-MM-DD",
-          "value": "2020-04-14T17:00:00.000Z",
-          "canFix": true,
-          "suggestion": "Chuyển thành 2020-04-15"
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_khach_hang": "PG_KH0297",
-        "ho_ten": "Hoang Thi R",
-        "email": "htr@email.com",
-        "so_dien_thoai": "0978787878",
-        "dia_chi": "888 Willow Ave",
-        "ngay_sinh": "2022-05-15T17:00:00.000Z",
-        "ngay_dang_ky": "2024-05-15T17:00:00.000Z",
-        "gioi_tinh": "Nữ",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.786Z"
-      },
-      "errors": [
-        {
-          "code": "E003",
-          "field": "ngay_sinh",
-          "message": "Tuổi phải từ 13 trở lên",
-          "value": "2022-05-15T17:00:00.000Z",
-          "currentAge": 3,
-          "canFix": false
-        },
-        {
-          "code": "E001",
-          "field": "ngay_sinh",
-          "message": "Định dạng ngày sinh nên là YYYY-MM-DD",
-          "value": "2022-05-15T17:00:00.000Z",
-          "canFix": true,
-          "suggestion": "Chuyển thành 2022-05-16"
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_khach_hang": "PG_KH0298",
-        "ho_ten": "Nguyen Van S",
-        "email": "nvs@email.com",
-        "so_dien_thoai": "0989898989",
-        "dia_chi": "999 Oak Rd",
-        "ngay_sinh": "2024-06-16T17:00:00.000Z",
-        "ngay_dang_ky": "2024-06-16T17:00:00.000Z",
-        "gioi_tinh": "Nam",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.786Z"
-      },
-      "errors": [
-        {
-          "code": "E003",
-          "field": "ngay_sinh",
-          "message": "Tuổi phải từ 13 trở lên",
-          "value": "2024-06-16T17:00:00.000Z",
-          "currentAge": 1,
-          "canFix": false
-        },
-        {
-          "code": "E001",
-          "field": "ngay_sinh",
-          "message": "Định dạng ngày sinh nên là YYYY-MM-DD",
-          "value": "2024-06-16T17:00:00.000Z",
-          "canFix": true,
-          "suggestion": "Chuyển thành 2024-06-17"
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_khach_hang": "PG_KH0299",
-        "ho_ten": "Do Thi T",
-        "email": "dtt@email.com",
-        "so_dien_thoai": "0990909090",
-        "dia_chi": "111 Pine St",
-        "ngay_sinh": "2026-07-17T17:00:00.000Z",
-        "ngay_dang_ky": "2024-07-17T17:00:00.000Z",
-        "gioi_tinh": "Nữ",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.787Z"
-      },
-      "errors": [
-        {
-          "code": "E006",
-          "field": "ngay_sinh",
-          "message": "Ngày sinh không được là ngày trong tương lai",
-          "value": "2026-07-17T17:00:00.000Z",
-          "canFix": false
-        },
-        {
-          "code": "E003",
-          "field": "ngay_sinh",
-          "message": "Tuổi phải từ 13 trở lên",
-          "value": "2026-07-17T17:00:00.000Z",
-          "currentAge": 0,
-          "canFix": false
-        },
-        {
-          "code": "E001",
-          "field": "ngay_sinh",
-          "message": "Định dạng ngày sinh nên là YYYY-MM-DD",
-          "value": "2026-07-17T17:00:00.000Z",
-          "canFix": true,
-          "suggestion": "Chuyển thành 2026-07-18"
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_khach_hang": "PG_KH0300",
-        "ho_ten": "Tran Van U",
-        "email": "tvu@email.com",
-        "so_dien_thoai": "0901010101",
-        "dia_chi": "222 Elm Ave",
-        "ngay_sinh": "2028-08-18T17:00:00.000Z",
-        "ngay_dang_ky": "2024-08-18T17:00:00.000Z",
-        "gioi_tinh": "Nam",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.788Z"
-      },
-      "errors": [
-        {
-          "code": "E006",
-          "field": "ngay_sinh",
-          "message": "Ngày sinh không được là ngày trong tương lai",
-          "value": "2028-08-18T17:00:00.000Z",
-          "canFix": false
-        },
-        {
-          "code": "E003",
-          "field": "ngay_sinh",
-          "message": "Tuổi phải từ 13 trở lên",
-          "value": "2028-08-18T17:00:00.000Z",
-          "currentAge": -2,
-          "canFix": false
-        },
-        {
-          "code": "E001",
-          "field": "ngay_sinh",
-          "message": "Định dạng ngày sinh nên là YYYY-MM-DD",
-          "value": "2028-08-18T17:00:00.000Z",
-          "canFix": true,
-          "suggestion": "Chuyển thành 2028-08-19"
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_khach_hang": "PG_KH0311",
-        "ho_ten": "Nguyễn Thị Kim Anh",
-        "email": "anhkimgmail.com",
-        "so_dien_thoai": "0911333444",
-        "dia_chi": "45 Lê Duẩn - Hải Phòng",
-        "ngay_sinh": "1990-08-11",
-        "ngay_dang_ky": "2023-10-28T17:00:00.000Z",
-        "gioi_tinh": "Nữ",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.797Z"
-      },
-      "errors": [
-        {
-          "code": "E001",
-          "field": "email",
-          "message": "Email không đúng định dạng",
-          "value": "anhkimgmail.com",
-          "canFix": false
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_khach_hang": "PG_KH0371",
-        "ho_ten": "Nguyễn Văn Test11",
-        "email": "test11@",
-        "so_dien_thoai": "0123456789",
-        "dia_chi": null,
-        "ngay_sinh": "1989-12-31",
-        "ngay_dang_ky": "2022-12-30T17:00:00.000Z",
-        "gioi_tinh": "Nam",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.846Z"
-      },
-      "errors": [
-        {
-          "code": "E001",
-          "field": "ho_ten",
-          "message": "Họ tên không được chứa số",
-          "value": "Nguyễn Văn Test11",
-          "canFix": false
-        },
-        {
-          "code": "E001",
-          "field": "email",
-          "message": "Email không đúng định dạng",
-          "value": "test11@",
-          "canFix": false
-        },
-        {
-          "code": "E001",
-          "field": "email",
-          "message": "Email thiếu phần trước hoặc sau @",
-          "value": "test11@",
-          "canFix": false
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_khach_hang": "PG_KH0373",
-        "ho_ten": "Lê Văn Test13",
-        "email": "test13@email.com",
-        "so_dien_thoai": "0909abc123",
-        "dia_chi": "456 Test Road",
-        "ngay_sinh": "1995-06-14",
-        "ngay_dang_ky": "2023-06-13T17:00:00.000Z",
-        "gioi_tinh": "Nam",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.847Z"
-      },
-      "errors": [
-        {
-          "code": "E001",
-          "field": "ho_ten",
-          "message": "Họ tên không được chứa số",
-          "value": "Lê Văn Test13",
-          "canFix": false
-        },
-        {
-          "code": "E001",
-          "field": "so_dien_thoai",
-          "message": "Số điện thoại không hợp lệ. Phải bắt đầu bằng 0 hoặc +84 và có 9-10 số theo sau.",
-          "value": "0909abc123",
-          "canFix": true,
-          "suggestion": "Chuẩn hóa về định dạng 0xxxxxxxxx"
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_khach_hang": "PG_KH0375",
-        "ho_ten": "Hoàng Văn Test15",
-        "email": "test15@email.com",
-        "so_dien_thoai": "0123456789",
-        "dia_chi": "321 Test Avenue",
-        "ngay_sinh": "1988-07-19",
-        "ngay_dang_ky": "2023-07-18T17:00:00.000Z",
-        "gioi_tinh": "Nam",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.847Z"
-      },
-      "errors": [
-        {
-          "code": "E001",
-          "field": "ho_ten",
-          "message": "Họ tên không được chứa số",
-          "value": "Hoàng Văn Test15",
-          "canFix": false
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_khach_hang": "PG_KH0376",
-        "ho_ten": "Nguyễn Thị Test16",
-        "email": "test16@email.com",
-        "so_dien_thoai": "0987654321",
-        "dia_chi": "654 Test Boulevard",
-        "ngay_sinh": "1993-03-09",
-        "ngay_dang_ky": "2023-03-08T17:00:00.000Z",
-        "gioi_tinh": "Nữ",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.848Z"
-      },
-      "errors": [
-        {
-          "code": "E001",
-          "field": "ho_ten",
-          "message": "Họ tên không được chứa số",
-          "value": "Nguyễn Thị Test16",
-          "canFix": false
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_khach_hang": "PG_KH0377",
-        "ho_ten": "Đỗ Văn Test17",
-        "email": "test17@email.com",
-        "so_dien_thoai": "0911222333",
-        "dia_chi": "987 Test Drive",
-        "ngay_sinh": "1997-11-24",
-        "ngay_dang_ky": "2023-11-23T17:00:00.000Z",
-        "gioi_tinh": "Nam",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.849Z"
-      },
-      "errors": [
-        {
-          "code": "E001",
-          "field": "ho_ten",
-          "message": "Họ tên không được chứa số",
-          "value": "Đỗ Văn Test17",
-          "canFix": false
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_khach_hang": "PG_KH0378",
-        "ho_ten": "Trần Thị Test18",
-        "email": "test18@email.com",
-        "so_dien_thoai": "0944555666",
-        "dia_chi": "147 Test Way",
-        "ngay_sinh": "1994-09-07",
-        "ngay_dang_ky": "2023-09-06T17:00:00.000Z",
-        "gioi_tinh": "Nữ",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.850Z"
-      },
-      "errors": [
-        {
-          "code": "E001",
-          "field": "ho_ten",
-          "message": "Họ tên không được chứa số",
-          "value": "Trần Thị Test18",
-          "canFix": false
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_khach_hang": "PG_KH0379",
-        "ho_ten": "Lê Văn Test19",
-        "email": "test19@email.com",
-        "so_dien_thoai": "0977888999",
-        "dia_chi": "258 Test Circle",
-        "ngay_sinh": "1991-04-16",
-        "ngay_dang_ky": "2023-04-15T17:00:00.000Z",
-        "gioi_tinh": "Nam",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.851Z"
-      },
-      "errors": [
-        {
-          "code": "E001",
-          "field": "ho_ten",
-          "message": "Họ tên không được chứa số",
-          "value": "Lê Văn Test19",
-          "canFix": false
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_khach_hang": "PG_KH0380",
-        "ho_ten": "Phạm Thị Test20",
-        "email": "test20@email.com",
-        "so_dien_thoai": "0922333444",
-        "dia_chi": "369 Test Court",
-        "ngay_sinh": "1996-08-28",
-        "ngay_dang_ky": "2023-08-27T17:00:00.000Z",
-        "gioi_tinh": "Nữ",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.852Z"
-      },
-      "errors": [
-        {
-          "code": "E001",
-          "field": "ho_ten",
-          "message": "Họ tên không được chứa số",
-          "value": "Phạm Thị Test20",
-          "canFix": false
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_khach_hang": "PG_KH0411",
-        "ho_ten": "Nguyễn Thị Kim Anh",
-        "email": "anhkimgmail.com411",
-        "so_dien_thoai": "0911333444",
-        "dia_chi": "45 Lê Duẩn - Hải Phòng",
-        "ngay_sinh": "1990-08-11",
-        "ngay_dang_ky": "2023-10-28T17:00:00.000Z",
-        "gioi_tinh": "Nữ",
-        "loai_khach_hang": "Thường",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.863Z"
-      },
-      "errors": [
-        {
-          "code": "E001",
-          "field": "email",
-          "message": "Email không đúng định dạng",
-          "value": "anhkimgmail.com411",
-          "canFix": false
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_khach_hang": "CSV_KH0002",
-        "ho_ten": "Hoàng Đình Vinh",
-        "email": "vỉnhau514@gmail.com",
-        "so_dien_thoai": "0906789123",
-        "dia_chi": null,
-        "ngay_sinh": "2004-05-29",
-        "ngay_dang_ky": null,
-        "gioi_tinh": null,
-        "loai_khach_hang": "VIP",
-        "source": "csv",
-        "inserted_at": "2025-11-20T11:00:17.311Z"
-      },
-      "errors": [
-        {
-          "code": "E001",
-          "field": "email",
-          "message": "Email không đúng định dạng",
-          "value": "vỉnhau514@gmail.com",
-          "canFix": false
-        }
-      ]
-    }
-  ]
-}
+[2025-11-21 11:13:41] [ERROR] Đã ghi lại 31 records lỗi của table: khach_hang vào errorLog.log
 
-[2025-11-21 01:00:22] [ERROR] Đã ghi lại records lỗi của table: san_pham
-{
-  "count": 3,
-  "allErrors": [
-    {
-      "record": {
-        "ma_san_pham": "PG_SP0076",
-        "ten_san_pham": "Xbox Game Pass",
-        "mo_ta": "Điện thoại gaming cầm tay",
-        "ma_danh_muc": "PG_DM0017",
-        "don_gia": "-500000.00",
-        "ton_kho": -10,
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.469Z"
-      },
-      "errors": [
-        {
-          "code": "E003",
-          "field": "don_gia",
-          "message": "Đơn giá phải nằm trong khoảng từ 0 đến 999999999.",
-          "value": "-500000.00",
-          "canFix": false
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_san_pham": "PG_SP0276",
-        "ten_san_pham": "PlayStation 5 Pro Edition",
-        "mo_ta": "Máy chơi game nâng cấp",
-        "ma_danh_muc": "PG_DM0017",
-        "don_gia": "-25000000.00",
-        "ton_kho": -15,
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.764Z"
-      },
-      "errors": [
-        {
-          "code": "E003",
-          "field": "don_gia",
-          "message": "Đơn giá phải nằm trong khoảng từ 0 đến 999999999.",
-          "value": "-25000000.00",
-          "canFix": false
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_san_pham": "PG_SP0467",
-        "ten_san_pham": "Ổ cứng SSD 0TB",
-        "mo_ta": "Sản phẩm lỗi thông số",
-        "ma_danh_muc": "PG_DM0013",
-        "don_gia": "-1500000.00",
-        "ton_kho": -10,
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.943Z"
-      },
-      "errors": [
-        {
-          "code": "E003",
-          "field": "don_gia",
-          "message": "Đơn giá phải nằm trong khoảng từ 0 đến 999999999.",
-          "value": "-1500000.00",
-          "canFix": false
-        }
-      ]
-    }
-  ]
-}
+[2025-11-21 11:13:41] [ERROR] Đã ghi lại 3 records lỗi của table: san_pham vào errorLog.log
 
-[2025-11-21 01:00:22] [ERROR] Đã ghi lại records lỗi của table: don_hang
-{
-  "count": 7,
-  "allErrors": [
-    {
-      "record": {
-        "ma_don_hang": "PG_DH0010",
-        "ma_khach_hang": "PG_KH0056",
-        "ngay_dat": "2024-01-26T17:00:00.000Z",
-        "tong_tien": "5990000.00",
-        "trang_thai": "Đã hủy",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.328Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Đã hủy",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_don_hang": "PG_DH0019",
-        "ma_khach_hang": "PG_KH0142",
-        "ngay_dat": "2024-02-26T17:00:00.000Z",
-        "tong_tien": "2190000.00",
-        "trang_thai": "Đã hủy",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.340Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Đã hủy",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_don_hang": "PG_DH0030",
-        "ma_khach_hang": "PG_KH0258",
-        "ngay_dat": "2024-04-03T17:00:00.000Z",
-        "tong_tien": "3290000.00",
-        "trang_thai": "Đã hủy",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.353Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Đã hủy",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_don_hang": "PG_DH0040",
-        "ma_khach_hang": "PG_KH0356",
-        "ngay_dat": "2024-05-06T17:00:00.000Z",
-        "tong_tien": "17990000.00",
-        "trang_thai": "Đã hủy",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.374Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Đã hủy",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_don_hang": "PG_DH0055",
-        "ma_khach_hang": "PG_KH0052",
-        "ngay_dat": "2024-06-26T17:00:00.000Z",
-        "tong_tien": "8990000.00",
-        "trang_thai": "Đã hủy",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.401Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Đã hủy",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_don_hang": "PG_DH0067",
-        "ma_khach_hang": "PG_KH0175",
-        "ngay_dat": "2024-08-06T17:00:00.000Z",
-        "tong_tien": "2190000.00",
-        "trang_thai": "Đã hủy",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.426Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Đã hủy",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_don_hang": "PG_DH0078",
-        "ma_khach_hang": "PG_KH0286",
-        "ngay_dat": "2024-09-13T17:00:00.000Z",
-        "tong_tien": "3290000.00",
-        "trang_thai": "Đã hủy",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.447Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Đã hủy",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    }
-  ]
-}
+[2025-11-21 11:13:41] [ERROR] Đã ghi lại 7 records lỗi của table: don_hang vào errorLog.log
 
-[2025-11-21 01:00:22] [ERROR] Đã ghi lại records lỗi của table: thanh_toan
-{
-  "count": 72,
-  "allErrors": [
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0001",
-        "ma_don_hang": "PG_DH0001",
-        "ngay_thanh_toan": "2024-08-11T17:00:00.000Z",
-        "so_tien": "33990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.328Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0003",
-        "ma_don_hang": "PG_DH0003",
-        "ngay_thanh_toan": "2024-09-14T17:00:00.000Z",
-        "so_tien": "2590000.00",
-        "trang_thai": "Thất bại",
-        "phuong_thuc": "MoMo",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.331Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thất bại",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0004",
-        "ma_don_hang": "PG_DH0004",
-        "ngay_thanh_toan": "2024-10-04T17:00:00.000Z",
-        "so_tien": "34990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.334Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0006",
-        "ma_don_hang": "PG_DH0006",
-        "ngay_thanh_toan": "2024-01-14T17:00:00.000Z",
-        "so_tien": "29990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.336Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0008",
-        "ma_don_hang": "PG_DH0008",
-        "ngay_thanh_toan": "2024-01-21T17:00:00.000Z",
-        "so_tien": "2590000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "ZaloPay",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.338Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0009",
-        "ma_don_hang": "PG_DH0009",
-        "ngay_thanh_toan": "2024-01-24T17:00:00.000Z",
-        "so_tien": "15990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.339Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0010",
-        "ma_don_hang": "PG_DH0010",
-        "ngay_thanh_toan": "2024-01-27T17:00:00.000Z",
-        "so_tien": "5990000.00",
-        "trang_thai": "Thất bại",
-        "phuong_thuc": "MoMo",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.341Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thất bại",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0011",
-        "ma_don_hang": "PG_DH0011",
-        "ngay_thanh_toan": "2024-01-31T17:00:00.000Z",
-        "so_tien": "2490000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Tiền mặt",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.341Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0013",
-        "ma_don_hang": "PG_DH0013",
-        "ngay_thanh_toan": "2024-02-07T17:00:00.000Z",
-        "so_tien": "33990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.344Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0014",
-        "ma_don_hang": "PG_DH0014",
-        "ngay_thanh_toan": "2024-02-11T17:00:00.000Z",
-        "so_tien": "34990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.345Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0016",
-        "ma_don_hang": "PG_DH0016",
-        "ngay_thanh_toan": "2024-02-17T17:00:00.000Z",
-        "so_tien": "11990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "MoMo",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.348Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0017",
-        "ma_don_hang": "PG_DH0017",
-        "ngay_thanh_toan": "2024-02-21T17:00:00.000Z",
-        "so_tien": "45990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.349Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0018",
-        "ma_don_hang": "PG_DH0018",
-        "ngay_thanh_toan": "2024-02-24T17:00:00.000Z",
-        "so_tien": "7990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "ZaloPay",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.350Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0019",
-        "ma_don_hang": "PG_DH0019",
-        "ngay_thanh_toan": "2024-02-27T17:00:00.000Z",
-        "so_tien": "2190000.00",
-        "trang_thai": "Thất bại",
-        "phuong_thuc": "Thẻ tín dụng",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.351Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thất bại",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0020",
-        "ma_don_hang": "PG_DH0020",
-        "ngay_thanh_toan": "2024-03-01T17:00:00.000Z",
-        "so_tien": "4290000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Tiền mặt",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.352Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0022",
-        "ma_don_hang": "PG_DH0022",
-        "ngay_thanh_toan": "2024-03-07T17:00:00.000Z",
-        "so_tien": "5890000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.356Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0023",
-        "ma_don_hang": "PG_DH0023",
-        "ngay_thanh_toan": "2024-03-11T17:00:00.000Z",
-        "so_tien": "890000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "ZaloPay",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.357Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0026",
-        "ma_don_hang": "PG_DH0026",
-        "ngay_thanh_toan": "2024-03-21T17:00:00.000Z",
-        "so_tien": "52990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.360Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0027",
-        "ma_don_hang": "PG_DH0027",
-        "ngay_thanh_toan": "2024-03-24T17:00:00.000Z",
-        "so_tien": "6990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "MoMo",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.362Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0028",
-        "ma_don_hang": "PG_DH0028",
-        "ngay_thanh_toan": "2024-03-27T17:00:00.000Z",
-        "so_tien": "11990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.365Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0029",
-        "ma_don_hang": "PG_DH0029",
-        "ngay_thanh_toan": "2024-03-31T17:00:00.000Z",
-        "so_tien": "1890000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Tiền mặt",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.369Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0030",
-        "ma_don_hang": "PG_DH0030",
-        "ngay_thanh_toan": "2024-04-04T17:00:00.000Z",
-        "so_tien": "3290000.00",
-        "trang_thai": "Thất bại",
-        "phuong_thuc": "Thẻ tín dụng",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.373Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thất bại",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0031",
-        "ma_don_hang": "PG_DH0031",
-        "ngay_thanh_toan": "2024-04-07T17:00:00.000Z",
-        "so_tien": "3290000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "ZaloPay",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.376Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0033",
-        "ma_don_hang": "PG_DH0033",
-        "ngay_thanh_toan": "2024-04-14T17:00:00.000Z",
-        "so_tien": "3290000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.380Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0034",
-        "ma_don_hang": "PG_DH0034",
-        "ngay_thanh_toan": "2024-04-17T17:00:00.000Z",
-        "so_tien": "12990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.382Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0035",
-        "ma_don_hang": "PG_DH0035",
-        "ngay_thanh_toan": "2024-04-21T17:00:00.000Z",
-        "so_tien": "5990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "MoMo",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.384Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0037",
-        "ma_don_hang": "PG_DH0037",
-        "ngay_thanh_toan": "2024-04-27T17:00:00.000Z",
-        "so_tien": "8990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.389Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0038",
-        "ma_don_hang": "PG_DH0038",
-        "ngay_thanh_toan": "2024-05-01T17:00:00.000Z",
-        "so_tien": "15990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.390Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0040",
-        "ma_don_hang": "PG_DH0040",
-        "ngay_thanh_toan": "2024-05-07T17:00:00.000Z",
-        "so_tien": "17990000.00",
-        "trang_thai": "Thất bại",
-        "phuong_thuc": "Thẻ tín dụng",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.392Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thất bại",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0041",
-        "ma_don_hang": "PG_DH0041",
-        "ngay_thanh_toan": "2024-05-11T17:00:00.000Z",
-        "so_tien": "24990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.394Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0045",
-        "ma_don_hang": "PG_DH0045",
-        "ngay_thanh_toan": "2024-05-24T17:00:00.000Z",
-        "so_tien": "13990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Tiền mặt",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.397Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0046",
-        "ma_don_hang": "PG_DH0046",
-        "ngay_thanh_toan": "2024-05-27T17:00:00.000Z",
-        "so_tien": "9990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "ZaloPay",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.399Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0048",
-        "ma_don_hang": "PG_DH0048",
-        "ngay_thanh_toan": "2024-06-04T17:00:00.000Z",
-        "so_tien": "7990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "MoMo",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.402Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0049",
-        "ma_don_hang": "PG_DH0049",
-        "ngay_thanh_toan": "2024-06-07T17:00:00.000Z",
-        "so_tien": "8990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.405Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0050",
-        "ma_don_hang": "PG_DH0050",
-        "ngay_thanh_toan": "2024-06-11T17:00:00.000Z",
-        "so_tien": "12990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.407Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0051",
-        "ma_don_hang": "PG_DH0051",
-        "ngay_thanh_toan": "2024-06-14T17:00:00.000Z",
-        "so_tien": "2990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Tiền mặt",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.410Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0053",
-        "ma_don_hang": "PG_DH0053",
-        "ngay_thanh_toan": "2024-06-21T17:00:00.000Z",
-        "so_tien": "19990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.415Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0054",
-        "ma_don_hang": "PG_DH0054",
-        "ngay_thanh_toan": "2024-06-24T17:00:00.000Z",
-        "so_tien": "14990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "MoMo",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.417Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0055",
-        "ma_don_hang": "PG_DH0055",
-        "ngay_thanh_toan": "2024-06-27T17:00:00.000Z",
-        "so_tien": "8990000.00",
-        "trang_thai": "Thất bại",
-        "phuong_thuc": "Thẻ tín dụng",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.419Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thất bại",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0056",
-        "ma_don_hang": "PG_DH0056",
-        "ngay_thanh_toan": "2024-06-30T17:00:00.000Z",
-        "so_tien": "2590000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "ZaloPay",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.421Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0058",
-        "ma_don_hang": "PG_DH0058",
-        "ngay_thanh_toan": "2024-07-07T17:00:00.000Z",
-        "so_tien": "5990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "MoMo",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.423Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0059",
-        "ma_don_hang": "PG_DH0059",
-        "ngay_thanh_toan": "2024-07-11T17:00:00.000Z",
-        "so_tien": "2490000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Tiền mặt",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.425Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0060",
-        "ma_don_hang": "PG_DH0060",
-        "ngay_thanh_toan": "2024-07-14T17:00:00.000Z",
-        "so_tien": "8990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.426Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0061",
-        "ma_don_hang": "PG_DH0061",
-        "ngay_thanh_toan": "2024-07-17T17:00:00.000Z",
-        "so_tien": "33990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.428Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0063",
-        "ma_don_hang": "PG_DH0063",
-        "ngay_thanh_toan": "2024-07-24T17:00:00.000Z",
-        "so_tien": "39990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.432Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0064",
-        "ma_don_hang": "PG_DH0064",
-        "ngay_thanh_toan": "2024-07-27T17:00:00.000Z",
-        "so_tien": "11990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "MoMo",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.434Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0065",
-        "ma_don_hang": "PG_DH0065",
-        "ngay_thanh_toan": "2024-07-31T17:00:00.000Z",
-        "so_tien": "45990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.436Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0066",
-        "ma_don_hang": "PG_DH0066",
-        "ngay_thanh_toan": "2024-08-04T17:00:00.000Z",
-        "so_tien": "7990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "ZaloPay",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.438Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0067",
-        "ma_don_hang": "PG_DH0067",
-        "ngay_thanh_toan": "2024-08-07T17:00:00.000Z",
-        "so_tien": "2190000.00",
-        "trang_thai": "Thất bại",
-        "phuong_thuc": "Thẻ tín dụng",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.440Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thất bại",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0068",
-        "ma_don_hang": "PG_DH0068",
-        "ngay_thanh_toan": "2024-08-11T17:00:00.000Z",
-        "so_tien": "4290000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Tiền mặt",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.442Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0070",
-        "ma_don_hang": "PG_DH0070",
-        "ngay_thanh_toan": "2024-08-17T17:00:00.000Z",
-        "so_tien": "5890000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.445Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0071",
-        "ma_don_hang": "PG_DH0071",
-        "ngay_thanh_toan": "2024-08-21T17:00:00.000Z",
-        "so_tien": "890000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "ZaloPay",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.447Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0072",
-        "ma_don_hang": "PG_DH0072",
-        "ngay_thanh_toan": "2024-08-24T17:00:00.000Z",
-        "so_tien": "21990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.448Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0074",
-        "ma_don_hang": "PG_DH0074",
-        "ngay_thanh_toan": "2024-08-31T17:00:00.000Z",
-        "so_tien": "52990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.451Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0075",
-        "ma_don_hang": "PG_DH0075",
-        "ngay_thanh_toan": "2024-09-04T17:00:00.000Z",
-        "so_tien": "6990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "MoMo",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.453Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0076",
-        "ma_don_hang": "PG_DH0076",
-        "ngay_thanh_toan": "2024-09-07T17:00:00.000Z",
-        "so_tien": "11990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.455Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0077",
-        "ma_don_hang": "PG_DH0077",
-        "ngay_thanh_toan": "2024-09-11T17:00:00.000Z",
-        "so_tien": "1890000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Tiền mặt",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.456Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0078",
-        "ma_don_hang": "PG_DH0078",
-        "ngay_thanh_toan": "2024-09-14T17:00:00.000Z",
-        "so_tien": "3290000.00",
-        "trang_thai": "Thất bại",
-        "phuong_thuc": "Thẻ tín dụng",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.458Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thất bại",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0079",
-        "ma_don_hang": "PG_DH0079",
-        "ngay_thanh_toan": "2024-09-17T17:00:00.000Z",
-        "so_tien": "3290000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "ZaloPay",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.460Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0081",
-        "ma_don_hang": "PG_DH0081",
-        "ngay_thanh_toan": "2024-09-24T17:00:00.000Z",
-        "so_tien": "3290000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.463Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0082",
-        "ma_don_hang": "PG_DH0082",
-        "ngay_thanh_toan": "2024-09-27T17:00:00.000Z",
-        "so_tien": "12990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.466Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0085",
-        "ma_don_hang": "PG_DH0085",
-        "ngay_thanh_toan": "2024-10-07T17:00:00.000Z",
-        "so_tien": "8990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.471Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0086",
-        "ma_don_hang": "PG_DH0086",
-        "ngay_thanh_toan": "2024-10-11T17:00:00.000Z",
-        "so_tien": "15990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.474Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0087",
-        "ma_don_hang": "PG_DH0087",
-        "ngay_thanh_toan": "2024-10-14T17:00:00.000Z",
-        "so_tien": "12990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "ZaloPay",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.477Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0091",
-        "ma_don_hang": "PG_DH0091",
-        "ngay_thanh_toan": "2024-10-27T17:00:00.000Z",
-        "so_tien": "37990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.482Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0092",
-        "ma_don_hang": "PG_DH0092",
-        "ngay_thanh_toan": "2024-10-31T17:00:00.000Z",
-        "so_tien": "18990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "MoMo",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.484Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0093",
-        "ma_don_hang": "PG_DH0093",
-        "ngay_thanh_toan": "2024-11-04T17:00:00.000Z",
-        "so_tien": "13990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Tiền mặt",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.486Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0094",
-        "ma_don_hang": "PG_DH0094",
-        "ngay_thanh_toan": "2024-11-07T17:00:00.000Z",
-        "so_tien": "9990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "ZaloPay",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.488Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0096",
-        "ma_don_hang": "PG_DH0096",
-        "ngay_thanh_toan": "2024-11-14T17:00:00.000Z",
-        "so_tien": "7990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "MoMo",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.493Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0097",
-        "ma_don_hang": "PG_DH0097",
-        "ngay_thanh_toan": "2024-11-17T17:00:00.000Z",
-        "so_tien": "8990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.494Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0098",
-        "ma_don_hang": "PG_DH0098",
-        "ngay_thanh_toan": "2024-11-21T17:00:00.000Z",
-        "so_tien": "12990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Chuyển khoản",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.496Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_thanh_toan": "PG_TT0099",
-        "ma_don_hang": "PG_DH0099",
-        "ngay_thanh_toan": "2024-11-24T17:00:00.000Z",
-        "so_tien": "2990000.00",
-        "trang_thai": "Thành công",
-        "phuong_thuc": "Tiền mặt",
-        "source": "postgresql",
-        "inserted_at": "2025-11-20T11:00:12.497Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Thành công",
-          "validStatuses": [
-            "Chờ xử lý",
-            "Đang chuẩn bị",
-            "Đang giao",
-            "Đã giao",
-            "Hủy",
-            "Trả hàng",
-            "Đang xử lý"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    }
-  ]
-}
+[2025-11-21 11:13:41] [ERROR] Đã ghi lại 72 records lỗi của table: thanh_toan vào errorLog.log
 
-[2025-11-21 01:00:22] [ERROR] Đã ghi lại records lỗi của table: phieu_ho_tro
-{
-  "count": 2,
-  "allErrors": [
-    {
-      "record": {
-        "ma_phieu_ho_tro": "CSV_PHT0002",
-        "ma_khach_hang": "CSV_KH0002",
-        "loai_van_de": "Thanh toán thất bại",
-        "mo_ta": "Giao dịch bị lỗi khi thanh toán qua ví điện tử",
-        "ngay_tao": "2025-11-03T07:20:00.000Z",
-        "trang_thai": "Hoàn thành",
-        "do_uu_tien": "Trung bình",
-        "source": "csv",
-        "inserted_at": "2025-11-20T11:00:17.308Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Hoàn thành",
-          "validStatuses": [
-            "Mới",
-            "Đang xử lý",
-            "Chờ phản hồi",
-            "Đã giải quyết",
-            "Đóng",
-            "Hủy"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    },
-    {
-      "record": {
-        "ma_phieu_ho_tro": "CSV_PHT0004",
-        "ma_khach_hang": "CSV_KH0004",
-        "loai_van_de": "Không nhận được email xác nhận",
-        "mo_ta": "Khách hàng đăng ký nhưng không nhận email",
-        "ngay_tao": "2025-11-07T03:15:00.000Z",
-        "trang_thai": "Mới tạo",
-        "do_uu_tien": "Trung bình",
-        "source": "csv",
-        "inserted_at": "2025-11-20T11:00:17.313Z"
-      },
-      "errors": [
-        {
-          "code": "E007",
-          "field": "trang_thai",
-          "message": "Trạng thái không hợp lệ",
-          "value": "Mới tạo",
-          "validStatuses": [
-            "Mới",
-            "Đang xử lý",
-            "Chờ phản hồi",
-            "Đã giải quyết",
-            "Đóng",
-            "Hủy"
-          ],
-          "canFix": false,
-          "suggestion": null
-        }
-      ]
-    }
-  ]
-}
+[2025-11-21 11:13:41] [ERROR] Đã ghi lại 2 records lỗi của table: phieu_ho_tro vào errorLog.log
 
 
 ================================================================================
@@ -4417,53 +721,52 @@
 ================================================================================
   PHASE 4: LOAD TO DATA WAREHOUSE STARTED
 ================================================================================
-[2025-11-21 01:00:22] [INFO] Đang khởi tạo Data Warehouse...
+[2025-11-21 11:13:41] [INFO] Đang khởi tạo Data Warehouse...
 
-[2025-11-21 01:00:22] [SUCCESS] Tạo bảng Data Warehouse thành công
+[2025-11-21 11:13:41] [SUCCESS] Tạo bảng Data Warehouse thành công
 
-[2025-11-21 01:00:22] [SUCCESS] Khởi tạo Data Warehouse thành công
+[2025-11-21 11:13:41] [SUCCESS] Khởi tạo Data Warehouse thành công
 
 
 ================================================================================
   ĐANG TẢI DỮ LIỆU VÀO DATA WAREHOUSE STARTED
 ================================================================================
-[2025-11-21 01:00:22] [INFO] Đang tải các bảng dimension...
+[2025-11-21 11:13:41] [INFO] Đang tải các bảng dimension...
 
-[2025-11-21 01:00:22] [SUCCESS] Đã tải 393 bản ghi vào dim_khach_hang
+[2025-11-21 11:13:41] [SUCCESS] Đã tải 393 bản ghi vào dim_khach_hang
 
-[2025-11-21 01:00:22] [SUCCESS] Đã tải 20 bản ghi vào dim_danh_muc
+[2025-11-21 11:13:41] [SUCCESS] Đã tải 20 bản ghi vào dim_danh_muc
 
-[2025-11-21 01:00:23] [SUCCESS] ✓ Đã tải 494 bản ghi vào dim_san_pham
+[2025-11-21 11:13:41] [SUCCESS] Đã tải 494 bản ghi vào dim_san_pham
 
-[2025-11-21 01:00:23] [SUCCESS] Đã tải 5 bản ghi vào dim_nhanvien_cskh
+[2025-11-21 11:13:41] [SUCCESS] Đã tải 5 bản ghi vào dim_nhanvien_cskh
 
-[2025-11-21 01:00:23] [INFO] Đang tải các bảng fact...
+[2025-11-21 11:13:41] [INFO] Đang tải các bảng fact...
 
-[2025-11-21 01:00:23] [WARN] ⚠️ Bỏ qua 6/86 bản ghi từ fact_don_hang do vi phạm foreign key
+[2025-11-21 11:13:41] [WARN] Bỏ qua 6/86 bản ghi từ fact_don_hang do vi phạm foreign key
 
-[2025-11-21 01:00:23] [SUCCESS] ✓ Đã tải 80 bản ghi vào fact_don_hang
+[2025-11-21 11:13:41] [SUCCESS] Đã tải 80 bản ghi vào fact_don_hang
 
-[2025-11-21 01:00:23] [WARN] ⚠️ Bỏ qua 14/92 bản ghi từ fact_chi_tiet_don_hang do vi phạm foreign key
+[2025-11-21 11:13:41] [WARN] ⚠️ Bỏ qua 14/92 bản ghi từ fact_chi_tiet_don_hang do vi phạm foreign key
 
-[2025-11-21 01:00:23] [WARN] ⚠️ Bỏ qua 2/21 bản ghi từ fact_thanh_toan do vi phạm foreign key
+[2025-11-21 11:13:42] [WARN] Bỏ qua 2/21 bản ghi từ fact_thanh_toan do vi phạm foreign key
 
-[2025-11-21 01:00:23] [SUCCESS] ✓ Đã tải 19 bản ghi vào fact_thanh_toan
+[2025-11-21 11:13:42] [SUCCESS] Đã tải 19 bản ghi vào fact_thanh_toan
 
-[2025-11-21 01:00:23] [SUCCESS] ✓ Đã tải 3 bản ghi vào fact_phieu_ho_tro
+[2025-11-21 11:13:42] [SUCCESS] Đã tải 3 bản ghi vào fact_phieu_ho_tro
 
-[2025-11-21 01:00:23] [WARN] ⚠️ Bỏ qua 1/5 bản ghi từ fact_danh_gia do vi phạm foreign key
+[2025-11-21 11:13:42] [WARN] Bỏ qua 1/5 bản ghi từ fact_danh_gia do vi phạm foreign key
 
-[2025-11-21 01:00:23] [SUCCESS] ✓ Đã tải 4 bản ghi vào fact_danh_gia
+[2025-11-21 11:13:42] [SUCCESS] Đã tải 4 bản ghi vào fact_danh_gia
 
-[2025-11-21 01:00:23] [WARN] ⚠️ Bỏ qua 2/5 bản ghi từ fact_phieu_xu_ly do vi phạm foreign key
+[2025-11-21 11:13:42] [WARN] ⚠️ Bỏ qua 2/5 bản ghi từ fact_phieu_xu_ly do vi phạm foreign key
 
 
 ================================================================================
   TẢI DỮ LIỆU VÀO DATA WAREHOUSE HOÀN THÀNH COMPLETED
-  Stats: {"dimension_tables":{"dim_khach_hang":393,"dim_danh_muc":20,"dim_san_pham":494,"dim_nhanvien_cskh":5},"fact_tables":{"fact_don_hang":80,"fact_chi_tiet_don_hang":78,"fact_thanh_toan":19,"fact_phieu_ho_tro":3,"fact_danh_gia":4,"fact_phieu_xu_ly":3},"total_loaded":1099,"skipped_due_to_fk":{"fact_don_hang":6,"fact_chi_tiet_don_hang":14,"fact_thanh_toan":2,"fact_danh_gia":1,"fact_phieu_xu_ly":2}}
 ================================================================================
 
-[2025-11-21 01:00:23] [SUCCESS] ✓ Data loaded to warehouse
+[2025-11-21 11:13:42] [SUCCESS] ✓ Data loaded to warehouse
 {
   "dimension_tables": {
     "dim_khach_hang": 393,
@@ -4497,10 +800,10 @@
 
 ================================================================================
   ETL PIPELINE COMPLETED COMPLETED
-  Stats: {"duration":"12.49s","status":"SUCCESS"}
+  Stats: {"duration":"12.619s","status":"SUCCESS"}
 ================================================================================
 
-[2025-11-21 01:00:23] [INFO] Cleaning up resources...
+[2025-11-21 11:13:42] [INFO] Cleaning up resources...
 
-[2025-11-21 01:00:23] [SUCCESS] ✓ Cleanup completed
+[2025-11-21 11:13:42] [SUCCESS] ✓ Cleanup completed
 

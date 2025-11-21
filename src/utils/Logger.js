@@ -1,4 +1,4 @@
-// src/utils/Logger.js - System cho log.txt và console
+// src/utils/Logger.js - UPDATED
 const fs = require('fs-extra');
 const path = require('path');
 const moment = require('moment');
@@ -8,6 +8,7 @@ class Logger {
     this.logDir = path.join(__dirname, '../../logs');
     this.logFile = path.join(this.logDir, 'log.log');
     this.errorLogFile = path.join(this.logDir, 'errorLog.log');
+    this.transformLogFile = path.join(this.logDir, 'transformLog.log'); // ✅ THÊM FILE MỚI
     this.initialized = false;
   }
 
@@ -16,9 +17,10 @@ class Logger {
     
     await fs.ensureDir(this.logDir);
     
-    // ✅ XÓA NỘI DUNG CŨ - Tạo file mới hoàn toàn
+    // ✅ Xóa nội dung cũ - Tạo 3 file mới
     await fs.writeFile(this.logFile, '');
     await fs.writeFile(this.errorLogFile, '');
+    await fs.writeFile(this.transformLogFile, ''); // ✅ THÊM
     
     // Ghi header với timestamp
     const header = `${'='.repeat(80)}\n` +
@@ -27,6 +29,7 @@ class Logger {
     
     await fs.writeFile(this.logFile, header);
     await fs.writeFile(this.errorLogFile, header);
+    await fs.writeFile(this.transformLogFile, header); // ✅ THÊM
     
     this.initialized = true;
   }
@@ -63,7 +66,7 @@ class Logger {
     await fs.appendFile(this.logFile, logMessage + '\n\n');
   }
 
-  // ✅ Log lỗi (console + errorLog.txt + log.txt) - GHI TẤT CẢ RECORDS
+  // Log lỗi CƠ BẢN
   async error(message, error = null, data = null) {
     await this.initLogFiles();
     
@@ -77,9 +80,47 @@ class Logger {
     console.error(`❌ ${message}`);
     if (error) console.error(error);
     
-    // Ghi vào cả 2 file
     await fs.appendFile(this.errorLogFile, logMessage + '\n\n');
     await fs.appendFile(this.logFile, logMessage + '\n\n');
+  }
+
+  // ✅ Log lỗi với chi tiết RECORDS (tách biệt)
+  async errorRecords(tableName, errorRecords) {
+    await this.initLogFiles();
+    
+    const count = errorRecords.length;
+    
+    // 1. GHI THÔNG BÁO TÓM TẮT VÀO log.log
+    const summaryMessage = `[${this.getTimestamp()}] [ERROR] Đã ghi lại ${count} records lỗi của table: ${tableName} vào errorLog.log\n`;
+    console.error(`❌ Đã ghi lại ${count} records lỗi của table: ${tableName}`);
+    await fs.appendFile(this.logFile, summaryMessage + '\n');
+    
+    // 2. GHI CHI TIẾT ĐẦY ĐỦ VÀO errorLog.log
+    const detailMessage = this.formatMessage('ERROR', `Đã ghi lại records lỗi của table: ${tableName}`, {
+      count: count,
+      allErrors: errorRecords
+    });
+    await fs.appendFile(this.errorLogFile, detailMessage + '\n\n');
+  }
+
+  // ✅ METHOD MỚI: Log transform details (tách biệt log.log và transformLog.log)
+  async transformRecords(tableName, transformLogs) {
+    await this.initLogFiles();
+    
+    const count = transformLogs.length;
+    
+    // ✅ 1. GHI THÔNG BÁO TÓM TẮT VÀO log.log
+    const summaryMessage = `[${this.getTimestamp()}] [INFO] Đã transform ${count} records của table: ${tableName} - Chi tiết xem tại transformLog.log\n`;
+    console.log(`🔄 Đã transform ${count} records của table: ${tableName}`);
+    await fs.appendFile(this.logFile, summaryMessage + '\n');
+    
+    // ✅ 2. GHI CHI TIẾT ĐẦY ĐỦ VÀO transformLog.log
+    const detailMessage = this.formatMessage('TRANSFORM', `Chi tiết transform của table: ${tableName}`, {
+      table: tableName,
+      totalTransformed: count,
+      allTransforms: transformLogs
+    });
+    await fs.appendFile(this.transformLogFile, detailMessage + '\n\n');
   }
 
   // Log thành công
@@ -96,7 +137,7 @@ class Logger {
   async debug(message, data = null) {
     await this.initLogFiles();
     const logMessage = this.formatMessage('DEBUG', message, data);
-    console.log(`🛠 ${message}`);
+    console.log(`🛠  ${message}`);
     if (data) console.log(data);
     
     await fs.appendFile(this.logFile, logMessage + '\n\n');
@@ -132,14 +173,6 @@ class Logger {
     console.log(`📊 ${title}:`, statistics);
     await fs.appendFile(this.logFile, message + '\n\n');
   }
-
-  // ✅ KHÔNG CẦN clearLogs() nữa vì đã tự động xóa khi khởi tạo
-    // Clear logs (cho testing)
-  // async clearLogs() {
-  //   await fs.writeFile(this.logFile, '');
-  //   await fs.writeFile(this.errorLogFile, '');
-  //   console.log('🗑️  Logs cleared');
-  // }
 }
 
 module.exports = new Logger();

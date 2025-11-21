@@ -120,11 +120,6 @@ class TransformEngine {
       skippedRecords: results.skippedRecords
     });
 
-    if (results.logs.length > 0) {
-      await logger.info('Transform details', {
-        sampleTransforms: results.logs.slice(0, 5)
-      });
-    }
 
     return results;
   }

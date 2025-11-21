@@ -172,24 +172,29 @@ class ETLPipeline {
       });
     }
 
-    // Sub-phase 3.3: Transform (KHÔNG CẦN transform ID nữa vì đã làm rồi)
-    await logger.info("Starting transformation...");
-    const transformedData = {};
-    for (const [tableName, records] of Object.entries(deduplicatedData)) {
-      const validationResult = validationResults[tableName];
-      // ✅ Transform nhưng SKIP IdTransformer vì đã chạy rồi
-      const transformResult =
-        await this.transformEngine.transformBatchWithoutId(
-          records,
-          validationResult
-        );
-      transformedData[tableName] = transformResult.records;
+  // Sub-phase 3.3: Transform (KHÔNG CẦN transform ID nữa vì đã làm rồi)
+  await logger.info('Starting transformation...');
+  const transformedData = {};
+  for (const [tableName, records] of Object.entries(deduplicatedData)) {
+    const validationResult = validationResults[tableName];
+    // ✅ Transform nhưng SKIP IdTransformer vì đã chạy rồi
+    const transformResult =
+      await this.transformEngine.transformBatchWithoutId(
+        records,
+        validationResult
+      );
+    transformedData[tableName] = transformResult.records;
 
-      await logger.success(`Transformed ${tableName}`, {
-        transformed: transformResult.transformedRecords,
-        skipped: transformResult.skippedRecords,
-      });
+    await logger.success(`Transformed ${tableName}`, {
+      transformed: transformResult.transformedRecords,
+      skipped: transformResult.skippedRecords,
+    });
+    
+    // ✅ GHI CHI TIẾT TRANSFORM VÀO transformLog.log
+    if (transformResult.logs.length > 0) {
+      await logger.transformRecords(tableName, transformResult.logs);
     }
+  }
 
     // Sub-phase 3.4: Re-validate sau transform
     await logger.info("Re-validating after transformation...");
@@ -215,13 +220,11 @@ class ETLPipeline {
       });
     }
 
-    // ✅ LOG ERRORS - GHI TẤT CẢ RECORDS LỖI (không còn samples nữa)
+    // ✅ LOG ERRORS - GHI TẤT CẢ RECORDS LỖI (sử dụng method mới)
     for (const [tableName, errors] of Object.entries(errorData)) {
       if (errors.length > 0) {
-        await logger.error(`Đã ghi lại records lỗi của table: ${tableName}`, null, {
-          count: errors.length,
-          allErrors: errors, // ✅ GHI TẤT CẢ thay vì errors.slice(0, 3)
-        });
+        // ✅ SỬ DỤNG METHOD MỚI: errorRecords()
+        await logger.errorRecords(tableName, errors);
       }
     }
 

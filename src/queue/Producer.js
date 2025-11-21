@@ -1,6 +1,7 @@
 // src/queue/Producer.js - Đẩy dữ liệu vào RabbitMQ queues
 const rabbitMQ = require('../../config/rabbitmq');
 const logger = require('../utils/Logger');
+const moment = require('moment'); 
 
 class Producer {
   constructor() {
@@ -32,7 +33,7 @@ class Producer {
           source: sourceType,
           table: tableName,
           records: records,
-          timestamp: new Date().toISOString(),
+          timestamp: moment().format('YYYY-MM-DD HH:mm:ss'),
           recordCount: records.length
         };
 
@@ -117,7 +118,7 @@ class Producer {
         records: batches[i],
         batch: i + 1,
         totalBatches: batches.length,
-        timestamp: new Date().toISOString()
+        timestamp: moment().format('YYYY-MM-DD HH:mm:ss')
       };
 
       this.channel.sendToQueue(
